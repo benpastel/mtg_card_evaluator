@@ -4,11 +4,16 @@
 % The input files can be in any format 'load' can read
 % e.g. space-separated floats with one training example per line.
 
-X_path = 'feature_matrix.txt';
+X_path = '../data/feature_matrix_sample.txt';
+
+disp('loading feature matrix');
 X = load(X_path);
 
+disp('generating random Y');
 % Y is random until we have price data
 Y = rand(size(X, 1), 1);
 
-[theta, rmse] = linear_regression(X, Y)
+disp('running linear regression');
+[theta, rmse] = linear_regression(X, Y);
+disp('done');
 
