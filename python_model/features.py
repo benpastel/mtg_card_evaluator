@@ -1,6 +1,7 @@
 __author__ = 'Dustin'
 
 import sys
+import itertools
 
 def empty_feature_extractor(example):
 
@@ -16,7 +17,7 @@ def baseline_feature_extractor(example):
         # "name",
         # "manaCost",
         # "type",
-        "rarity",
+        # "rarity", #Nothing has rarity in AllCards.json
         # "text",
         # "flavor",
         # "artist",
@@ -45,6 +46,13 @@ def baseline_feature_extractor(example):
         "subtypes",
     ]
 
+    text_array_combo_features_to_use = [
+        "colors",
+        "supertypes",
+        "types",
+        "subtypes",
+    ]
+
     integer_features_to_use = [
         "cmc",
         "number",
@@ -59,8 +67,13 @@ def baseline_feature_extractor(example):
         # "variations",
     ]
 
-    pair_features = [
-        # [create_text_feature, "name", create_text_feature, "manaCost"],
+    function_features_to_use = [
+        ["cmc squared", ["cmc"], lambda x : pow(x[0],2)],
+        ["toughness + power - cmc", ["toughness", "power", "cmc"], lambda x : x[0] + x[1] - x[2]],
+    ]
+
+    cross_features_to_use = [
+        [[(create_text_feature, "toughness"),(create_text_array_feature, "colors"),(create_integer_feature, "cmc")], lambda x : x[0]*x[1]*x[2]],
     ]
 
     mod = sys.modules[__name__]
@@ -73,26 +86,24 @@ def baseline_feature_extractor(example):
     fn = lambda x : phi.update(create_text_array_feature(x, example))
     map(fn, text_array_features_to_use)
 
+    fn = lambda x : phi.update(create_text_array_combo_feature(x, example))
+    map(fn, text_array_combo_features_to_use)
+
     fn = lambda x : phi.update(create_integer_feature(x, example))
     map(fn, integer_features_to_use)
 
     fn = lambda x : phi.update(create_integer_array_feature(x, example))
     map(fn, integer_array_features_to_use)
 
-    fn = lambda x : phi.update(create_pair_feature(x, example))
-    map(fn, pair_features)
+    fn = lambda x : phi.update(create_function_feature(x, example))
+    map(fn, function_features_to_use)
+
+    fn = lambda x : phi.update(create_cross_feature(x, example))
+    map(fn, cross_features_to_use)
 
     return phi
 
-def create_pair_feature(fn_names, example):
-    phi = {}
-    feature1, json_key1, feature2, json_key2 = fn_names
-    phi1 = feature1(json_key1, example)
-    phi2 = feature2(json_key2, example)
-    for key1 in phi1:
-        for key2 in phi2:
-            phi["pair({0}, {1})".format(key1, key2)] = phi1[key1] * phi2[key2]
-    return phi
+###############
 
 def create_text_feature(json_key, example):
     if not json_key in example:
@@ -105,6 +116,15 @@ def create_text_array_feature(json_key, example):
     phi = {}
     for element in example[json_key]:
         phi["{0} $ {1}".format(json_key, element.encode('ascii',errors='ignore'))] = 1
+    return phi
+
+def create_text_array_combo_feature(json_key, example):
+    if not json_key in example:
+        return {}
+    phi = {}
+    for i in range(1, len(example[json_key]) + 1):
+        for combo in itertools.combinations(example[json_key], i):
+            phi["{0} $ {1}".format(json_key, ' '.join(combo).encode('ascii',errors='ignore'))] = 1
     return phi
 
 def create_boolean_feature(json_key, example):
@@ -134,4 +154,30 @@ def create_integer_array_feature(json_key, example):
         except ValueError:
             continue
         phi["{0} ({1})".format(json_key, i)] = value
+    return phi
+
+def create_function_feature(fn_description, example):
+    name, keys, fn = fn_description
+    for key in keys:
+        if not key in example:
+            return {}
+    try:
+        x = [int(example[key]) for key in keys]
+    except ValueError:
+        return {}
+    return {name: fn(x)}
+
+def create_cross_feature(fn_description, example):
+    feature_fn_pairs, fn = fn_description
+    phis = []
+    for feature_fn_pair in feature_fn_pairs:
+        feature_fn, json_key = feature_fn_pair
+        phis.append(feature_fn(json_key, example))
+    phi = {}
+    for element in itertools.product(*phis):
+        key = ' '.join(element)
+        x  = []
+        for i in range(len(element)):
+            x.append(phis[i][element[i]])
+        phi[key] = fn(x)
     return phi
