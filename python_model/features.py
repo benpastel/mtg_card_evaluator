@@ -13,20 +13,20 @@ def baseline_feature_extractor(example):
 
     text_features_to_use = [
         # Name of feature function
-        "name",
+        # "name",
         "manaCost",
         "type",
         "rarity",
-        "text",
-        "flavor",
-        "artist",
+        # "text",
+        # "flavor",
+        # "artist",
         "number",
         "power",
         "toughness",
         "layout",
-        "imageName",
-        "id",
-        "imageName",
+        # "imageName",
+        # "id",
+        # "imageName",
         "watermark",
         "border",
         "releaseDate",
@@ -56,11 +56,11 @@ def baseline_feature_extractor(example):
     ]
 
     integer_array_features_to_use = [
-        "variations",
+        # "variations",
     ]
 
     pair_features = [
-        [create_text_feature, "name", create_text_feature, "manaCost"],
+        # [create_text_feature, "name", create_text_feature, "manaCost"],
     ]
 
     mod = sys.modules[__name__]
