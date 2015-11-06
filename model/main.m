@@ -6,7 +6,6 @@
 
 X_path = '../data/feature_matrix_sample.txt';
 
-disp('loading feature matrix');
 X = load(X_path);
 
 disp('generating random Y');
