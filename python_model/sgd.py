@@ -1,7 +1,7 @@
 __author__ = 'Dustin'
 
-from mtg_card_evaluator.python_model.sgd_utils import *
-from mtg_card_evaluator.python_model.config import *
+from sgd_utils import *
+from config import *
 
 def predictor(x, weight):
     if dotProduct(weight, x) <= 0:
