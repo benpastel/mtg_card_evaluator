@@ -14,22 +14,22 @@ def baseline_feature_extractor(example):
     text_features_to_use = [
         # Name of feature function
         # "name",
-        "manaCost",
-        "type",
+        # "manaCost",
+        # "type",
         "rarity",
         # "text",
         # "flavor",
         # "artist",
-        "number",
+        # "number",
         "power",
         "toughness",
-        "layout",
+        # "layout",
         # "imageName",
         # "id",
         # "imageName",
-        "watermark",
-        "border",
-        "releaseDate",
+        # "watermark",
+        # "border",
+        # "releaseDate",
     ]
 
     boolean_features_to_use = [

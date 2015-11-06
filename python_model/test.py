@@ -30,5 +30,5 @@ for i in range(len(examples)):
 print "Finished creating matrix"
 
 print "Saving matrix..."
-numpy.savetxt('../data/feature_matrix.txt', X)
+numpy.savetxt('../data/feature_matrix.txt', X, fmt='%i')
 print "Save finished"
