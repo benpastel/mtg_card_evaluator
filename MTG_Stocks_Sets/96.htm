@@ -1,0 +1,596 @@
+<!DOCTYPE html>
+<html lang='en' xmlns:fb='http://www.facebook.com/2008/fbml' xmlns:og='http://opengraphprotocol.org/schema/'>
+<head>
+<title>Portal - MTGStocks.com</title>
+<meta charset='utf-8'>
+<meta content='width=device-width, initial-scale=1.0' name='viewport'>
+<meta content='en' http-equiv='content-lanuage'>
+<meta content='MTGStocks' lang='en' name='author'>
+<meta content='MTGStocks' lang='en' name='copyright'>
+<meta content='MTGStocks is a Magic the Gathering price tracker with price analysis and keeps track of your favorite cards to improve your MTG Finance.' lang='en' name='description'>
+<meta content='MTGStocks, MTGFinance, MTG Finance, Magic the Gathering, Price tracker, analysis, card prices, prices' lang='en' name='keywords'>
+<meta content='all,follow' name='robots'>
+<meta content='no-cache' http-equiv='Pragma'>
+<meta name="csrf-param" content="authenticity_token" />
+<meta name="csrf-token" content="tphw3UwYG7cEF4REx1Y8jTO73IGPZ9gYidpoXT6a7knKiDbOf8rAusv75N91yst8O9LlGAHrC/v6YYLQX9Yo0g==" />
+<meta property="og:title" content="MTGStocks.com" />
+<meta property="og:image" content="http://mtgstocks.com/assets/logoblackbordersmall-d20aadf212b135a737f9875d11a56afe.png" />
+<meta property="og:site_name" content="MTGStocks.com" />
+
+<link rel="stylesheet" media="all" href="/assets/application-7584011253d9d7845041522dcdad6a13.css" />
+<link href='/apple-touch-icon-57x57.png' rel='apple-touch-icon' sizes='57x57'>
+<link href='/apple-touch-icon-60x60.png' rel='apple-touch-icon' sizes='60x60'>
+<link href='/apple-touch-icon-72x72.png' rel='apple-touch-icon' sizes='72x72'>
+<link href='/apple-touch-icon-76x76.png' rel='apple-touch-icon' sizes='76x76'>
+<link href='/apple-touch-icon-114x114.png' rel='apple-touch-icon' sizes='114x114'>
+<link href='/apple-touch-icon-120x120.png' rel='apple-touch-icon' sizes='120x120'>
+<link href='/apple-touch-icon-144x144.png' rel='apple-touch-icon' sizes='144x144'>
+<link href='/apple-touch-icon-152x152.png' rel='apple-touch-icon' sizes='152x152'>
+<link href='/favicon-16x16.png' rel='icon' sizes='16x16' type='image/png'>
+<link href='/favicon-32x32.png' rel='icon' sizes='32x32' type='image/png'>
+<link href='/favicon-96x96.png' rel='icon' sizes='96x96' type='image/png'>
+<link href='/favicon-160x160.png' rel='icon' sizes='160x160' type='image/png'>
+<link href='/favicon-196x196.png' rel='icon' sizes='196x196' type='image/png'>
+<meta content='#303030' name='msapplication-TileColor'>
+<meta content='/mstile-144x144.png' name='msapplication-TileImage'>
+<link rel="alternate" type="application/atom+xml" title="MTGStocks Feed" href="/feed" />
+<link rel="alternate" type="application/rss+xml" title="MTGStocks RSS Feed" href="/feed.rss" />
+<link href='/opensearch.xml' rel='search' title='MTGStocks.com Search' type='application/opensearchdescription+xml'>
+<script src="/assets/application-3b2fbc1e4dd9f8fb05a18d5f59a405e1.js"></script>
+
+<script>
+  (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+  (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+  m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+  })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+  ga('create', 'UA-35418769-1', 'auto');
+  ga('require', 'displayfeatures');
+  ga('send', 'pageview');
+</script>
+<script type="application/ld+json">
+{
+	"@context": "http://schema.org",
+	"@type": "WebSite",
+	"url": "https://www.mtgstocks.com/",
+	"potentialAction": {
+		"@type": "SearchAction",
+		"target": "http://mtgstocks.com/cards/search?print[card]={search_term_string}",
+		"query-input": "required name=search_term_string"
+	}
+}
+</script>
+</head>
+<body class='card_sets'>
+<nav class='navbar navbar-fixed-top navbar-default' role='navigation'>
+<div class='container'>
+<div class='navbar-header'>
+<button aria-controls='navbar' aria-expanded='false' class='navbar-toggle collapsed' data-target='#navbar' data-toggle='collapse' type='button'>
+<span class='sr-only'>Toggle navigation</span>
+<span class='icon-bar'></span>
+<span class='icon-bar'></span>
+<span class='icon-bar'></span>
+</button>
+<a class='navbar-brand' href='/'>
+<img alt="MTGStocks" src="/assets/logotranssmall-e63708bd7c625a3b2644a46d513ab7e1.png" />
+</a>
+<div class='col-xs-6 hidden-md hidden-lg hidden-sm'>
+<form class="navbar-form" id="autocomplete_form" action="/cards/search" accept-charset="UTF-8" method="get"><input name="utf8" type="hidden" value="&#x2713;" /><div class='form-group'>
+<div class='input-group'>
+<input placeholder="Search for card" class="search-query form-control" type="text" name="print[card]" id="print_card" />
+<span class='input-group-btn'>
+<button name="button" type="submit" class="btn btn-default"><span aria-hidden='true' class='glyphicon glyphicon-search'></span>
+</button></span>
+</div>
+</div>
+</form>
+</div>
+</div>
+<div class='navbar-collapse collapse' id='navbar'>
+<ul class='nav navbar-nav'>
+<li><a href="/sets">Sets</a></li>
+<li><a href="/interests">Interests</a></li>
+<li class='dropdown'>
+<a aria-expanded='false' class='dropdown-toggle' data-toggle='dropdown' href='#' role='button'>
+Analytics
+<b class='caret'></b>
+</a>
+<ul class='dropdown-menu'>
+<li><a href="/analytics">Standard Analytics</a></li>
+<li><a href="/analytics/alltime">All Time High/Low</a></li>
+<li><a href="/sets/analytics">Set Analytics</a></li>
+<li class='divider'></li>
+<li><a href="/analytics/metagame">Metagame</a></li>
+<li><a href="/analytics/mostplayed">Most Played Cards</a></li>
+</ul>
+</li>
+<li class='dropdown'>
+<a aria-expanded='false' class='dropdown-toggle' data-toggle='dropdown' href='#' role='button'>
+Decks
+<b class='caret'></b>
+</a>
+<ul class='dropdown-menu'>
+<li><a href="/decks/formats/legacy">Legacy</a></li>
+<li><a href="/decks/formats/vintage">Vintage</a></li>
+<li><a href="/decks/formats/modern">Modern</a></li>
+<li><a href="/decks/formats/standard">Standard</a></li>
+</ul>
+</li>
+<li><a href="/about">About</a></li>
+<li><a data-toggle="modal" data-target="#loginModal" href="#loginModal">Login</a></li>
+<li><a href="/users/sign_up">Sign up</a></li>
+</ul>
+<form class="navbar-form navbar-right visible-md visible-lg" id="autocomplete_form" role="form" action="/cards/search" accept-charset="UTF-8" method="get"><input name="utf8" type="hidden" value="&#x2713;" /><div class='form-group'>
+<div class='input-group'>
+<input placeholder="Search for card" class="search-query form-control" style="width: 160px;" type="text" name="print[card]" id="print_card" />
+<span class='input-group-btn'>
+<button name="button" type="submit" class="btn btn-default"><span aria-hidden='true' class='glyphicon glyphicon-search'></span>
+</button></span>
+</div>
+</div>
+</form>
+</div>
+</div>
+</nav>
+<div class='container fullwidth'>
+<div class='row'>
+<ul id='webticker'>
+<li style='display: none;'><span class='setsprite setsprite-avr' title='Avacyn Restored'>&nbsp;</span>&nbsp;
+<a class="screenshot" rel="http://gatherer.wizards.com/Handlers/Image.ashx?type=card&multiverseid=240178" href="/cards/432">Blood Artist</a><span class='arrowpos'>&#9650;</span>$2.97(<span class='arrowpos'>+2.4%</span>)</li>
+<li style='display: none;'><span class='setsprite setsprite-5dn' title='Fifth Dawn'>&nbsp;</span>&nbsp;
+<a class="screenshot" rel="http://gatherer.wizards.com/Handlers/Image.ashx?type=card&multiverseid=51133" href="/cards/5536">Crucible of Worlds</a><span class='arrowpos'>&#9650;</span>$47.44(<span class='arrowpos'>+4.5%</span>)</li>
+<li style='display: none;'><span class='setsprite setsprite-tsb' title='Timeshifted'>&nbsp;</span>&nbsp;
+<a class="screenshot" rel="http://gatherer.wizards.com/Handlers/Image.ashx?type=card&multiverseid=108919" href="/cards/3696">Darkness</a><span class='arrowpos'>&#9650;</span>$5.94(<span class='arrowpos'>+4.0%</span>)</li>
+<li style='display: none;'><span class='setsprite setsprite-cmd' title='Commander'>&nbsp;</span>&nbsp;
+<a class="screenshot" rel="http://gatherer.wizards.com/Handlers/Image.ashx?type=card&multiverseid=247148" href="/cards/18886">Eternal Witness</a><span class='arrowpos'>&#9650;</span>$6.90(<span class='arrowpos'>+2.2%</span>)</li>
+<li style='display: none;'><span class='setsprite setsprite-le' title='Legends'>&nbsp;</span>&nbsp;
+<a class="screenshot" rel="http://gatherer.wizards.com/Handlers/Image.ashx?type=card&multiverseid=1525" href="/cards/11556">Eureka</a><span class='arrowneg'>&#9660;</span>$210.00(<span class='arrowneg'>-10.6%</span>)</li>
+<li style='display: none;'><span class='setsprite setsprite-10e' title='10th Edition'>&nbsp;</span>&nbsp;
+<a class="screenshot" rel="http://gatherer.wizards.com/Handlers/Image.ashx?type=card&multiverseid=129578" href="/cards/13051">Goblin King</a><span class='arrowpos'>&#9650;</span>$4.25(<span class='arrowpos'>+2.9%</span>)</li>
+<li style='display: none;'><span class='setsprite setsprite-p3' title='Starter 1999'>&nbsp;</span>&nbsp;
+<a class="screenshot" rel="http://gatherer.wizards.com/Handlers/Image.ashx?type=card&multiverseid=20359" href="/cards/17575">Grim Tutor</a><span class='arrowneg'>&#9660;</span>$229.89(<span class='arrowneg'>-10.3%</span>)</li>
+<li style='display: none;'><span class='setsprite setsprite-ia' title='Ice Age'>&nbsp;</span>&nbsp;
+<a class="screenshot" rel="http://gatherer.wizards.com/Handlers/Image.ashx?type=card&multiverseid=2459" href="/cards/10964">Infernal Darkness</a><span class='arrowpos'>&#9650;</span>$2.66(<span class='arrowpos'>+3.5%</span>)</li>
+<li style='display: none;'><span class='setsprite setsprite-bok' title='Betrayers of Kamigawa'>&nbsp;</span>&nbsp;
+<a class="screenshot" rel="http://gatherer.wizards.com/Handlers/Image.ashx?type=card&multiverseid=74445" href="/cards/5108">Kira, Great Glass-Spinner</a><span class='arrowpos'>&#9650;</span>$12.99(<span class='arrowpos'>+3.3%</span>)</li>
+<li style='display: none;'><span class='setsprite setsprite-pc2' title='Planechase 2012'>&nbsp;</span>&nbsp;
+<a class="screenshot" rel="http://gatherer.wizards.com/Handlers/Image.ashx?type=card&multiverseid=271151" href="/cards/19357">Kor Spiritdancer</a><span class='arrowpos'>&#9650;</span>$11.87(<span class='arrowpos'>+13.3%</span>)</li>
+<li style='display: none;'><span class='setsprite setsprite-cmd' title='Commander'>&nbsp;</span>&nbsp;
+<a class="screenshot" rel="http://gatherer.wizards.com/Handlers/Image.ashx?type=card&multiverseid=236481" href="/cards/18956">Martyr&#39;s Bond</a><span class='arrowneg'>&#9660;</span>$5.19(<span class='arrowneg'>-12.8%</span>)</li>
+<li style='display: none;'><span class='setsprite setsprite-mma' title='Modern Masters'>&nbsp;</span>&nbsp;
+<a class="screenshot" rel="http://gatherer.wizards.com/Handlers/Image.ashx?type=card&multiverseid=370509" href="/cards/21058">Mind Funeral</a><span class='arrowpos'>&#9650;</span>$3.58(<span class='arrowpos'>+2.3%</span>)</li>
+<li style='display: none;'><span class='setsprite setsprite-roe' title='Rise of the Eldrazi'>&nbsp;</span>&nbsp;
+<a class="screenshot" rel="http://gatherer.wizards.com/Handlers/Image.ashx?type=card&multiverseid=193607" href="/cards/1445">Pathrazer of Ulamog</a><span class='arrowpos'>&#9650;</span>$2.32(<span class='arrowpos'>+2.2%</span>)</li>
+<li style='display: none;'><span class='setsprite setsprite-dis' title='Dissension'>&nbsp;</span>&nbsp;
+<a class="screenshot" rel="http://gatherer.wizards.com/Handlers/Image.ashx?type=card&multiverseid=107598" href="/cards/4344">Protean Hulk</a><span class='arrowpos'>&#9650;</span>$2.32(<span class='arrowpos'>+5.9%</span>)</li>
+<li style='display: none;'><span class='setsprite setsprite-le' title='Legends'>&nbsp;</span>&nbsp;
+<a class="screenshot" rel="http://gatherer.wizards.com/Handlers/Image.ashx?type=card&multiverseid=1500" href="/cards/11700">Reverberation</a><span class='arrowpos'>&#9650;</span>$13.00(<span class='arrowpos'>+18.2%</span>)</li>
+<li style='display: none;'><span class='setsprite setsprite-an' title='Arabian Nights'>&nbsp;</span>&nbsp;
+<a class="screenshot" rel="http://gatherer.wizards.com/Handlers/Image.ashx?type=card&multiverseid=952" href="/cards/11970">Singing Tree</a><span class='arrowpos'>&#9650;</span>$19.45(<span class='arrowpos'>+2.4%</span>)</li>
+<li style='display: none;'><span class='setsprite setsprite-le' title='Legends'>&nbsp;</span>&nbsp;
+<a class="screenshot" rel="http://gatherer.wizards.com/Handlers/Image.ashx?type=card&multiverseid=1460" href="/cards/11739">The Abyss</a><span class='arrowpos'>&#9650;</span>$223.46(<span class='arrowpos'>+2.9%</span>)</li>
+<li style='display: none;'><span class='setsprite setsprite-le' title='Legends'>&nbsp;</span>&nbsp;
+<a class="screenshot" rel="http://gatherer.wizards.com/Handlers/Image.ashx?type=card&multiverseid=1690" href="/cards/11742">The Tabernacle at Pendrell Vale</a><span class='arrowpos'>&#9650;</span>$799.95(<span class='arrowpos'>+4.2%</span>)</li>
+<li style='display: none;'><span class='setsprite setsprite-nph' title='New Phyrexia'>&nbsp;</span>&nbsp;
+<a class="screenshot" rel="http://gatherer.wizards.com/Handlers/Image.ashx?type=card&multiverseid=218079" href="/cards/338">Unwinding Clock</a><span class='arrowpos'>&#9650;</span>$4.59(<span class='arrowpos'>+2.0%</span>)</li>
+<li style='display: none;'><span class='setsprite setsprite-9ed' title='9th Edition'>&nbsp;</span>&nbsp;
+<a class="screenshot" rel="http://gatherer.wizards.com/Handlers/Image.ashx?type=card&multiverseid=83315" href="/cards/13609">Urza&#39;s Power Plant</a><span class='arrowpos'>&#9650;</span>$3.91(<span class='arrowpos'>+4.0%</span>)</li>
+<li style='display: none;'><span class='setsprite setsprite-aq' title='Antiquities'>&nbsp;</span>&nbsp;
+<a class="screenshot" rel="http://gatherer.wizards.com/Handlers/Image.ashx?type=card&multiverseid=220952" href="/cards/21729">Urza&#39;s Power Plant (Sphere)</a><span class='arrowpos'>&#9650;</span>$2.40(<span class='arrowpos'>+5.3%</span>)</li>
+<li style='display: none;'><span class='setsprite setsprite-aq' title='Antiquities'>&nbsp;</span>&nbsp;
+<a class="screenshot" rel="http://gatherer.wizards.com/Handlers/Image.ashx?type=card&multiverseid=1090" href="/cards/21732">Urza&#39;s Tower (Plains)</a><span class='arrowpos'>&#9650;</span>$5.02(<span class='arrowpos'>+8.2%</span>)</li>
+</ul>
+
+</div>
+</div>
+<div class='container'>
+<div class='row'>
+<div class='col-md-11 col-md-11-offset-1'>
+<h2>Portal</h2>
+
+<div class='row'>
+<div class='col-md-12'>
+<form class="form-inline" action="/sets/96" accept-charset="UTF-8" method="post"><input name="utf8" type="hidden" value="&#x2713;" /><input type="hidden" name="authenticity_token" value="ZJ90KhhuG/b1K2HoarXRcOsRHtWO8bkh5wYXWlbIJ5i83tlO/lv1dAe9ZmQvNEWV0lAOXNhabugLyNcm2CO8vg==" />
+<label class='checkbox-inline'>
+<input checked name='rarity[R]' type='checkbox' value='1'>Rare (R)</input>
+</label>
+<label class='checkbox-inline'>
+<input checked name='rarity[U]' type='checkbox' value='1'>Uncommon (U)</input>
+</label>
+<label class='checkbox-inline'>
+<input checked name='rarity[C]' type='checkbox' value='1'>Common (C)</input>
+</label>
+<label class='checkbox-inline'>
+<input checked name='rarity[L]' type='checkbox' value='1'>Land (L)</input>
+</label>
+<select class='form-control' name='order'>
+<option value='nameA'>Name (ASC)</option>
+<option value='nameD'>Name (DESC)</option>
+<option value='priceA'>Price (ASC)</option>
+<option value='priceD'>Price (DESC)</option>
+</select>
+<button class='btn-default btn' type='submit'>
+&nbsp;&nbsp;Go&nbsp;&nbsp;
+</button>
+</form>
+
+<br>
+</div>
+</div>
+<div class='row'>
+<div class='col-md-12'>
+<div class='col-md-4 col-xs-12 col-sm-12'>
+<table class='table table-striped table-condensed' style='width: 100%;'>
+<tr><td><a class="screenshot" rel="http://gatherer.wizards.com/Handlers/Image.ashx?type=card&multiverseid=4369" href="/cards/17736">Alabaster Dragon</a>&nbsp;(R)</td><td class='right'>$2.25</td></tr>
+<tr><td><a class="screenshot" rel="http://gatherer.wizards.com/Handlers/Image.ashx?type=card&multiverseid=4286" href="/cards/17737">Alluring Scent</a>&nbsp;(R)</td><td class='right'>$0.85</td></tr>
+<tr><td><a class="screenshot" rel="http://gatherer.wizards.com/Handlers/Image.ashx?type=card&multiverseid=4288" href="/cards/17738">Anaconda</a>&nbsp;(U)</td><td class='right'>$1.90</td></tr>
+<tr><td><a class="screenshot" rel="http://gatherer.wizards.com/Handlers/Image.ashx?type=card&multiverseid=4287" href="/cards/28107">Anaconda (Flavor Text)</a>&nbsp;(U)</td><td class='right'>$0.22</td></tr>
+<tr><td><a class="screenshot" rel="http://gatherer.wizards.com/Handlers/Image.ashx?type=card&multiverseid=4247" href="/cards/17740">Ancestral Memories</a>&nbsp;(R)</td><td class='right'>$0.56</td></tr>
+<tr><td><a class="screenshot" rel="http://gatherer.wizards.com/Handlers/Image.ashx?type=card&multiverseid=4370" href="/cards/17741">Angelic Blessing</a>&nbsp;(C)</td><td class='right'>$0.18</td></tr>
+<tr><td><a class="screenshot" rel="http://gatherer.wizards.com/Handlers/Image.ashx?type=card&multiverseid=4371" href="/cards/17742">Archangel</a>&nbsp;(R)</td><td class='right'>$1.76</td></tr>
+<tr><td><a class="screenshot" rel="http://gatherer.wizards.com/Handlers/Image.ashx?type=card&multiverseid=4372" href="/cards/17743">Ardent Militia</a>&nbsp;(U)</td><td class='right'>$0.22</td></tr>
+<tr><td><a class="screenshot" rel="http://gatherer.wizards.com/Handlers/Image.ashx?type=card&multiverseid=4373" href="/cards/17744">Armageddon</a>&nbsp;(R)</td><td class='right'>$5.99</td></tr>
+<tr><td><a class="screenshot" rel="http://gatherer.wizards.com/Handlers/Image.ashx?type=card&multiverseid=4374" href="/cards/17745">Armored Pegasus</a>&nbsp;(C)</td><td class='right'>$0.17</td></tr>
+<tr><td><a class="screenshot" rel="http://gatherer.wizards.com/Handlers/Image.ashx?type=card&multiverseid=4207" href="/cards/17746">Arrogant Vampire</a>&nbsp;(U)</td><td class='right'>$0.47</td></tr>
+<tr><td><a class="screenshot" rel="http://gatherer.wizards.com/Handlers/Image.ashx?type=card&multiverseid=4208" href="/cards/17747">Assassin&#39;s Blade</a>&nbsp;(U)</td><td class='right'>$0.42</td></tr>
+<tr><td><a class="screenshot" rel="http://gatherer.wizards.com/Handlers/Image.ashx?type=card&multiverseid=4248" href="/cards/17748">Balance of Power</a>&nbsp;(R)</td><td class='right'>$0.66</td></tr>
+<tr><td><a class="screenshot" rel="http://gatherer.wizards.com/Handlers/Image.ashx?type=card&multiverseid=4249" href="/cards/17749">Baleful Stare</a>&nbsp;(U)</td><td class='right'>$0.21</td></tr>
+<tr><td><a class="screenshot" rel="http://gatherer.wizards.com/Handlers/Image.ashx?type=card&multiverseid=4289" href="/cards/17750">Bee Sting</a>&nbsp;(U)</td><td class='right'>$0.21</td></tr>
+<tr><td><a class="screenshot" rel="http://gatherer.wizards.com/Handlers/Image.ashx?type=card&multiverseid=4328" href="/cards/17751">Blaze</a>&nbsp;(U)</td><td class='right'>$0.45</td></tr>
+<tr><td><a class="screenshot" rel="http://gatherer.wizards.com/Handlers/Image.ashx?type=card&multiverseid=4329" href="/cards/28108">Blaze (Flavor Text)</a>&nbsp;(U)</td><td class='right'>$0.32</td></tr>
+<tr><td><a class="screenshot" rel="http://gatherer.wizards.com/Handlers/Image.ashx?type=card&multiverseid=4375" href="/cards/17753">Blessed Reversal</a>&nbsp;(R)</td><td class='right'>$0.54</td></tr>
+<tr><td><a class="screenshot" rel="http://gatherer.wizards.com/Handlers/Image.ashx?type=card&multiverseid=4376" href="/cards/17754">Blinding Light</a>&nbsp;(R)</td><td class='right'>$0.66</td></tr>
+<tr><td><a class="screenshot" rel="http://gatherer.wizards.com/Handlers/Image.ashx?type=card&multiverseid=4209" href="/cards/17755">Bog Imp</a>&nbsp;(C)</td><td class='right'>$0.17</td></tr>
+<tr><td><a class="screenshot" rel="http://gatherer.wizards.com/Handlers/Image.ashx?type=card&multiverseid=4210" href="/cards/17756">Bog Raiders</a>&nbsp;(C)</td><td class='right'>$0.18</td></tr>
+<tr><td><a class="screenshot" rel="http://gatherer.wizards.com/Handlers/Image.ashx?type=card&multiverseid=4211" href="/cards/17757">Bog Wraith</a>&nbsp;(U)</td><td class='right'>$0.21</td></tr>
+<tr><td><a class="screenshot" rel="http://gatherer.wizards.com/Handlers/Image.ashx?type=card&multiverseid=4330" href="/cards/17758">Boiling Seas</a>&nbsp;(U)</td><td class='right'>$0.47</td></tr>
+<tr><td><a class="screenshot" rel="http://gatherer.wizards.com/Handlers/Image.ashx?type=card&multiverseid=4377" href="/cards/17759">Border Guard</a>&nbsp;(C)</td><td class='right'>$0.17</td></tr>
+<tr><td><a class="screenshot" rel="http://gatherer.wizards.com/Handlers/Image.ashx?type=card&multiverseid=4378" href="/cards/17760">Breath of Life</a>&nbsp;(C)</td><td class='right'>$0.46</td></tr>
+<tr><td><a class="screenshot" rel="http://gatherer.wizards.com/Handlers/Image.ashx?type=card&multiverseid=4290" href="/cards/17761">Bull Hippo</a>&nbsp;(U)</td><td class='right'>$0.20</td></tr>
+<tr><td><a class="screenshot" rel="http://gatherer.wizards.com/Handlers/Image.ashx?type=card&multiverseid=4331" href="/cards/17762">Burning Cloak</a>&nbsp;(C)</td><td class='right'>$0.18</td></tr>
+<tr><td><a class="screenshot" rel="http://gatherer.wizards.com/Handlers/Image.ashx?type=card&multiverseid=4250" href="/cards/17763">Capricious Sorcerer</a>&nbsp;(R)</td><td class='right'>$0.75</td></tr>
+<tr><td><a class="screenshot" rel="http://gatherer.wizards.com/Handlers/Image.ashx?type=card&multiverseid=4212" href="/cards/17764">Charging Bandits</a>&nbsp;(U)</td><td class='right'>$0.20</td></tr>
+<tr><td><a class="screenshot" rel="http://gatherer.wizards.com/Handlers/Image.ashx?type=card&multiverseid=4379" href="/cards/17765">Charging Paladin</a>&nbsp;(U)</td><td class='right'>$0.22</td></tr>
+<tr><td><a class="screenshot" rel="http://gatherer.wizards.com/Handlers/Image.ashx?type=card&multiverseid=4291" href="/cards/17766">Charging Rhino</a>&nbsp;(R)</td><td class='right'>$0.49</td></tr>
+<tr><td><a class="screenshot" rel="http://gatherer.wizards.com/Handlers/Image.ashx?type=card&multiverseid=4251" href="/cards/17767">Cloak of Feathers</a>&nbsp;(C)</td><td class='right'>$0.17</td></tr>
+<tr><td><a class="screenshot" rel="http://gatherer.wizards.com/Handlers/Image.ashx?type=card&multiverseid=4252" href="/cards/17768">Cloud Dragon</a>&nbsp;(R)</td><td class='right'>$3.92</td></tr>
+<tr><td><a class="screenshot" rel="http://gatherer.wizards.com/Handlers/Image.ashx?type=card&multiverseid=4253" href="/cards/17769">Cloud Pirates</a>&nbsp;(C)</td><td class='right'>$0.24</td></tr>
+<tr><td><a class="screenshot" rel="http://gatherer.wizards.com/Handlers/Image.ashx?type=card&multiverseid=4254" href="/cards/17770">Cloud Spirit</a>&nbsp;(U)</td><td class='right'>$0.24</td></tr>
+<tr><td><a class="screenshot" rel="http://gatherer.wizards.com/Handlers/Image.ashx?type=card&multiverseid=4255" href="/cards/17771">Command of Unsummoning</a>&nbsp;(U)</td><td class='right'>$0.19</td></tr>
+<tr><td><a class="screenshot" rel="http://gatherer.wizards.com/Handlers/Image.ashx?type=card&multiverseid=4256" href="/cards/17772">Coral Eel</a>&nbsp;(C)</td><td class='right'>$0.15</td></tr>
+<tr><td><a class="screenshot" rel="http://gatherer.wizards.com/Handlers/Image.ashx?type=card&multiverseid=4332" href="/cards/17773">Craven Giant</a>&nbsp;(C)</td><td class='right'>$0.17</td></tr>
+<tr><td><a class="screenshot" rel="http://gatherer.wizards.com/Handlers/Image.ashx?type=card&multiverseid=4213" href="/cards/17774">Craven Knight</a>&nbsp;(C)</td><td class='right'>$0.16</td></tr>
+<tr><td><a class="screenshot" rel="http://gatherer.wizards.com/Handlers/Image.ashx?type=card&multiverseid=4214" href="/cards/17775">Cruel Bargain</a>&nbsp;(R)</td><td class='right'>$10.15</td></tr>
+<tr><td><a class="screenshot" rel="http://gatherer.wizards.com/Handlers/Image.ashx?type=card&multiverseid=4257" href="/cards/17776">Cruel Fate</a>&nbsp;(R)</td><td class='right'>$0.67</td></tr>
+<tr><td><a class="screenshot" rel="http://gatherer.wizards.com/Handlers/Image.ashx?type=card&multiverseid=4215" href="/cards/17777">Cruel Tutor</a>&nbsp;(R)</td><td class='right'>$21.69</td></tr>
+<tr><td><a class="screenshot" rel="http://gatherer.wizards.com/Handlers/Image.ashx?type=card&multiverseid=4292" href="/cards/17778">Deep Wood</a>&nbsp;(U)</td><td class='right'>$0.21</td></tr>
+<tr><td><a class="screenshot" rel="http://gatherer.wizards.com/Handlers/Image.ashx?type=card&multiverseid=4258" href="/cards/17779">Deep-Sea Serpent</a>&nbsp;(U)</td><td class='right'>$0.23</td></tr>
+<tr><td><a class="screenshot" rel="http://gatherer.wizards.com/Handlers/Image.ashx?type=card&multiverseid=4380" href="/cards/17780">Defiant Stand</a>&nbsp;(U)</td><td class='right'>$0.18</td></tr>
+<tr><td><a class="screenshot" rel="http://gatherer.wizards.com/Handlers/Image.ashx?type=card&multiverseid=4259" href="/cards/20477">Déjà Vu</a>&nbsp;(C)</td><td class='right'>$0.48</td></tr>
+<tr><td><a class="screenshot" rel="http://gatherer.wizards.com/Handlers/Image.ashx?type=card&multiverseid=4333" href="/cards/17782">Desert Drake</a>&nbsp;(U)</td><td class='right'>$0.22</td></tr>
+<tr><td><a class="screenshot" rel="http://gatherer.wizards.com/Handlers/Image.ashx?type=card&multiverseid=4334" href="/cards/17783">Devastation</a>&nbsp;(R)</td><td class='right'>$13.40</td></tr>
+<tr><td><a class="screenshot" rel="http://gatherer.wizards.com/Handlers/Image.ashx?type=card&multiverseid=4381" href="/cards/17784">Devoted Hero</a>&nbsp;(C)</td><td class='right'>$0.15</td></tr>
+<tr><td><a class="screenshot" rel="http://gatherer.wizards.com/Handlers/Image.ashx?type=card&multiverseid=4260" href="/cards/17785">Djinn of the Lamp</a>&nbsp;(R)</td><td class='right'>$0.60</td></tr>
+<tr><td><a class="screenshot" rel="http://gatherer.wizards.com/Handlers/Image.ashx?type=card&multiverseid=4216" href="/cards/17786">Dread Charge</a>&nbsp;(R)</td><td class='right'>$0.74</td></tr>
+<tr><td><a class="screenshot" rel="http://gatherer.wizards.com/Handlers/Image.ashx?type=card&multiverseid=4217" href="/cards/17787">Dread Reaper</a>&nbsp;(R)</td><td class='right'>$0.66</td></tr>
+<tr><td><a class="screenshot" rel="http://gatherer.wizards.com/Handlers/Image.ashx?type=card&multiverseid=4218" href="/cards/17788">Dry Spell</a>&nbsp;(U)</td><td class='right'>$0.22</td></tr>
+<tr><td><a class="screenshot" rel="http://gatherer.wizards.com/Handlers/Image.ashx?type=card&multiverseid=4335" href="/cards/17789">Earthquake</a>&nbsp;(R)</td><td class='right'>$1.29</td></tr>
+<tr><td><a class="screenshot" rel="http://gatherer.wizards.com/Handlers/Image.ashx?type=card&multiverseid=4219" href="/cards/17790">Ebon Dragon</a>&nbsp;(R)</td><td class='right'>$4.93</td></tr>
+<tr><td><a class="screenshot" rel="http://gatherer.wizards.com/Handlers/Image.ashx?type=card&multiverseid=4293" href="/cards/17791">Elite Cat Warrior</a>&nbsp;(C)</td><td class='right'>$0.30</td></tr>
+<tr><td><a class="screenshot" rel="http://gatherer.wizards.com/Handlers/Image.ashx?type=card&multiverseid=4294" href="/cards/28109">Elite Cat Warrior (Flavor Text)</a>&nbsp;(C)</td><td class='right'>$0.19</td></tr>
+<tr><td><a class="screenshot" rel="http://gatherer.wizards.com/Handlers/Image.ashx?type=card&multiverseid=4295" href="/cards/17793">Elven Cache</a>&nbsp;(C)</td><td class='right'>$0.20</td></tr>
+<tr><td><a class="screenshot" rel="http://gatherer.wizards.com/Handlers/Image.ashx?type=card&multiverseid=4296" href="/cards/17794">Elvish Ranger</a>&nbsp;(C)</td><td class='right'>$0.16</td></tr>
+<tr><td><a class="screenshot" rel="http://gatherer.wizards.com/Handlers/Image.ashx?type=card&multiverseid=4220" href="/cards/17795">Endless Cockroaches</a>&nbsp;(R)</td><td class='right'>$2.85</td></tr>
+<tr><td><a class="screenshot" rel="http://gatherer.wizards.com/Handlers/Image.ashx?type=card&multiverseid=4261" href="/cards/17796">Exhaustion</a>&nbsp;(R)</td><td class='right'>$0.90</td></tr>
+<tr><td><a class="screenshot" rel="http://gatherer.wizards.com/Handlers/Image.ashx?type=card&multiverseid=4382" href="/cards/17797">False Peace</a>&nbsp;(C)</td><td class='right'>$0.19</td></tr>
+<tr><td><a class="screenshot" rel="http://gatherer.wizards.com/Handlers/Image.ashx?type=card&multiverseid=4221" href="/cards/17798">Feral Shadow</a>&nbsp;(C)</td><td class='right'>$0.15</td></tr>
+<tr><td><a class="screenshot" rel="http://gatherer.wizards.com/Handlers/Image.ashx?type=card&multiverseid=4222" href="/cards/17799">Final Strike</a>&nbsp;(R)</td><td class='right'>$0.83</td></tr>
+<tr><td><a class="screenshot" rel="http://gatherer.wizards.com/Handlers/Image.ashx?type=card&multiverseid=4336" href="/cards/17800">Fire Dragon</a>&nbsp;(R)</td><td class='right'>$5.51</td></tr>
+<tr><td><a class="screenshot" rel="http://gatherer.wizards.com/Handlers/Image.ashx?type=card&multiverseid=4337" href="/cards/17801">Fire Imp</a>&nbsp;(U)</td><td class='right'>$0.24</td></tr>
+<tr><td><a class="screenshot" rel="http://gatherer.wizards.com/Handlers/Image.ashx?type=card&multiverseid=4338" href="/cards/17802">Fire Snake</a>&nbsp;(C)</td><td class='right'>$0.16</td></tr>
+<tr><td><a class="screenshot" rel="http://gatherer.wizards.com/Handlers/Image.ashx?type=card&multiverseid=4339" href="/cards/17803">Fire Tempest</a>&nbsp;(R)</td><td class='right'>$0.84</td></tr>
+<tr><td><a class="screenshot" rel="http://gatherer.wizards.com/Handlers/Image.ashx?type=card&multiverseid=4340" href="/cards/17804">Flashfires</a>&nbsp;(U)</td><td class='right'>$0.28</td></tr>
+<tr><td><a class="screenshot" rel="http://gatherer.wizards.com/Handlers/Image.ashx?type=card&multiverseid=4383" href="/cards/17805">Fleet-Footed Monk</a>&nbsp;(C)</td><td class='right'>$0.17</td></tr>
+<tr><td><a class="screenshot" rel="http://gatherer.wizards.com/Handlers/Image.ashx?type=card&multiverseid=4262" href="/cards/17806">Flux</a>&nbsp;(U)</td><td class='right'>$0.26</td></tr>
+<tr><td><a class="screenshot" rel="http://gatherer.wizards.com/Handlers/Image.ashx?type=card&multiverseid=4384" href="/cards/17807">Foot Soldiers</a>&nbsp;(C)</td><td class='right'>$0.16</td></tr>
+<tr><td><a class="screenshot" rel="http://gatherer.wizards.com/Handlers/Image.ashx?type=card&multiverseid=4415" href="/cards/17808">Forest</a>&nbsp;(L)</td><td class='right'>$0.32</td></tr>
+<tr><td><a class="screenshot" rel="http://i.tcgplayer.com/677.jpg" href="/cards/23715">Forest (203)</a>&nbsp;(L)</td><td class='right'>$0.48</td></tr>
+<tr><td><a class="screenshot" rel="http://i.tcgplayer.com/21584.jpg" href="/cards/23716">Forest (204)</a>&nbsp;(L)</td><td class='right'>$0.45</td></tr>
+<tr><td><a class="screenshot" rel="http://i.tcgplayer.com/21585.jpg" href="/cards/23717">Forest (205)</a>&nbsp;(L)</td><td class='right'>$0.54</td></tr>
+<tr><td><a class="screenshot" rel="http://i.tcgplayer.com/21586.jpg" href="/cards/23718">Forest (206)</a>&nbsp;(L)</td><td class='right'>$0.44</td></tr>
+<tr><td><a class="screenshot" rel="http://i.tcgplayer.com/21585.jpg" href="/cards/28110">Forest (Ferns on Ground)</a>&nbsp;(L)</td><td class='right'>$0.54</td></tr>
+<tr><td><a class="screenshot" rel="http://i.tcgplayer.com/677.jpg" href="/cards/28111">Forest (Large Middle)</a>&nbsp;(L)</td><td class='right'>$0.45</td></tr>
+<tr><td><a class="screenshot" rel="http://i.tcgplayer.com/21586.jpg" href="/cards/28112">Forest (Pale Trees)</a>&nbsp;(L)</td><td class='right'>$0.49</td></tr>
+<tr><td><a class="screenshot" rel="http://i.tcgplayer.com/21584.jpg" href="/cards/28113">Forest (Slanted Tree)</a>&nbsp;(L)</td><td class='right'>$0.48</td></tr>
+<tr><td><a class="screenshot" rel="http://i.tcgplayer.com/21584.jpg" href="/cards/17809">Forest [Version 2]</a>&nbsp;(L)</td><td class='right'>$1.00</td></tr>
+<tr><td><a class="screenshot" rel="http://i.tcgplayer.com/21585.jpg" href="/cards/17810">Forest [Version 3]</a>&nbsp;(L)</td><td class='right'>$1.00</td></tr>
+<tr><td><a class="screenshot" rel="http://i.tcgplayer.com/21586.jpg" href="/cards/17811">Forest [Version 4]</a>&nbsp;(L)</td><td class='right'>$1.00</td></tr>
+<tr><td><a class="screenshot" rel="http://gatherer.wizards.com/Handlers/Image.ashx?type=card&multiverseid=4341" href="/cards/17812">Forked Lightning</a>&nbsp;(R)</td><td class='right'>$0.90</td></tr>
+<tr><td><a class="screenshot" rel="http://gatherer.wizards.com/Handlers/Image.ashx?type=card&multiverseid=4297" href="/cards/17813">Fruition</a>&nbsp;(C)</td><td class='right'>$0.33</td></tr>
+<tr><td><a class="screenshot" rel="http://gatherer.wizards.com/Handlers/Image.ashx?type=card&multiverseid=4263" href="/cards/17814">Giant Octopus</a>&nbsp;(C)</td><td class='right'>$0.17</td></tr>
+<tr><td><a class="screenshot" rel="http://gatherer.wizards.com/Handlers/Image.ashx?type=card&multiverseid=4298" href="/cards/17815">Giant Spider</a>&nbsp;(C)</td><td class='right'>$0.16</td></tr>
+<tr><td><a class="screenshot" rel="http://gatherer.wizards.com/Handlers/Image.ashx?type=card&multiverseid=4385" href="/cards/17816">Gift of Estates</a>&nbsp;(R)</td><td class='right'>$3.08</td></tr>
+</table>
+</div>
+<div class='col-md-4 col-xs-12 col-sm-12'>
+<table class='table table-striped table-condensed' style='width: 100%;'>
+<tr><td><a class="screenshot" rel="http://gatherer.wizards.com/Handlers/Image.ashx?type=card&multiverseid=4342" href="/cards/17817">Goblin Bully</a>&nbsp;(C)</td><td class='right'>$0.18</td></tr>
+<tr><td><a class="screenshot" rel="http://gatherer.wizards.com/Handlers/Image.ashx?type=card&multiverseid=4299" href="/cards/17818">Gorilla Warrior</a>&nbsp;(C)</td><td class='right'>$0.16</td></tr>
+<tr><td><a class="screenshot" rel="http://gatherer.wizards.com/Handlers/Image.ashx?type=card&multiverseid=4223" href="/cards/17819">Gravedigger</a>&nbsp;(U)</td><td class='right'>$0.17</td></tr>
+<tr><td><a class="screenshot" rel="http://gatherer.wizards.com/Handlers/Image.ashx?type=card&multiverseid=4300" href="/cards/17820">Grizzly Bears</a>&nbsp;(C)</td><td class='right'>$0.17</td></tr>
+<tr><td><a class="screenshot" rel="http://gatherer.wizards.com/Handlers/Image.ashx?type=card&multiverseid=4224" href="/cards/17821">Hand of Death</a>&nbsp;(C)</td><td class='right'>$0.17</td></tr>
+<tr><td><a class="screenshot" rel="http://gatherer.wizards.com/Handlers/Image.ashx?type=card&multiverseid=4225" href="/cards/28114">Hand of Death (Reminder Text)</a>&nbsp;(C)</td><td class='right'>$0.25</td></tr>
+<tr><td><a class="screenshot" rel="http://gatherer.wizards.com/Handlers/Image.ashx?type=card&multiverseid=4386" href="/cards/17823">Harsh Justice</a>&nbsp;(R)</td><td class='right'>$1.77</td></tr>
+<tr><td><a class="screenshot" rel="http://gatherer.wizards.com/Handlers/Image.ashx?type=card&multiverseid=4343" href="/cards/17824">Highland Giant</a>&nbsp;(C)</td><td class='right'>$0.16</td></tr>
+<tr><td><a class="screenshot" rel="http://gatherer.wizards.com/Handlers/Image.ashx?type=card&multiverseid=4344" href="/cards/17825">Hill Giant</a>&nbsp;(C)</td><td class='right'>$0.15</td></tr>
+<tr><td><a class="screenshot" rel="http://gatherer.wizards.com/Handlers/Image.ashx?type=card&multiverseid=4264" href="/cards/17826">Horned Turtle</a>&nbsp;(C)</td><td class='right'>$0.17</td></tr>
+<tr><td><a class="screenshot" rel="http://gatherer.wizards.com/Handlers/Image.ashx?type=card&multiverseid=4226" href="/cards/17827">Howling Fury</a>&nbsp;(C)</td><td class='right'>$0.16</td></tr>
+<tr><td><a class="screenshot" rel="http://gatherer.wizards.com/Handlers/Image.ashx?type=card&multiverseid=4345" href="/cards/17828">Hulking Cyclops</a>&nbsp;(U)</td><td class='right'>$0.18</td></tr>
+<tr><td><a class="screenshot" rel="http://gatherer.wizards.com/Handlers/Image.ashx?type=card&multiverseid=4346" href="/cards/17829">Hulking Goblin</a>&nbsp;(C)</td><td class='right'>$0.16</td></tr>
+<tr><td><a class="screenshot" rel="http://gatherer.wizards.com/Handlers/Image.ashx?type=card&multiverseid=4301" href="/cards/17830">Hurricane</a>&nbsp;(R)</td><td class='right'>$0.67</td></tr>
+<tr><td><a class="screenshot" rel="http://gatherer.wizards.com/Handlers/Image.ashx?type=card&multiverseid=4265" href="/cards/17831">Ingenious Thief</a>&nbsp;(U)</td><td class='right'>$0.18</td></tr>
+<tr><td><a class="screenshot" rel="http://gatherer.wizards.com/Handlers/Image.ashx?type=card&multiverseid=4423" href="/cards/17832">Island</a>&nbsp;(L)</td><td class='right'>$0.33</td></tr>
+<tr><td><a class="screenshot" rel="http://i.tcgplayer.com/701.jpg" href="/cards/23719">Island (207)</a>&nbsp;(L)</td><td class='right'>$0.40</td></tr>
+<tr><td><a class="screenshot" rel="http://i.tcgplayer.com/21588.jpg" href="/cards/23720">Island (208)</a>&nbsp;(L)</td><td class='right'>$0.75</td></tr>
+<tr><td><a class="screenshot" rel="http://i.tcgplayer.com/21589.jpg" href="/cards/23721">Island (209)</a>&nbsp;(L)</td><td class='right'>$0.63</td></tr>
+<tr><td><a class="screenshot" rel="http://i.tcgplayer.com/21590.jpg" href="/cards/23722">Island (210)</a>&nbsp;(L)</td><td class='right'>$0.63</td></tr>
+<tr><td><a class="screenshot" rel="http://i.tcgplayer.com/21589.jpg" href="/cards/28115">Island (Beach Right)</a>&nbsp;(L)</td><td class='right'>$0.64</td></tr>
+<tr><td><a class="screenshot" rel="http://i.tcgplayer.com/21588.jpg" href="/cards/28116">Island (Castle Cove)</a>&nbsp;(L)</td><td class='right'>$0.65</td></tr>
+<tr><td><a class="screenshot" rel="http://i.tcgplayer.com/21590.jpg" href="/cards/28117">Island (Sea Arch)</a>&nbsp;(L)</td><td class='right'>$0.69</td></tr>
+<tr><td><a class="screenshot" rel="http://i.tcgplayer.com/701.jpg" href="/cards/28118">Island (Waterfall)</a>&nbsp;(L)</td><td class='right'>$0.40</td></tr>
+<tr><td><a class="screenshot" rel="http://i.tcgplayer.com/21588.jpg" href="/cards/17833">Island [Version 2]</a>&nbsp;(L)</td><td class='right'>$1.00</td></tr>
+<tr><td><a class="screenshot" rel="http://i.tcgplayer.com/21589.jpg" href="/cards/17834">Island [Version 3]</a>&nbsp;(L)</td><td class='right'>$1.00</td></tr>
+<tr><td><a class="screenshot" rel="http://i.tcgplayer.com/21590.jpg" href="/cards/17835">Island [Version 4]</a>&nbsp;(L)</td><td class='right'>$1.00</td></tr>
+<tr><td><a class="screenshot" rel="http://gatherer.wizards.com/Handlers/Image.ashx?type=card&multiverseid=4302" href="/cards/17836">Jungle Lion</a>&nbsp;(C)</td><td class='right'>$0.99</td></tr>
+<tr><td><a class="screenshot" rel="http://gatherer.wizards.com/Handlers/Image.ashx?type=card&multiverseid=4387" href="/cards/17837">Keen-Eyed Archers</a>&nbsp;(C)</td><td class='right'>$0.16</td></tr>
+<tr><td><a class="screenshot" rel="http://gatherer.wizards.com/Handlers/Image.ashx?type=card&multiverseid=4227" href="/cards/17838">King&#39;s Assassin</a>&nbsp;(R)</td><td class='right'>$3.36</td></tr>
+<tr><td><a class="screenshot" rel="http://gatherer.wizards.com/Handlers/Image.ashx?type=card&multiverseid=4388" href="/cards/17839">Knight Errant</a>&nbsp;(C)</td><td class='right'>$0.18</td></tr>
+<tr><td><a class="screenshot" rel="http://gatherer.wizards.com/Handlers/Image.ashx?type=card&multiverseid=4347" href="/cards/17840">Last Chance</a>&nbsp;(R)</td><td class='right'>$3.64</td></tr>
+<tr><td><a class="screenshot" rel="http://gatherer.wizards.com/Handlers/Image.ashx?type=card&multiverseid=4348" href="/cards/17841">Lava Axe</a>&nbsp;(C)</td><td class='right'>$0.15</td></tr>
+<tr><td><a class="screenshot" rel="http://gatherer.wizards.com/Handlers/Image.ashx?type=card&multiverseid=4349" href="/cards/17842">Lava Flow</a>&nbsp;(U)</td><td class='right'>$0.24</td></tr>
+<tr><td><a class="screenshot" rel="http://gatherer.wizards.com/Handlers/Image.ashx?type=card&multiverseid=4350" href="/cards/17843">Lizard Warrior</a>&nbsp;(C)</td><td class='right'>$0.15</td></tr>
+<tr><td><a class="screenshot" rel="http://gatherer.wizards.com/Handlers/Image.ashx?type=card&multiverseid=4266" href="/cards/17844">Man-o&#39;-War</a>&nbsp;(U)</td><td class='right'>$0.49</td></tr>
+<tr><td><a class="screenshot" rel="http://gatherer.wizards.com/Handlers/Image.ashx?type=card&multiverseid=4228" href="/cards/17845">Mercenary Knight</a>&nbsp;(R)</td><td class='right'>$5.38</td></tr>
+<tr><td><a class="screenshot" rel="http://gatherer.wizards.com/Handlers/Image.ashx?type=card&multiverseid=4267" href="/cards/17846">Merfolk of the Pearl Trident</a>&nbsp;(C)</td><td class='right'>$0.17</td></tr>
+<tr><td><a class="screenshot" rel="http://gatherer.wizards.com/Handlers/Image.ashx?type=card&multiverseid=4229" href="/cards/17847">Mind Knives</a>&nbsp;(C)</td><td class='right'>$0.16</td></tr>
+<tr><td><a class="screenshot" rel="http://gatherer.wizards.com/Handlers/Image.ashx?type=card&multiverseid=4230" href="/cards/17848">Mind Rot</a>&nbsp;(C)</td><td class='right'>$0.16</td></tr>
+<tr><td><a class="screenshot" rel="http://gatherer.wizards.com/Handlers/Image.ashx?type=card&multiverseid=4351" href="/cards/17849">Minotaur Warrior</a>&nbsp;(C)</td><td class='right'>$0.16</td></tr>
+<tr><td><a class="screenshot" rel="http://gatherer.wizards.com/Handlers/Image.ashx?type=card&multiverseid=4303" href="/cards/17850">Mobilize</a>&nbsp;(C)</td><td class='right'>$0.37</td></tr>
+<tr><td><a class="screenshot" rel="http://gatherer.wizards.com/Handlers/Image.ashx?type=card&multiverseid=4305" href="/cards/17851">Monstrous Growth</a>&nbsp;(C)</td><td class='right'>$0.18</td></tr>
+<tr><td><a class="screenshot" rel="http://i.tcgplayer.com/21591.jpg" href="/cards/28119">Monstrous Growth (Flavor Text)</a>&nbsp;(C)</td><td class='right'>$0.18</td></tr>
+<tr><td><a class="screenshot" rel="http://i.tcgplayer.com/21591.jpg" href="/cards/17852">Monstrous Growth [Version 2]</a>&nbsp;(C)</td><td class='right'>$0.09</td></tr>
+<tr><td><a class="screenshot" rel="http://gatherer.wizards.com/Handlers/Image.ashx?type=card&multiverseid=4306" href="/cards/17853">Moon Sprite</a>&nbsp;(U)</td><td class='right'>$0.24</td></tr>
+<tr><td><a class="screenshot" rel="http://gatherer.wizards.com/Handlers/Image.ashx?type=card&multiverseid=4419" href="/cards/17854">Mountain</a>&nbsp;(L)</td><td class='right'>$0.25</td></tr>
+<tr><td><a class="screenshot" rel="http://i.tcgplayer.com/723.jpg" href="/cards/23723">Mountain (211)</a>&nbsp;(L)</td><td class='right'>$0.44</td></tr>
+<tr><td><a class="screenshot" rel="http://i.tcgplayer.com/21592.jpg" href="/cards/23724">Mountain (212)</a>&nbsp;(L)</td><td class='right'>$0.42</td></tr>
+<tr><td><a class="screenshot" rel="http://i.tcgplayer.com/21593.jpg" href="/cards/23725">Mountain (213)</a>&nbsp;(L)</td><td class='right'>$0.54</td></tr>
+<tr><td><a class="screenshot" rel="http://i.tcgplayer.com/21594.jpg" href="/cards/23727">Mountain (214)</a>&nbsp;(L)</td><td class='right'>$0.75</td></tr>
+<tr><td><a class="screenshot" rel="http://i.tcgplayer.com/723.jpg" href="/cards/28120">Mountain (Middle Chasm)</a>&nbsp;(L)</td><td class='right'>$0.46</td></tr>
+<tr><td><a class="screenshot" rel="http://i.tcgplayer.com/21592.jpg" href="/cards/28121">Mountain (Peaks Right)</a>&nbsp;(L)</td><td class='right'>$0.47</td></tr>
+<tr><td><a class="screenshot" rel="http://i.tcgplayer.com/21594.jpg" href="/cards/28122">Mountain (Three Peaks)</a>&nbsp;(L)</td><td class='right'>$0.95</td></tr>
+<tr><td><a class="screenshot" rel="http://i.tcgplayer.com/21593.jpg" href="/cards/28123">Mountain (Trees Center)</a>&nbsp;(L)</td><td class='right'>$0.65</td></tr>
+<tr><td><a class="screenshot" rel="http://gatherer.wizards.com/Handlers/Image.ashx?type=card&multiverseid=4352" href="/cards/17858">Mountain Goat</a>&nbsp;(U)</td><td class='right'>$0.20</td></tr>
+<tr><td><a class="screenshot" rel="http://i.tcgplayer.com/21592.jpg" href="/cards/17855">Mountain [Version 2]</a>&nbsp;(L)</td><td class='right'>$0.89</td></tr>
+<tr><td><a class="screenshot" rel="http://i.tcgplayer.com/21593.jpg" href="/cards/17856">Mountain [Version 3]</a>&nbsp;(L)</td><td class='right'>$1.00</td></tr>
+<tr><td><a class="screenshot" rel="http://i.tcgplayer.com/726.jpg" href="/cards/17857">Mountain [Version 4]</a>&nbsp;(L)</td><td class='right'>$1.00</td></tr>
+<tr><td><a class="screenshot" rel="http://gatherer.wizards.com/Handlers/Image.ashx?type=card&multiverseid=4231" href="/cards/17859">Muck Rats</a>&nbsp;(C)</td><td class='right'>$0.16</td></tr>
+<tr><td><a class="screenshot" rel="http://gatherer.wizards.com/Handlers/Image.ashx?type=card&multiverseid=4268" href="/cards/17860">Mystic Denial</a>&nbsp;(U)</td><td class='right'>$0.28</td></tr>
+<tr><td><a class="screenshot" rel="http://gatherer.wizards.com/Handlers/Image.ashx?type=card&multiverseid=4307" href="/cards/17861">Natural Order</a>&nbsp;(R)</td><td class='right'>$35.99</td></tr>
+<tr><td><a class="screenshot" rel="http://gatherer.wizards.com/Handlers/Image.ashx?type=card&multiverseid=4308" href="/cards/17862">Natural Spring</a>&nbsp;(U)</td><td class='right'>$0.19</td></tr>
+<tr><td><a class="screenshot" rel="http://gatherer.wizards.com/Handlers/Image.ashx?type=card&multiverseid=4309" href="/cards/17863">Nature&#39;s Cloak</a>&nbsp;(R)</td><td class='right'>$0.97</td></tr>
+<tr><td><a class="screenshot" rel="http://gatherer.wizards.com/Handlers/Image.ashx?type=card&multiverseid=4310" href="/cards/17864">Nature&#39;s Lore</a>&nbsp;(C)</td><td class='right'>$0.80</td></tr>
+<tr><td><a class="screenshot" rel="http://gatherer.wizards.com/Handlers/Image.ashx?type=card&multiverseid=4232" href="/cards/17865">Nature&#39;s Ruin</a>&nbsp;(U)</td><td class='right'>$1.81</td></tr>
+<tr><td><a class="screenshot" rel="http://gatherer.wizards.com/Handlers/Image.ashx?type=card&multiverseid=4311" href="/cards/17866">Needle Storm</a>&nbsp;(U)</td><td class='right'>$0.23</td></tr>
+<tr><td><a class="screenshot" rel="http://gatherer.wizards.com/Handlers/Image.ashx?type=card&multiverseid=4233" href="/cards/17867">Noxious Toad</a>&nbsp;(U)</td><td class='right'>$0.41</td></tr>
+<tr><td><a class="screenshot" rel="http://gatherer.wizards.com/Handlers/Image.ashx?type=card&multiverseid=4269" href="/cards/17868">Omen</a>&nbsp;(C)</td><td class='right'>$0.25</td></tr>
+<tr><td><a class="screenshot" rel="http://gatherer.wizards.com/Handlers/Image.ashx?type=card&multiverseid=4270" href="/cards/17869">Owl Familiar</a>&nbsp;(C)</td><td class='right'>$0.19</td></tr>
+<tr><td><a class="screenshot" rel="http://gatherer.wizards.com/Handlers/Image.ashx?type=card&multiverseid=9845" href="/cards/17870">Panther Warriors</a>&nbsp;(C)</td><td class='right'>$0.17</td></tr>
+<tr><td><a class="screenshot" rel="http://gatherer.wizards.com/Handlers/Image.ashx?type=card&multiverseid=4389" href="/cards/17871">Path of Peace</a>&nbsp;(C)</td><td class='right'>$0.16</td></tr>
+<tr><td><a class="screenshot" rel="http://gatherer.wizards.com/Handlers/Image.ashx?type=card&multiverseid=4271" href="/cards/17872">Personal Tutor</a>&nbsp;(U)</td><td class='right'>$14.03</td></tr>
+<tr><td><a class="screenshot" rel="http://gatherer.wizards.com/Handlers/Image.ashx?type=card&multiverseid=4272" href="/cards/17873">Phantom Warrior</a>&nbsp;(R)</td><td class='right'>$0.67</td></tr>
+<tr><td><a class="screenshot" rel="http://gatherer.wizards.com/Handlers/Image.ashx?type=card&multiverseid=4353" href="/cards/17874">Pillaging Horde</a>&nbsp;(R)</td><td class='right'>$0.75</td></tr>
+<tr><td><a class="screenshot" rel="http://gatherer.wizards.com/Handlers/Image.ashx?type=card&multiverseid=4427" href="/cards/17875">Plains</a>&nbsp;(L)</td><td class='right'>$0.28</td></tr>
+<tr><td><a class="screenshot" rel="http://i.tcgplayer.com/744.jpg" href="/cards/23730">Plains (215)</a>&nbsp;(L)</td><td class='right'>$0.39</td></tr>
+<tr><td><a class="screenshot" rel="http://i.tcgplayer.com/21595.jpg" href="/cards/23731">Plains (216)</a>&nbsp;(L)</td><td class='right'>$0.75</td></tr>
+<tr><td><a class="screenshot" rel="http://i.tcgplayer.com/21596.jpg" href="/cards/23733">Plains (217)</a>&nbsp;(L)</td><td class='right'>$0.49</td></tr>
+<tr><td><a class="screenshot" rel="http://i.tcgplayer.com/21597.jpg" href="/cards/23735">Plains (218)</a>&nbsp;(L)</td><td class='right'>$0.55</td></tr>
+<tr><td><a class="screenshot" rel="http://i.tcgplayer.com/21597.jpg" href="/cards/28124">Plains (Clouds Left)</a>&nbsp;(L)</td><td class='right'>$0.49</td></tr>
+<tr><td><a class="screenshot" rel="http://i.tcgplayer.com/744.jpg" href="/cards/28125">Plains (Clouds Right)</a>&nbsp;(L)</td><td class='right'>$0.41</td></tr>
+<tr><td><a class="screenshot" rel="http://i.tcgplayer.com/21596.jpg" href="/cards/28126">Plains (No Flowers)</a>&nbsp;(L)</td><td class='right'>$0.58</td></tr>
+<tr><td><a class="screenshot" rel="http://i.tcgplayer.com/21595.jpg" href="/cards/28127">Plains (White Sky)</a>&nbsp;(L)</td><td class='right'>$0.75</td></tr>
+<tr><td><a class="screenshot" rel="http://i.tcgplayer.com/21595.jpg" href="/cards/17876">Plains [Version 2]</a>&nbsp;(L)</td><td class='right'>$1.00</td></tr>
+<tr><td><a class="screenshot" rel="http://i.tcgplayer.com/746.jpg" href="/cards/17877">Plains [Version 3]</a>&nbsp;(L)</td><td class='right'>N/A</td></tr>
+<tr><td><a class="screenshot" rel="http://i.tcgplayer.com/21597.jpg" href="/cards/17878">Plains [Version 4]</a>&nbsp;(L)</td><td class='right'>$1.00</td></tr>
+<tr><td><a class="screenshot" rel="http://gatherer.wizards.com/Handlers/Image.ashx?type=card&multiverseid=4313" href="/cards/17879">Plant Elemental</a>&nbsp;(U)</td><td class='right'>$0.47</td></tr>
+<tr><td><a class="screenshot" rel="http://gatherer.wizards.com/Handlers/Image.ashx?type=card&multiverseid=4314" href="/cards/17880">Primeval Force</a>&nbsp;(R)</td><td class='right'>$0.57</td></tr>
+</table>
+</div>
+<div class='col-md-4 col-xs-12 col-sm-12'>
+<table class='table table-striped table-condensed' style='width: 100%;'>
+<tr><td><a class="screenshot" rel="http://gatherer.wizards.com/Handlers/Image.ashx?type=card&multiverseid=4273" href="/cards/17881">Prosperity</a>&nbsp;(R)</td><td class='right'>$1.41</td></tr>
+<tr><td><a class="screenshot" rel="http://gatherer.wizards.com/Handlers/Image.ashx?type=card&multiverseid=4354" href="/cards/17882">Pyroclasm</a>&nbsp;(R)</td><td class='right'>$2.77</td></tr>
+<tr><td><a class="screenshot" rel="http://gatherer.wizards.com/Handlers/Image.ashx?type=card&multiverseid=4234" href="/cards/17883">Python</a>&nbsp;(C)</td><td class='right'>$0.17</td></tr>
+<tr><td><a class="screenshot" rel="http://gatherer.wizards.com/Handlers/Image.ashx?type=card&multiverseid=4355" href="/cards/17884">Raging Cougar</a>&nbsp;(C)</td><td class='right'>$0.16</td></tr>
+<tr><td><a class="screenshot" rel="http://gatherer.wizards.com/Handlers/Image.ashx?type=card&multiverseid=4357" href="/cards/17885">Raging Goblin</a>&nbsp;(C)</td><td class='right'>$0.40</td></tr>
+<tr><td><a class="screenshot" rel="http://i.tcgplayer.com/754.jpg" href="/cards/28128">Raging Goblin (Flavor Text)</a>&nbsp;(C)</td><td class='right'>$0.19</td></tr>
+<tr><td><a class="screenshot" rel="http://i.tcgplayer.com/21598.jpg" href="/cards/17886">Raging Goblin [Version 2]</a>&nbsp;(C)</td><td class='right'>$4.50</td></tr>
+<tr><td><a class="screenshot" rel="http://gatherer.wizards.com/Handlers/Image.ashx?type=card&multiverseid=4358" href="/cards/17887">Raging Minotaur</a>&nbsp;(C)</td><td class='right'>$0.17</td></tr>
+<tr><td><a class="screenshot" rel="http://gatherer.wizards.com/Handlers/Image.ashx?type=card&multiverseid=4359" href="/cards/17888">Rain of Salt</a>&nbsp;(U)</td><td class='right'>$0.31</td></tr>
+<tr><td><a class="screenshot" rel="http://gatherer.wizards.com/Handlers/Image.ashx?type=card&multiverseid=4235" href="/cards/17889">Rain of Tears</a>&nbsp;(U)</td><td class='right'>$0.48</td></tr>
+<tr><td><a class="screenshot" rel="http://gatherer.wizards.com/Handlers/Image.ashx?type=card&multiverseid=4236" href="/cards/17890">Raise Dead</a>&nbsp;(C)</td><td class='right'>$0.16</td></tr>
+<tr><td><a class="screenshot" rel="http://gatherer.wizards.com/Handlers/Image.ashx?type=card&multiverseid=4315" href="/cards/17891">Redwood Treefolk</a>&nbsp;(C)</td><td class='right'>$0.17</td></tr>
+<tr><td><a class="screenshot" rel="http://gatherer.wizards.com/Handlers/Image.ashx?type=card&multiverseid=4390" href="/cards/17892">Regal Unicorn</a>&nbsp;(C)</td><td class='right'>$0.16</td></tr>
+<tr><td><a class="screenshot" rel="http://gatherer.wizards.com/Handlers/Image.ashx?type=card&multiverseid=4391" href="/cards/17893">Renewing Dawn</a>&nbsp;(U)</td><td class='right'>$0.22</td></tr>
+<tr><td><a class="screenshot" rel="http://gatherer.wizards.com/Handlers/Image.ashx?type=card&multiverseid=4316" href="/cards/17894">Rowan Treefolk</a>&nbsp;(C)</td><td class='right'>$0.16</td></tr>
+<tr><td><a class="screenshot" rel="http://gatherer.wizards.com/Handlers/Image.ashx?type=card&multiverseid=4392" href="/cards/17895">Sacred Knight</a>&nbsp;(C)</td><td class='right'>$0.17</td></tr>
+<tr><td><a class="screenshot" rel="http://gatherer.wizards.com/Handlers/Image.ashx?type=card&multiverseid=4393" href="/cards/17896">Sacred Nectar</a>&nbsp;(C)</td><td class='right'>$0.16</td></tr>
+<tr><td><a class="screenshot" rel="http://gatherer.wizards.com/Handlers/Image.ashx?type=card&multiverseid=4360" href="/cards/17897">Scorching Spear</a>&nbsp;(C)</td><td class='right'>$0.17</td></tr>
+<tr><td><a class="screenshot" rel="http://gatherer.wizards.com/Handlers/Image.ashx?type=card&multiverseid=4361" href="/cards/17898">Scorching Winds</a>&nbsp;(U)</td><td class='right'>$0.22</td></tr>
+<tr><td><a class="screenshot" rel="http://gatherer.wizards.com/Handlers/Image.ashx?type=card&multiverseid=4394" href="/cards/17899">Seasoned Marshal</a>&nbsp;(U)</td><td class='right'>$0.21</td></tr>
+<tr><td><a class="screenshot" rel="http://gatherer.wizards.com/Handlers/Image.ashx?type=card&multiverseid=4237" href="/cards/17900">Serpent Assassin</a>&nbsp;(R)</td><td class='right'>$1.83</td></tr>
+<tr><td><a class="screenshot" rel="http://gatherer.wizards.com/Handlers/Image.ashx?type=card&multiverseid=4238" href="/cards/17901">Serpent Warrior</a>&nbsp;(C)</td><td class='right'>$0.16</td></tr>
+<tr><td><a class="screenshot" rel="http://gatherer.wizards.com/Handlers/Image.ashx?type=card&multiverseid=4239" href="/cards/17902">Skeletal Crocodile</a>&nbsp;(C)</td><td class='right'>$0.16</td></tr>
+<tr><td><a class="screenshot" rel="http://gatherer.wizards.com/Handlers/Image.ashx?type=card&multiverseid=4240" href="/cards/17903">Skeletal Snake</a>&nbsp;(C)</td><td class='right'>$0.16</td></tr>
+<tr><td><a class="screenshot" rel="http://gatherer.wizards.com/Handlers/Image.ashx?type=card&multiverseid=4274" href="/cards/17904">Snapping Drake</a>&nbsp;(C)</td><td class='right'>$0.16</td></tr>
+<tr><td><a class="screenshot" rel="http://gatherer.wizards.com/Handlers/Image.ashx?type=card&multiverseid=4275" href="/cards/17905">Sorcerous Sight</a>&nbsp;(C)</td><td class='right'>$0.20</td></tr>
+<tr><td><a class="screenshot" rel="http://gatherer.wizards.com/Handlers/Image.ashx?type=card&multiverseid=4241" href="/cards/17906">Soul Shred</a>&nbsp;(C)</td><td class='right'>$0.17</td></tr>
+<tr><td><a class="screenshot" rel="http://gatherer.wizards.com/Handlers/Image.ashx?type=card&multiverseid=4317" href="/cards/17907">Spined Wurm</a>&nbsp;(C)</td><td class='right'>$0.15</td></tr>
+<tr><td><a class="screenshot" rel="http://gatherer.wizards.com/Handlers/Image.ashx?type=card&multiverseid=4395" href="/cards/17908">Spiritual Guardian</a>&nbsp;(R)</td><td class='right'>$0.66</td></tr>
+<tr><td><a class="screenshot" rel="http://gatherer.wizards.com/Handlers/Image.ashx?type=card&multiverseid=4362" href="/cards/17909">Spitting Earth</a>&nbsp;(C)</td><td class='right'>$0.16</td></tr>
+<tr><td><a class="screenshot" rel="http://gatherer.wizards.com/Handlers/Image.ashx?type=card&multiverseid=4396" href="/cards/17910">Spotted Griffin</a>&nbsp;(C)</td><td class='right'>$0.16</td></tr>
+<tr><td><a class="screenshot" rel="http://gatherer.wizards.com/Handlers/Image.ashx?type=card&multiverseid=4318" href="/cards/17911">Stalking Tiger</a>&nbsp;(C)</td><td class='right'>$0.17</td></tr>
+<tr><td><a class="screenshot" rel="http://gatherer.wizards.com/Handlers/Image.ashx?type=card&multiverseid=4397" href="/cards/17912">Starlight</a>&nbsp;(U)</td><td class='right'>$0.20</td></tr>
+<tr><td><a class="screenshot" rel="http://gatherer.wizards.com/Handlers/Image.ashx?type=card&multiverseid=4398" href="/cards/17913">Starlit Angel</a>&nbsp;(U)</td><td class='right'>$1.14</td></tr>
+<tr><td><a class="screenshot" rel="http://gatherer.wizards.com/Handlers/Image.ashx?type=card&multiverseid=4399" href="/cards/17914">Steadfastness</a>&nbsp;(C)</td><td class='right'>$0.17</td></tr>
+<tr><td><a class="screenshot" rel="http://gatherer.wizards.com/Handlers/Image.ashx?type=card&multiverseid=4400" href="/cards/17915">Stern Marshal</a>&nbsp;(R)</td><td class='right'>$0.74</td></tr>
+<tr><td><a class="screenshot" rel="http://gatherer.wizards.com/Handlers/Image.ashx?type=card&multiverseid=4363" href="/cards/17916">Stone Rain</a>&nbsp;(C)</td><td class='right'>$0.19</td></tr>
+<tr><td><a class="screenshot" rel="http://gatherer.wizards.com/Handlers/Image.ashx?type=card&multiverseid=4276" href="/cards/17917">Storm Crow</a>&nbsp;(C)</td><td class='right'>$0.18</td></tr>
+<tr><td><a class="screenshot" rel="http://gatherer.wizards.com/Handlers/Image.ashx?type=card&multiverseid=4319" href="/cards/17918">Summer Bloom</a>&nbsp;(R)</td><td class='right'>$6.19</td></tr>
+<tr><td><a class="screenshot" rel="http://gatherer.wizards.com/Handlers/Image.ashx?type=card&multiverseid=4411" href="/cards/17919">Swamp</a>&nbsp;(L)</td><td class='right'>$0.29</td></tr>
+<tr><td><a class="screenshot" rel="http://i.tcgplayer.com/788.jpg" href="/cards/23740">Swamp (219)</a>&nbsp;(L)</td><td class='right'>$0.38</td></tr>
+<tr><td><a class="screenshot" rel="http://i.tcgplayer.com/21599.jpg" href="/cards/23741">Swamp (220)</a>&nbsp;(L)</td><td class='right'>$0.47</td></tr>
+<tr><td><a class="screenshot" rel="http://i.tcgplayer.com/21600.jpg" href="/cards/23743">Swamp (221)</a>&nbsp;(L)</td><td class='right'>$0.41</td></tr>
+<tr><td><a class="screenshot" rel="http://i.tcgplayer.com/21601.jpg" href="/cards/23745">Swamp (222)</a>&nbsp;(L)</td><td class='right'>$0.60</td></tr>
+<tr><td><a class="screenshot" rel="http://i.tcgplayer.com/21599.jpg" href="/cards/28129">Swamp (Crossed Trees)</a>&nbsp;(L)</td><td class='right'>$0.49</td></tr>
+<tr><td><a class="screenshot" rel="http://i.tcgplayer.com/788.jpg" href="/cards/28130">Swamp (Hanging Moss)</a>&nbsp;(L)</td><td class='right'>$0.33</td></tr>
+<tr><td><a class="screenshot" rel="http://i.tcgplayer.com/21600.jpg" href="/cards/28131">Swamp (White Tree)</a>&nbsp;(L)</td><td class='right'>$0.78</td></tr>
+<tr><td><a class="screenshot" rel="http://i.tcgplayer.com/21601.jpg" href="/cards/28132">Swamp (Yellow Sun)</a>&nbsp;(L)</td><td class='right'>$1.64</td></tr>
+<tr><td><a class="screenshot" rel="http://i.tcgplayer.com/789.jpg" href="/cards/17920">Swamp [Version 2]</a>&nbsp;(L)</td><td class='right'>N/A</td></tr>
+<tr><td><a class="screenshot" rel="http://i.tcgplayer.com/790.jpg" href="/cards/17921">Swamp [Version 3]</a>&nbsp;(L)</td><td class='right'>$1.00</td></tr>
+<tr><td><a class="screenshot" rel="http://i.tcgplayer.com/791.jpg" href="/cards/17922">Swamp [Version 4]</a>&nbsp;(L)</td><td class='right'>N/A</td></tr>
+<tr><td><a class="screenshot" rel="http://gatherer.wizards.com/Handlers/Image.ashx?type=card&multiverseid=4320" href="/cards/17923">Sylvan Tutor</a>&nbsp;(R)</td><td class='right'>$22.00</td></tr>
+<tr><td><a class="screenshot" rel="http://gatherer.wizards.com/Handlers/Image.ashx?type=card&multiverseid=4277" href="/cards/17924">Symbol of Unsummoning</a>&nbsp;(C)</td><td class='right'>$0.16</td></tr>
+<tr><td><a class="screenshot" rel="http://gatherer.wizards.com/Handlers/Image.ashx?type=card&multiverseid=4278" href="/cards/17925">Taunt</a>&nbsp;(R)</td><td class='right'>$0.74</td></tr>
+<tr><td><a class="screenshot" rel="http://gatherer.wizards.com/Handlers/Image.ashx?type=card&multiverseid=4401" href="/cards/17926">Temporary Truce</a>&nbsp;(R)</td><td class='right'>$2.30</td></tr>
+<tr><td><a class="screenshot" rel="http://gatherer.wizards.com/Handlers/Image.ashx?type=card&multiverseid=4279" href="/cards/17927">Theft of Dreams</a>&nbsp;(U)</td><td class='right'>$0.24</td></tr>
+<tr><td><a class="screenshot" rel="http://gatherer.wizards.com/Handlers/Image.ashx?type=card&multiverseid=4280" href="/cards/17928">Thing from the Deep</a>&nbsp;(R)</td><td class='right'>$0.99</td></tr>
+<tr><td><a class="screenshot" rel="http://gatherer.wizards.com/Handlers/Image.ashx?type=card&multiverseid=4321" href="/cards/17929">Thundering Wurm</a>&nbsp;(R)</td><td class='right'>$1.27</td></tr>
+<tr><td><a class="screenshot" rel="http://gatherer.wizards.com/Handlers/Image.ashx?type=card&multiverseid=4364" href="/cards/17930">Thundermare</a>&nbsp;(R)</td><td class='right'>$0.85</td></tr>
+<tr><td><a class="screenshot" rel="http://gatherer.wizards.com/Handlers/Image.ashx?type=card&multiverseid=4281" href="/cards/17931">Tidal Surge</a>&nbsp;(C)</td><td class='right'>$0.18</td></tr>
+<tr><td><a class="screenshot" rel="http://gatherer.wizards.com/Handlers/Image.ashx?type=card&multiverseid=4282" href="/cards/17932">Time Ebb</a>&nbsp;(C)</td><td class='right'>$0.17</td></tr>
+<tr><td><a class="screenshot" rel="http://gatherer.wizards.com/Handlers/Image.ashx?type=card&multiverseid=4283" href="/cards/17933">Touch of Brilliance</a>&nbsp;(C)</td><td class='right'>$0.17</td></tr>
+<tr><td><a class="screenshot" rel="http://gatherer.wizards.com/Handlers/Image.ashx?type=card&multiverseid=4322" href="/cards/17934">Treetop Defense</a>&nbsp;(R)</td><td class='right'>$0.75</td></tr>
+<tr><td><a class="screenshot" rel="http://gatherer.wizards.com/Handlers/Image.ashx?type=card&multiverseid=4242" href="/cards/17935">Undying Beast</a>&nbsp;(C)</td><td class='right'>$0.16</td></tr>
+<tr><td><a class="screenshot" rel="http://gatherer.wizards.com/Handlers/Image.ashx?type=card&multiverseid=4323" href="/cards/17936">Untamed Wilds</a>&nbsp;(U)</td><td class='right'>$0.19</td></tr>
+<tr><td><a class="screenshot" rel="http://gatherer.wizards.com/Handlers/Image.ashx?type=card&multiverseid=4402" href="/cards/17937">Valorous Charge</a>&nbsp;(U)</td><td class='right'>$0.21</td></tr>
+<tr><td><a class="screenshot" rel="http://gatherer.wizards.com/Handlers/Image.ashx?type=card&multiverseid=4243" href="/cards/17938">Vampiric Feast</a>&nbsp;(U)</td><td class='right'>$0.24</td></tr>
+<tr><td><a class="screenshot" rel="http://gatherer.wizards.com/Handlers/Image.ashx?type=card&multiverseid=4244" href="/cards/17939">Vampiric Touch</a>&nbsp;(C)</td><td class='right'>$0.16</td></tr>
+<tr><td><a class="screenshot" rel="http://gatherer.wizards.com/Handlers/Image.ashx?type=card&multiverseid=4403" href="/cards/17940">Venerable Monk</a>&nbsp;(U)</td><td class='right'>$0.18</td></tr>
+<tr><td><a class="screenshot" rel="http://gatherer.wizards.com/Handlers/Image.ashx?type=card&multiverseid=4404" href="/cards/17941">Vengeance</a>&nbsp;(U)</td><td class='right'>$0.20</td></tr>
+<tr><td><a class="screenshot" rel="http://gatherer.wizards.com/Handlers/Image.ashx?type=card&multiverseid=4245" href="/cards/17942">Virtue&#39;s Ruin</a>&nbsp;(U)</td><td class='right'>$3.50</td></tr>
+<tr><td><a class="screenshot" rel="http://gatherer.wizards.com/Handlers/Image.ashx?type=card&multiverseid=4365" href="/cards/17943">Volcanic Dragon</a>&nbsp;(R)</td><td class='right'>$1.28</td></tr>
+<tr><td><a class="screenshot" rel="http://gatherer.wizards.com/Handlers/Image.ashx?type=card&multiverseid=4366" href="/cards/17944">Volcanic Hammer</a>&nbsp;(C)</td><td class='right'>$0.19</td></tr>
+<tr><td><a class="screenshot" rel="http://gatherer.wizards.com/Handlers/Image.ashx?type=card&multiverseid=4367" href="/cards/17945">Wall of Granite</a>&nbsp;(U)</td><td class='right'>$0.26</td></tr>
+<tr><td><a class="screenshot" rel="http://gatherer.wizards.com/Handlers/Image.ashx?type=card&multiverseid=4405" href="/cards/17946">Wall of Swords</a>&nbsp;(U)</td><td class='right'>$0.25</td></tr>
+<tr><td><a class="screenshot" rel="http://gatherer.wizards.com/Handlers/Image.ashx?type=card&multiverseid=4407" href="/cards/17947">Warrior&#39;s Charge</a>&nbsp;(C)</td><td class='right'>$0.47</td></tr>
+<tr><td><a class="screenshot" rel="http://i.tcgplayer.com/816.jpg" href="/cards/28133">Warrior&#39;s Charge (Flavor Text)</a>&nbsp;(C)</td><td class='right'>$0.17</td></tr>
+<tr><td><a class="screenshot" rel="http://i.tcgplayer.com/21602.jpg" href="/cards/17948">Warrior&#39;s Charge [Version 2]</a>&nbsp;(C)</td><td class='right'>$0.94</td></tr>
+<tr><td><a class="screenshot" rel="http://gatherer.wizards.com/Handlers/Image.ashx?type=card&multiverseid=4324" href="/cards/17949">Whiptail Wurm</a>&nbsp;(U)</td><td class='right'>$0.24</td></tr>
+<tr><td><a class="screenshot" rel="http://gatherer.wizards.com/Handlers/Image.ashx?type=card&multiverseid=4246" href="/cards/17950">Wicked Pact</a>&nbsp;(R)</td><td class='right'>$0.83</td></tr>
+<tr><td><a class="screenshot" rel="http://gatherer.wizards.com/Handlers/Image.ashx?type=card&multiverseid=4325" href="/cards/17951">Willow Dryad</a>&nbsp;(C)</td><td class='right'>$0.19</td></tr>
+<tr><td><a class="screenshot" rel="http://gatherer.wizards.com/Handlers/Image.ashx?type=card&multiverseid=4284" href="/cards/17952">Wind Drake</a>&nbsp;(C)</td><td class='right'>$0.17</td></tr>
+<tr><td><a class="screenshot" rel="http://gatherer.wizards.com/Handlers/Image.ashx?type=card&multiverseid=4368" href="/cards/17953">Winds of Change</a>&nbsp;(R)</td><td class='right'>$4.53</td></tr>
+<tr><td><a class="screenshot" rel="http://gatherer.wizards.com/Handlers/Image.ashx?type=card&multiverseid=4326" href="/cards/17954">Winter&#39;s Grasp</a>&nbsp;(U)</td><td class='right'>$0.59</td></tr>
+<tr><td><a class="screenshot" rel="http://gatherer.wizards.com/Handlers/Image.ashx?type=card&multiverseid=4285" href="/cards/17955">Withering Gaze</a>&nbsp;(U)</td><td class='right'>$0.22</td></tr>
+<tr><td><a class="screenshot" rel="http://gatherer.wizards.com/Handlers/Image.ashx?type=card&multiverseid=4327" href="/cards/17956">Wood Elves</a>&nbsp;(R)</td><td class='right'>$3.22</td></tr>
+<tr><td><a class="screenshot" rel="http://gatherer.wizards.com/Handlers/Image.ashx?type=card&multiverseid=4408" href="/cards/17957">Wrath of God</a>&nbsp;(R)</td><td class='right'>$7.65</td></tr>
+</table>
+</div>
+</div>
+</div>
+<br>
+<br>
+
+</div>
+<div class='col-md-1 visible-lg visible-md'>
+<div class='row center-div'>
+<a target="_blank" href="https://www.facebook.com/pages/MTGStocks/544557475576782"><img alt="Find us on Facebook!" src="/assets/facebook32-d0cc384ce2fc0184db4ff2e563f36adc.png" /></a>
+<a target="_blank" href="http://www.twitter.com/mtgstocks"><img alt="Find us on Twitter!" src="/assets/twitter32-9bc440ca3553238caea7f9fe8835a167.png" /></a>
+</div>
+<div class='row center-div' style='margin-top: 5px;'>
+<hr>
+<a target="_blank" style="padding-left: 5px;" href="http://www.quietspeculation.com/?utm_source=mtgstocks&amp;utm_medium=banner&amp;utm_campaign=Insider"><img src="/assets/quietspec1-3f4b9b8bbd2d7936cb0593c2d87cdfce.png" alt="Quietspec1" /></a>
+</div>
+</div>
+</div>
+</div>
+<div class='container fullwidth'>
+<div class='row'>
+<div class='col-md-12'>
+<hr>
+<p class='footer'>
+The information presented on this site about Magic: The Gathering, both literal and graphical, is copyrighted by Wizards of the Coast.
+<br>
+This website is not produced, endorsed, supported, or affiliated with Wizards of the Coast.
+</p>
+</div>
+</div>
+</div>
+<script>
+  $(document).ready(function() {
+  	$("table#watched").tablesorter({sortList:[[0,0]]});
+  });
+  $('#booster').tooltip();
+</script>
+
+<div aria-hidden='true' aria-labbeledby='LoginModal' class='modal fade' id='loginModal' role='dialog' tabindex='-1'>
+<div class='modal-dialog'>
+<div class='modal-content'>
+<div class='modal-header'>
+<button class='close' data-dismiss='modal' type='button'>
+<span aria-hidden='true'>&times;</span>
+<span class='sr-only'>Close</span>
+</button>
+<h2 class='modal-title'>Please login</h2>
+</div>
+<div class='modal-body'>
+<form class="form-horizontal" id="new_resource_name" action="/users/sign_in" accept-charset="UTF-8" method="post"><input name="utf8" type="hidden" value="&#x2713;" /><input type="hidden" name="authenticity_token" value="pMuHDpKBIRS4+hOrK7TmRW5eR4/XV5LiG0XfyOAmHlXY28EdoVP6GXcWczCZKBG0Zjd+FlnbQQFo/jVFgWrYzg==" /><div class='form-group'>
+<label class="sr-only" for="resource_name_username">Username</label>
+<div class='col-md-12'>
+<input autofocus="autofocus" class="form-control" placeholder="Username" id="user_username" name="user[username]" type="text" />
+</div>
+</div>
+<div class='form-group'>
+<label class="sr-only" for="resource_name_password">Password</label>
+<div class='col-md-12'>
+<input class="form-control" placeholder="Password" id="user_password" name="user[password]" type="password" />
+</div>
+</div>
+<div class='form-group'>
+<div class='col-md-12'>
+<label>
+<input name="user[remember_me]" type="hidden" value="0" /><input id="user_remember_me" name="user[remember_me]" as="boolean" type="checkbox" value="1" />
+Remember Me
+</label>
+</div>
+</div>
+<div class='form-group'>
+<div class='col-md-12'>
+<input type="submit" name="commit" value="Login" class="btn btn-lg btn-primary" />
+</div>
+</div>
+</form>
+</div>
+<div class='modal-footer'>
+Not registered yet?
+<a href="/users/sign_up">Signup here</a>
+</div>
+</div>
+</div>
+</div>
+
+<script type="text/javascript">
+/* <![CDATA[ */
+var google_conversion_id = 964368395;
+var google_custom_params = window.google_tag_params;
+var google_remarketing_only = true;
+/* ]]> */
+</script>
+<script type="text/javascript" src="//www.googleadservices.com/pagead/conversion.js">
+</script>
+<noscript>
+<div style="display:inline;">
+<img height="1" width="1" style="border-style:none;" alt="" src="//googleads.g.doubleclick.net/pagead/viewthroughconversion/964368395/?value=0&amp;guid=ON&amp;script=0"/>
+</div>
+</noscript>
+</body>
+</html>
