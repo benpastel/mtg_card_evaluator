@@ -5,13 +5,17 @@ import random
 import numpy
 import features
 
-f = open('../data/AllCards.json', 'r')
+f = open('../data/AllSets.json', 'r')
 js = json.load(f)
 
 # train_examples = [(example, random.randint(0,1)) for example in js]
 # test_examples = [(example, random.randint(0,1)) for example in js]
 
-examples = [features.baseline_feature_extractor(js[  example]) for example in js]
+examples = [features.baseline_feature_extractor(card) for card_set in js for card in js[card_set]["cards"]]
+print len(examples)
+
+lines = map(lambda string: string.strip().split("\t"), open("../data/id_price.dat").readlines())
+price_dict = {int(line[0]): float(line[1]) for line in lines}
 
 print "Merging keys..."
 keys = set([])
@@ -21,17 +25,34 @@ keys = list(keys)
 print len(keys)
 print "Keys merged"
 
+examples_new = []
+for example in examples:
+    if "multiverseid" in example and example["multiverseid"] in price_dict:
+        examples_new.append(example)
+examples = examples_new
+print(len(examples))
+
+
 X = numpy.zeros((len(examples), len(keys)))
+Y = numpy.zeros((len(examples), 1))
 
 print "Creating matrix..."
 for i in range(len(examples)):
     for j in range(len(keys)):
         if keys[j] in examples[i]:
             X[i][j] = examples[i][keys[j]]
+    Y[i] = price_dict[examples[i]["multiverseid"]]
 print "Finished creating matrix"
+
+print examples[0]
+print X[0]
+print Y[0]
 
 print "Saving matrix..."
 numpy.savetxt('../data/feature_matrix.txt', X, fmt='%i')
+print "Save finished"
+print "Saving prices..."
+numpy.savetxt('../data/price_vector.txt', Y, fmt='%f')
 print "Save finished"
 
 example = {
@@ -63,8 +84,5 @@ example = {
           "imageName" : "sen triplets",
                  "id" : "3129aee7f26a4282ce131db7d417b1bc3338c4d4"
     }
-
-print features.baseline_feature_extractor(js["Sen Triplets"])
-
 
 print features.baseline_feature_extractor(example)

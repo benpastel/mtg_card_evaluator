@@ -22,8 +22,8 @@ def baseline_feature_extractor(example):
         # "flavor",
         # "artist",
         # "number",
-        "power",
-        "toughness",
+        # "power",
+        # "toughness",
         # "layout",
         # "imageName",
         # "id",
@@ -34,33 +34,34 @@ def baseline_feature_extractor(example):
     ]
 
     boolean_features_to_use = [
-        "timeshifted",
-        "reversed",
-        "starter",
+        # "timeshifted",
+        # "reversed",
+        # "starter",
     ]
 
     text_array_features_to_use = [
-        "colors",
-        "supertypes",
-        "types",
-        "subtypes",
+        # "colors",
+        # "supertypes",
+        # "types",
+        # "subtypes",
     ]
 
     text_array_combo_features_to_use = [
-        "colors",
-        "supertypes",
-        "types",
-        "subtypes",
+        # "colors",
+        # "supertypes",
+        # "types",
+        # "subtypes",
     ]
 
     integer_features_to_use = [
         "cmc",
-        "number",
+        # "number",
         "power",
         "toughness",
-        "loyalty",
-        "hand",
-        "life",
+        # "loyalty",
+        # "hand",
+        # "life",
+        "multiverseid",
     ]
 
     integer_array_features_to_use = [
@@ -68,12 +69,12 @@ def baseline_feature_extractor(example):
     ]
 
     function_features_to_use = [
-        ["cmc squared", ["cmc"], lambda x : pow(x[0],2)],
-        ["toughness + power - cmc", ["toughness", "power", "cmc"], lambda x : x[0] + x[1] - x[2]],
+        # ["cmc squared", ["cmc"], lambda x : pow(x[0],2)],
+        # ["toughness + power - cmc", ["toughness", "power", "cmc"], lambda x : x[0] + x[1] - x[2]],
     ]
 
     cross_features_to_use = [
-        [[(create_text_feature, "toughness"),(create_text_array_feature, "colors"),(create_integer_feature, "cmc")], lambda x : x[0]*x[1]*x[2]],
+        # [[(create_text_feature, "toughness"),(create_text_array_feature, "colors"),(create_integer_feature, "cmc")], lambda x : x[0]*x[1]*x[2]],
     ]
 
     mod = sys.modules[__name__]
