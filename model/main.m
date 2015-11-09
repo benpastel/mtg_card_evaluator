@@ -5,19 +5,8 @@
 % e.g. space-separated floats with one training example per line.
 
 disp('loading data');
-raw_X = load('../data/feature_matrix.txt');
-  
-id_price = load('../data/id_price.dat');
-id_featureidx = load('../data/id_featureidx.dat');
- 
-% match prices to features whenever they share a multiverseid.
-%
-% NOTE: cards that have multiple multiverseids will be repeated; we should 
-% consider something smarter like averaging the prices.
-[~, idx1, idx2] = intersect(id_price(:, 1), id_featureidx(:, 1));
-Y = id_price(idx1, 2);
-feature_indices = id_featureidx(idx2, 2);
-X = raw_X(feature_indices, :);
+X = load('data/feature_matrix.txt');
+Y = load('data/price_vector.txt');
 
 disp('finding baseline');
 rand_X = rand(size(X, 1), size(X, 2));
