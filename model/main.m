@@ -4,7 +4,7 @@
 % The input files can be in any format 'load' can read
 % e.g. space-separated floats with one training example per line.
 
-X_path = '../data/feature_matrix_sample.txt';
+X_path = '../data/feature_matrix.txt';
 
 X = load(X_path);
 

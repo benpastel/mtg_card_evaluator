@@ -11,12 +11,13 @@ js = json.load(f)
 # train_examples = [(example, random.randint(0,1)) for example in js]
 # test_examples = [(example, random.randint(0,1)) for example in js]
 
-examples = [features.baseline_feature_extractor(js[example]) for example in js]
+examples = [features.baseline_feature_extractor(js[  example]) for example in js]
 
 print "Merging keys..."
-keys = []
+keys = set([])
 for example in examples:
-    keys = list(set(keys) | set([key for key in example]))
+    keys = keys | set(example.keys())
+keys = list(keys)
 print len(keys)
 print "Keys merged"
 
