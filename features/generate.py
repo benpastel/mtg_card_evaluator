@@ -49,7 +49,7 @@ print X[0]
 print Y[0]
 
 print "Saving matrix..."
-numpy.savetxt('../data/feature_matrix.txt', X, fmt='%i')
+numpy.savetxt('../data/feature_matrix.txt', X, fmt='%f')
 print "Save finished"
 print "Saving prices..."
 numpy.savetxt('../data/price_vector.txt', Y, fmt='%f')

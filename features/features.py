@@ -70,12 +70,15 @@ def baseline_feature_extractor(example):
 
     function_features_to_use = [
         # ["cmc squared", ["cmc"], lambda x : pow(x[0],2)],
-        # ["toughness + power - cmc", ["toughness", "power", "cmc"], lambda x : x[0] + x[1] - x[2]],
+        ["power / cmc", ["power", "cmc"], lambda x : x[0] / (x[1] + 1)],
+
     ]
 
     cross_features_to_use = [
         # [[(create_text_feature, "toughness"),(create_text_array_feature, "colors"),(create_integer_feature, "cmc")], lambda x : x[0]*x[1]*x[2]],
     ]
+
+    phi.update(length_rules_text(example));
 
     mod = sys.modules[__name__]
     fn = lambda x : phi.update(create_text_feature(x, example))
@@ -105,6 +108,12 @@ def baseline_feature_extractor(example):
     return phi
 
 ###############
+
+def length_rules_text(example):
+    if not "text" in example:
+        return {}
+    return {"Text length" : len(example["text"])}
+
 
 def create_text_feature(json_key, example):
     if not json_key in example:

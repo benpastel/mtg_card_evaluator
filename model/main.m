@@ -5,8 +5,8 @@
 % e.g. space-separated floats with one training example per line.
 
 disp('loading data');
-X = load('data/feature_matrix.txt');
-Y = load('data/price_vector.txt');
+X = load('../data/feature_matrix.txt');
+Y = load('../data/price_vector.txt');
 
 disp('finding baseline');
 rand_X = rand(size(X, 1), size(X, 2));
