@@ -151,7 +151,7 @@ def create_integer_feature(json_key, example):
     try:
         value = int(example[json_key])
     except ValueError:
-        return {}
+        value = 10;
     return {json_key: value}
 
 def create_integer_array_feature(json_key, example):
