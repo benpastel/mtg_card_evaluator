@@ -4,6 +4,9 @@ import sys
 import itertools
 from math import *
 
+keywords = ["Deathtouch", "Defender", "Double Strike", "Enchant", "Equip", "First Strike", "Flash", "Flying", "Haste", "Hexproof", "Indestructible", "Intimidate", "Landwalk", "Lifelink", "Protection", "Reach", "Shroud", "Trample", "Vigilance", "Banding", "Rampage", "Cumulative Upkeep", "Flanking", "Phasing", "Buyback", "Shadow", "Cycling", "Echo", "Horsemanship", "Fading", "Kicker", "Flashback", "Madness", "Fear", "Morph", "Amplify", "Provoke", "Storm", "Affinity", "Entwine", "Modular", "Sunburst", "Bushido", "Soulshift", "Splice", "Offering", "Ninjutsu", "Epic", "Convoke", "Dredge", "Transmute", "Bloodthirst", "Haunt", "Replicate", "Forecast", "Graft", "Recover", "Ripple", "Split Second", "Suspend", "Vanishing", "Absorb", "Aura Swap", "Delve", "Fortify", "Frenzy", "Gravestorm", "Poisonous", "Transfigure", "Champion", "Changeling", "Evoke", "Hideaway", "Prowl", "Reinforce", "Conspire", "Persist", "Wither", "Retrace", "Devour", "Exalted", "Unearth", "Cascade", "Annihilator", "Level Up", "Rebound", "Totem Armor", "Infect", "Battle Cry", "Living Weapon", "Undying", "Miracle", "Soulbond", "Overload", "Scavenge", "Unleash", "Cipher", "Evolve", "Extort", "Fuse", "Bestow", "Tribute", "Dethrone", "Hidden Agenda", "Outlast", "Prowess", "Dash", "Exploit", "Menace", "Renown", "Awaken", "Devoid", "Ingest"]
+# keywords =["Flying", "Haste"]
+
 def empty_feature_extractor(example):
 
     phi = dict()
@@ -72,17 +75,21 @@ def baseline_feature_extractor(example):
     function_features_to_use = [
         # ["cmc squared", ["cmc"], lambda x : pow(x[0],2)],
         ["power / cmc", ["power", "cmc"], lambda x : x[0] / (x[1] + 1)],
-
     ]
 
     cross_features_to_use = [
         # [[(create_text_feature, ["toughness"]),(create_text_array_feature, ["colors"]),(create_integer_feature, ["cmc"])], lambda x : x[0]*x[1]*x[2]],
-        # [[(create_integer_feature,["power"]),(length_rules_text,[]),(create_integer_feature,["cmc"])], lambda x: (x[0]*10 + x[1])/ exp(x[2])]
-        # [[(length_rules_text,[]),(create_integer_feature,["cmc"])], lambda x: x[0]/(x[1] + 1)]
+        [[(create_integer_feature,["power"]),(length_rules_text,[]),(create_integer_feature,["cmc"])], lambda x: (x[0]*10 + x[1])/ exp(x[2])],
+        [[(length_rules_text,[]),(create_integer_feature,["cmc"])], lambda x: x[0]/(x[1] + 1)],
     ]
 
-    phi.update(length_rules_text(example));
-    phi.update(rarity_as_integer(example));
+    field_includes_keyword_to_use = [
+        ("text", keyword) for keyword in keywords
+    ]
+
+    phi.update(number_of_keywords_in_text(example))
+    phi.update(length_rules_text(example))
+    phi.update(rarity_as_integer(example))
 
     mod = sys.modules[__name__]
     fn = lambda x : phi.update(create_text_feature(x, example))
@@ -109,9 +116,29 @@ def baseline_feature_extractor(example):
     fn = lambda x : phi.update(create_cross_feature(x, example))
     map(fn, cross_features_to_use)
 
+    fn = lambda x : phi.update(create_field_includes_keyword_feature(x, example))
+    map(fn, field_includes_keyword_to_use)
+
     return phi
 
 ###############
+
+def number_of_keywords_in_text(example):
+    if not "text" in example:
+        return {}
+    count = 0
+    for keyword in keywords:
+        if keyword.lower() in example["text"].lower():
+            count = count + 1
+    return {"# keywords in text": count + 1}
+
+def create_field_includes_keyword_feature(field_keyword_tuple, example):
+    field, keyword = field_keyword_tuple
+    if not field in example:
+        return {}
+    if keyword.lower() in example[field].lower():
+        return {"{0} in {1}".format(keyword, field): 2}
+    return {"{0} in {1}".format(keyword, field): 1}
 
 def length_rules_text(example):
     if not "text" in example:
@@ -121,7 +148,7 @@ def length_rules_text(example):
 def rarity_as_integer(example):
     if not "rarity" in example:
         return {}
-    rarity_dict = {"Basic Land": 0, "Common": 1, "Uncommon": 3, "Rare": 5, "Special": 8, "Mythic Rare": 10}
+    rarity_dict = {"Basic Land": 1, "Common": 2, "Uncommon": 4, "Rare": 8, "Special": 16, "Mythic Rare": 20}
     if not example["rarity"] in rarity_dict:
         print example["rarity"]
         return {}
@@ -178,6 +205,8 @@ def create_integer_array_feature(json_key, example):
             continue
         phi["{0} ({1})".format(json_key, i)] = value
     return phi
+
+
 
 def create_function_feature(fn_description, example):
     name, keys, fn = fn_description

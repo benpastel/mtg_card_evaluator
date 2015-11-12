@@ -8,11 +8,13 @@ import features
 f = open('../data/AllSets.json', 'r')
 js = json.load(f)
 
+random.seed(1)
 # train_examples = [(example, random.randint(0,1)) for example in js]
 # test_examples = [(example, random.randint(0,1)) for example in js]
 
 examples = [features.baseline_feature_extractor(card) for card_set in js for card in js[card_set]["cards"]]
-print len(examples)
+print "Number of cards in json: {0}".format(len(examples))
+random.shuffle(examples)
 
 lines = map(lambda string: string.strip().split("\t"), open("../data/id_price.dat").readlines())
 price_dict = {int(line[0]): float(line[1]) for line in lines}
@@ -22,15 +24,15 @@ keys = set([])
 for example in examples:
     keys = keys | set(example.keys())
 keys = list(keys)
-print len(keys)
 print "Keys merged"
+print "Number of features: {0}".format(len(keys))
 
 examples_new = []
 for example in examples:
     if "multiverseid" in example and example["multiverseid"] in price_dict:
         examples_new.append(example)
 examples = examples_new
-print(len(examples))
+print "Number of examples with prices: {0}".format(len(examples))
 
 
 X = numpy.zeros((len(examples), len(keys)))
