@@ -2,6 +2,7 @@ __author__ = 'Dustin'
 
 import sys
 import itertools
+from math import *
 
 def empty_feature_extractor(example):
 
@@ -17,7 +18,7 @@ def baseline_feature_extractor(example):
         # "name",
         # "manaCost",
         # "type",
-        # "rarity", #Nothing has rarity in AllCards.json
+        # "rarity",
         # "text",
         # "flavor",
         # "artist",
@@ -75,10 +76,13 @@ def baseline_feature_extractor(example):
     ]
 
     cross_features_to_use = [
-        # [[(create_text_feature, "toughness"),(create_text_array_feature, "colors"),(create_integer_feature, "cmc")], lambda x : x[0]*x[1]*x[2]],
+        # [[(create_text_feature, ["toughness"]),(create_text_array_feature, ["colors"]),(create_integer_feature, ["cmc"])], lambda x : x[0]*x[1]*x[2]],
+        # [[(create_integer_feature,["power"]),(length_rules_text,[]),(create_integer_feature,["cmc"])], lambda x: (x[0]*10 + x[1])/ exp(x[2])]
+        # [[(length_rules_text,[]),(create_integer_feature,["cmc"])], lambda x: x[0]/(x[1] + 1)]
     ]
 
     phi.update(length_rules_text(example));
+    phi.update(rarity_as_integer(example));
 
     mod = sys.modules[__name__]
     fn = lambda x : phi.update(create_text_feature(x, example))
@@ -113,6 +117,15 @@ def length_rules_text(example):
     if not "text" in example:
         return {}
     return {"Text length" : len(example["text"])}
+
+def rarity_as_integer(example):
+    if not "rarity" in example:
+        return {}
+    rarity_dict = {"Basic Land": 0, "Common": 1, "Uncommon": 3, "Rare": 5, "Special": 8, "Mythic Rare": 10}
+    if not example["rarity"] in rarity_dict:
+        print example["rarity"]
+        return {}
+    return {"rarity as integer": rarity_dict[example["rarity"]]}
 
 
 def create_text_feature(json_key, example):
@@ -181,12 +194,13 @@ def create_cross_feature(fn_description, example):
     feature_fn_pairs, fn = fn_description
     phis = []
     for feature_fn_pair in feature_fn_pairs:
-        feature_fn, json_key = feature_fn_pair
-        phis.append(feature_fn(json_key, example))
+        feature_fn, args = feature_fn_pair
+        args.append(example)
+        phis.append(feature_fn(*args))
     phi = {}
     for element in itertools.product(*phis):
         key = ' '.join(element)
-        x  = []
+        x = []
         for i in range(len(element)):
             x.append(phis[i][element[i]])
         phi[key] = fn(x)
