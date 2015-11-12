@@ -14,8 +14,8 @@ examples = [(features.baseline_feature_extractor(card), price_dict[card["multive
 print "Number of examples: {0}".format(len(examples))
 
 # Shuffle the examples in order to split train and test set easily
-# random.seed(1)
-# random.shuffle(examples)
+random.seed(1)
+random.shuffle(examples)
 
 keys = {key for example in examples for key in example[0]}
 keys = list(keys)
@@ -33,7 +33,7 @@ for i in range(len(examples)):
 print "Finished creating matrix"
 
 print examples[0]
-print X[0]
+# print X[0]
 print Y[0]
 
 print "Saving matrix..."
@@ -43,6 +43,7 @@ print "Saving prices..."
 numpy.savetxt('../data/price_vector.txt', Y, fmt='%f')
 print "Save finished"
 
+print "Sen Triplets example"
 example = {
                "name" : "Sen Triplets",
 
@@ -72,5 +73,4 @@ example = {
           "imageName" : "sen triplets",
                  "id" : "3129aee7f26a4282ce131db7d417b1bc3338c4d4"
     }
-
 print features.baseline_feature_extractor(example)

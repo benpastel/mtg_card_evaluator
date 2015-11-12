@@ -74,17 +74,17 @@ def baseline_feature_extractor(example):
 
     function_features_to_use = [
         # ["cmc squared", ["cmc"], lambda x : pow(x[0],2)],
-        ["power / cmc", ["power", "cmc"], lambda x : x[0] / (x[1] + 1)],
+        ["power / cmc", ["power", "cmc"], lambda x : x[0] / (x[1] + 1.0)],
     ]
 
     cross_features_to_use = [
         # [[(create_text_feature, ["toughness"]),(create_text_array_feature, ["colors"]),(create_integer_feature, ["cmc"])], lambda x : x[0]*x[1]*x[2]],
         [[(create_integer_feature,["power"]),(length_rules_text,[]),(create_integer_feature,["cmc"])], lambda x: (x[0]*10 + x[1])/ exp(x[2])],
-        [[(length_rules_text,[]),(create_integer_feature,["cmc"])], lambda x: x[0]/(x[1] + 1)],
+        [[(length_rules_text,[]),(create_integer_feature,["cmc"])], lambda x: x[0]/(x[1] + 1.0)],
     ]
 
     field_includes_keyword_to_use = [
-        ("text", keyword) for keyword in keywords
+        # ("text", keyword) for keyword in keywords
     ]
 
     phi.update(number_of_keywords_in_text(example))
@@ -143,7 +143,7 @@ def create_field_includes_keyword_feature(field_keyword_tuple, example):
 def length_rules_text(example):
     if not "text" in example:
         return {}
-    return {"Text length" : len(example["text"])}
+    return {"Text length" : len(example["text"]) + 1}
 
 def rarity_as_integer(example):
     if not "rarity" in example:
@@ -192,7 +192,7 @@ def create_integer_feature(json_key, example):
         value = int(example[json_key])
     except ValueError:
         value = 10;
-    return {json_key: value}
+    return {json_key: value + 1}
 
 def create_integer_array_feature(json_key, example):
     if not json_key in example:
