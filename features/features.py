@@ -78,7 +78,6 @@ def baseline_feature_extractor(example):
     ]
 
     cross_features_to_use = [
-        # [[(create_text_feature, ["toughness"]),(create_text_array_feature, ["colors"]),(create_integer_feature, ["cmc"])], lambda x : x[0]*x[1]*x[2]],
         [[(create_integer_feature,["power"]),(length_rules_text,[]),(create_integer_feature,["cmc"])], lambda x: (x[0]*10 + x[1])/ exp(x[2])],
         [[(length_rules_text,[]),(create_integer_feature,["cmc"])], lambda x: x[0]/(x[1] + 1.0)],
     ]

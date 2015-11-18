@@ -10,7 +10,12 @@ Y = load('../data/price_vector.txt');
 
 positive_features = all(X' > 0)';
 X = X(positive_features, :);
-Y = log(Y(positive_features));
+Y = Y(positive_features);
+large_Y = (Y' > 100)';
+X_large = X(large_Y,:);
+Y_large = log(Y(large_Y));
+Y = log(Y);
+
 
 disp('finding baseline');
 rand_X = rand(size(X, 1), size(X, 2));
@@ -36,6 +41,17 @@ X_test = [ones(test_size, 1), X_test];
 predicted_y_test = X_test * theta;
 rmse_test = sqrt(sum((predicted_y_test - Y_test).^2) / test_size)
 
+X_large = [ones(size(X_large,1), 1), X_large];
+predicted_y_test = X_large * theta;
+rmse_large = sqrt(sum((predicted_y_test - Y_large).^2) / size(X_large,1))
+
+exp(rmse_large)
+scatter(X(:,3),Y); hold on;
+xlabel("Rarity (Common: 2, Uncommon: 4, Rare: 8, Special: 16, Mythic Rare: 20)")
+ylabel("log(price)");
+t = 0:20;
+k = theta(1) + theta(3)*t
+plot(t, k, 'r')
 disp('done');
 
 

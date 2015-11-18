@@ -4,14 +4,20 @@ import json
 import random
 import numpy
 import features
+import matplotlib.pyplot as plt
+from math import *
 
 f = open('../data/AllSets.json', 'r')
 js = json.load(f)
 lines = map(lambda string: string.strip().split("\t"), open("../data/id_price.dat").readlines())
 price_dict = {int(line[0]): float(line[1]) for line in lines}
 
-examples = [(features.baseline_feature_extractor(card), price_dict[card["multiverseid"]]) for card_set in js for card in js[card_set]["cards"] if ("multiverseid" in card and card["multiverseid"] in price_dict)]
+examples = [(features.baseline_feature_extractor(card), price_dict[card["multiverseid"]]) for card_set in js for card in js[card_set]["cards"] if ("multiverseid" in card and card["multiverseid"] in price_dict and "types" in card and "Creature" in card["types"])]
 print "Number of examples: {0}".format(len(examples))
+# examples.sort(key=lambda tup: tup[1])
+# examples = examples[10000:len(examples)]
+# print "Number of examples: {0}".format(len(examples))
+# print examples[len(examples)-1][1]
 
 # Shuffle the examples in order to split train and test set easily
 random.seed(1)
@@ -20,6 +26,7 @@ random.shuffle(examples)
 keys = {key for example in examples for key in example[0]}
 keys = list(keys)
 print "Number of features: {0}".format(len(keys))
+print keys
 
 X = numpy.zeros((len(examples), len(keys)))
 Y = numpy.zeros((len(examples), 1))
@@ -73,4 +80,5 @@ example = {
           "imageName" : "sen triplets",
                  "id" : "3129aee7f26a4282ce131db7d417b1bc3338c4d4"
     }
+
 print features.baseline_feature_extractor(example)
