@@ -4,18 +4,31 @@ import sys
 import itertools
 from math import *
 
+# FEATURE EXTRACTION
+# ------------------
+# feature_extractor takes in a card in json format.
+# It produces a set of features based on the card, and values for each feature
+# This uses both given features and feature templates.
+# For example, a given feature might be "What is the cmc?" and the value would just be the cmc.
+# A feature template might be "Create a new feature named after the first word in the text.  Give it a value of 1".
+# The features created from the templates might be different for different cards.
+# The value for all features found in other cards but not in the given card are default 0.
+# Finally, some functions will not produce a feature (like if a field is missing).  This is equivalent to giving it a value of 0.
+
+# List of meaningful words in card text (not case senstive) (See use below)
 keywords = ["Deathtouch", "Defender", "Double Strike", "Enchant", "Equip", "First Strike", "Flash", "Flying", "Haste", "Hexproof", "Indestructible", "Intimidate", "Landwalk", "Lifelink", "Protection", "Reach", "Shroud", "Trample", "Vigilance", "Banding", "Rampage", "Cumulative Upkeep", "Flanking", "Phasing", "Buyback", "Shadow", "Cycling", "Echo", "Horsemanship", "Fading", "Kicker", "Flashback", "Madness", "Fear", "Morph", "Amplify", "Provoke", "Storm", "Affinity", "Entwine", "Modular", "Sunburst", "Bushido", "Soulshift", "Splice", "Offering", "Ninjutsu", "Epic", "Convoke", "Dredge", "Transmute", "Bloodthirst", "Haunt", "Replicate", "Forecast", "Graft", "Recover", "Ripple", "Split Second", "Suspend", "Vanishing", "Absorb", "Aura Swap", "Delve", "Fortify", "Frenzy", "Gravestorm", "Poisonous", "Transfigure", "Champion", "Changeling", "Evoke", "Hideaway", "Prowl", "Reinforce", "Conspire", "Persist", "Wither", "Retrace", "Devour", "Exalted", "Unearth", "Cascade", "Annihilator", "Level Up", "Rebound", "Totem Armor", "Infect", "Battle Cry", "Living Weapon", "Undying", "Miracle", "Soulbond", "Overload", "Scavenge", "Unleash", "Cipher", "Evolve", "Extort", "Fuse", "Bestow", "Tribute", "Dethrone", "Hidden Agenda", "Outlast", "Prowess", "Dash", "Exploit", "Menace", "Renown", "Awaken", "Devoid", "Ingest"]
 # keywords =["Flying", "Haste"]
 
-def empty_feature_extractor(example):
+def feature_extractor(example):
 
-    phi = dict()
-    return phi
+    phi = dict()    # Will hold all {feature: value} entries to return
 
-def baseline_feature_extractor(example):
-
-    phi = dict()
-
+    # Feature template: Text features
+    # Any json field included here is string valued.
+    # This will produce a feature named with the json value and given feature value 1
+    # These are generally not good features, especially because they tend to be unique for each card
+    # ------------------------------------
+    # Example:  "name": "Sen Triplets" --> {"name $ Sen Triplets" : 1}
     text_features_to_use = [
         # Name of feature function
         # "name",
@@ -37,12 +50,11 @@ def baseline_feature_extractor(example):
         # "releaseDate",
     ]
 
-    boolean_features_to_use = [
-        # "timeshifted",
-        # "reversed",
-        # "starter",
-    ]
-
+    # Feature template: Text array features
+    # Any json field included here has an array of strings as a value.
+    # This will produce a feature fpr each entry in the array, named with string and given value 1.
+    # ------------------------------------
+    # Example:  "colors": ["Blue", "White"] --> {"colors $ Blue": 1, "colors $ White": 1}
     text_array_features_to_use = [
         # "colors",
         # "supertypes",
@@ -50,6 +62,11 @@ def baseline_feature_extractor(example):
         # "subtypes",
     ]
 
+    # Feature template: Text array combo features
+    # Any json field included here has an array of strings as a value.
+    # This will produce a feature for each subset of entries in the array, named with string and given value 1.
+    # ------------------------------------
+    # Example:  "colors": ["Blue", "White"] --> {"colors $ Blue": 1, "colors $ White": 1, "colors $ Blue White": 1}
     text_array_combo_features_to_use = [
         # "colors",
         # "supertypes",
@@ -57,6 +74,30 @@ def baseline_feature_extractor(example):
         # "subtypes",
     ]
 
+    # Feature template: Keyword features
+    # This will produce a feature if a keyword is found in a given field, with value 1
+    # ------------------------------------
+    # Example:  ("text", "Flying") --> {"Flying in text": 1} if "Flying" is in "text"
+    field_includes_keyword_to_use = [
+        # ("text", keyword) for keyword in keywords
+    ]
+
+    # Feature template: Boolean features
+    # Any json field included here is boolean valued.
+    # This will produce a feature named with the json key and given value 1 for True, 0 for False.
+    # ------------------------------------
+    # Example:  "timeshifted": True --> {"timeshifted": 1}
+    boolean_features_to_use = [
+        # "timeshifted",
+        # "reversed",
+        # "starter",
+    ]
+
+    # Feature template: Integer features
+    # Any json field included here has an integer as a value.
+    # This will produce a feature named with the field and given the corresponding value.
+    # ------------------------------------
+    # Example:  "cmc": 5 --> {"cmc": 5}
     integer_features_to_use = [
         "cmc",
         # "number",
@@ -68,28 +109,37 @@ def baseline_feature_extractor(example):
         "multiverseid",
     ]
 
-    integer_array_features_to_use = [
-        # "variations",
-    ]
-
+    # Feature template: Function features
+    # This allows mixing of features with integer values.
+    # ------------------------------------
+    # Format: [<name of feature as string>, [<list of json fields to evaluate as strings>], <lambda function with x[i] being the value of the ith json field>]
+    # Example:  ["power / (cmc + 1)", ["power", "cmc"], lambda x : x[0] / (x[1] + 1.0)] and values power = 2 and cmc = 5 --> {"power / (cmc + 1)": .3333}
     function_features_to_use = [
         # ["cmc squared", ["cmc"], lambda x : pow(x[0],2)],
-        ["power / cmc", ["power", "cmc"], lambda x : x[0] / (x[1] + 1.0)],
+        ["power / (cmc + 1)", ["power", "cmc"], lambda x : x[0] / (x[1] + 1.0)],
     ]
 
+    # Feature template: Fancier function features
+    # This allows mixing of any features given.
+    # The name of the feature is just the name of all the features combined
+    # If any of the feature extractors included produce a list of features, each one will be considered (cross multiplies lists of features).
+    # ------------------------------------
+    # Format: [[<list of feature functions given as (function, [args])], <lambda function with x[i] being the value returned from calling the ith function]
+    # Note: example is automatically appended to args.
+    # Example:  [[(create_integer_feature,["power"]),(length_rules_text,[]),(create_integer_feature,["cmc"])], lambda x: (x[0]*10 + x[1])/ exp(x[2])] and values power = 2, len(rules_text) = 10 and cmc = 5 --> {"power Text length cmc": 2.0}
+    # NEEDS TO BE EDITED IF MORE THAN ONE OF THESE USES SAME LIST OF VARIABLES
     cross_features_to_use = [
         [[(create_integer_feature,["power"]),(length_rules_text,[]),(create_integer_feature,["cmc"])], lambda x: (x[0]*10 + x[1])/ exp(x[2])],
         [[(length_rules_text,[]),(create_integer_feature,["cmc"])], lambda x: x[0]/(x[1] + 1.0)],
     ]
 
-    field_includes_keyword_to_use = [
-        # ("text", keyword) for keyword in keywords
-    ]
-
+    # If you write a custom feature, include it here
+    # Format: phi.update(<function>(<args>)
     phi.update(number_of_keywords_in_text(example))
     phi.update(length_rules_text(example))
     phi.update(rarity_as_integer(example))
 
+    # Maps the arrays above to the appropriate feature extracting functions
     mod = sys.modules[__name__]
     fn = lambda x : phi.update(create_text_feature(x, example))
     map(fn, text_features_to_use)
@@ -106,9 +156,6 @@ def baseline_feature_extractor(example):
     fn = lambda x : phi.update(create_integer_feature(x, example))
     map(fn, integer_features_to_use)
 
-    fn = lambda x : phi.update(create_integer_array_feature(x, example))
-    map(fn, integer_array_features_to_use)
-
     fn = lambda x : phi.update(create_function_feature(x, example))
     map(fn, function_features_to_use)
 
@@ -120,7 +167,7 @@ def baseline_feature_extractor(example):
 
     return phi
 
-###############
+############### NON-GENERIC FEATURES FUNCTIONS ##########################
 
 def number_of_keywords_in_text(example):
     if not "text" in example:
@@ -130,14 +177,6 @@ def number_of_keywords_in_text(example):
         if keyword.lower() in example["text"].lower():
             count = count + 1
     return {"# keywords in text": count + 1}
-
-def create_field_includes_keyword_feature(field_keyword_tuple, example):
-    field, keyword = field_keyword_tuple
-    if not field in example:
-        return {}
-    if keyword.lower() in example[field].lower():
-        return {"{0} in {1}".format(keyword, field): 2}
-    return {"{0} in {1}".format(keyword, field): 1}
 
 def length_rules_text(example):
     if not "text" in example:
@@ -153,6 +192,8 @@ def rarity_as_integer(example):
         return {}
     return {"rarity as integer": rarity_dict[example["rarity"]]}
 
+
+############### GENERIC FEATURES FUNCTIONS ##########################
 
 def create_text_feature(json_key, example):
     if not json_key in example:
@@ -176,6 +217,14 @@ def create_text_array_combo_feature(json_key, example):
             phi["{0} $ {1}".format(json_key, ' '.join(combo).encode('ascii',errors='ignore'))] = 1
     return phi
 
+def create_field_includes_keyword_feature(field_keyword_tuple, example):
+    field, keyword = field_keyword_tuple
+    if not field in example:
+        return {}
+    if keyword.lower() in example[field].lower():
+        return {"{0} in {1}".format(keyword, field): 2}
+    return {"{0} in {1}".format(keyword, field): 1}
+
 def create_boolean_feature(json_key, example):
     if not json_key in example:
         return {}
@@ -192,20 +241,6 @@ def create_integer_feature(json_key, example):
     except ValueError:
         value = 10;
     return {json_key: value + 1}
-
-def create_integer_array_feature(json_key, example):
-    if not json_key in example:
-        return {}
-    phi = {}
-    for i in range(len(example[json_key])):
-        try:
-            value = int(example[json_key][i])
-        except ValueError:
-            continue
-        phi["{0} ({1})".format(json_key, i)] = value
-    return phi
-
-
 
 def create_function_feature(fn_description, example):
     name, keys, fn = fn_description
@@ -233,3 +268,4 @@ def create_cross_feature(fn_description, example):
             x.append(phis[i][element[i]])
         phi[key] = fn(x)
     return phi
+
