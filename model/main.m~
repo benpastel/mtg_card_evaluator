@@ -28,23 +28,21 @@ Y_test = Y(train_size+1:m);
 
 disp('running regressions');
 [~, rmse_random] = linear_regression(rand(m, n), Y);
+[~, rmse_train] = linear_regression(X_train, Y_train);
 [~, rmse_full] = linear_regression(X, Y);
-[theta, rmse_train] = linear_regression(X_train, Y_train);
 
 predicted_y_test = [ones(test_size, 1), X_test] * theta;
 rmse_test = sqrt(sum((predicted_y_test - Y_test).^2) / test_size);
 
 predicted_y_large_test = [ones(size(X_large,1), 1), X_large] * theta;
-rmse_large = sqrt(sum((predicted_y_large_test - Y_large).^2) / size(X_large,1));
+rmse_large_test = sqrt(sum((predicted_y_large_test - Y_large).^2) / size(X_large,1));
 
 disp('RMSEs:');
-fprintf('\t %0.3f training on random\n', rmse_random);
-fprintf('\t %0.3f training on 90%%\n', rmse_train);
-fprintf('\t %0.3f training on full data\n', rmse_full);
-fprintf('\t %0.3f testing on 10%%\n', rmse_test);
-fprintf('\t %0.3f training on 90%%, counting error on large data only\n', rmse_large);
-
-percent_improvement = (rmse_random - rmse_full) / rmse_random * 100;
+fprintf('\t %0.3 random', rmse_random);
+fprintf('\t %0.3 training set (
+fprintf('%0.3f actual vs. %0.3f random', rmse_full, rmse_random); 
+fprintf('percent improvement: %0.3f', ...
+    (rmse_random - rmse_full) / rmse_random * 100);
 
 % scatter(X(:,3),Y); hold on;
 % xlabel('Rarity (Common: 2, Uncommon: 4, Rare: 8, Special: 16, Mythic Rare: 20)')
