@@ -8,9 +8,9 @@ disp('loading data');
 X = load('data/feature_matrix.txt');
 Y = load('data/price_vector.txt');
 
-positive_features = all(X' > 0)';
-X = X(positive_features, :);
-Y = Y(positive_features);
+% positive_features = all(X' > 0)';
+% X = X(positive_features, :);
+% Y = Y(positive_features);
 large_Y = (Y' > 100)';
 X_large = X(large_Y,:);
 Y_large = log(Y(large_Y));
@@ -20,6 +20,7 @@ Y = log(Y);
 
 % split into training & test sets
 train_size = floor(m * .9);
+half = floor(m * .5);
 test_size = m - train_size;
 X_train = X(1:train_size,:);
 Y_train = Y(1:train_size);
@@ -28,6 +29,7 @@ Y_test = Y(train_size+1:m);
 
 disp('running regressions');
 [~, rmse_random] = linear_regression(rand(m, n), Y);
+[~, rmse_half] = linear_regression(X(1:half,:), Y(1:half,:));
 [~, rmse_full] = linear_regression(X, Y);
 [theta, rmse_train] = linear_regression(X_train, Y_train);
 
@@ -39,19 +41,21 @@ rmse_large = sqrt(sum((predicted_y_large_test - Y_large).^2) / size(X_large,1));
 
 disp('RMSEs:');
 fprintf('\t %0.3f training on random\n', rmse_random);
+fprintf('\t %0.3f training on 50%%\n', rmse_half);
 fprintf('\t %0.3f training on 90%%\n', rmse_train);
 fprintf('\t %0.3f training on full data\n', rmse_full);
 fprintf('\t %0.3f testing on 10%%\n', rmse_test);
 fprintf('\t %0.3f training on 90%%, counting error on large data only\n', rmse_large);
+fprintf('\t %0.2f%% percent training error improvement over random\n', ...
+    (rmse_random - rmse_full) / rmse_random * 100);
 
-percent_improvement = (rmse_random - rmse_full) / rmse_random * 100;
-
-% scatter(X(:,3),Y); hold on;
-% xlabel('Rarity (Common: 2, Uncommon: 4, Rare: 8, Special: 16, Mythic Rare: 20)')
-% ylabel('log(price)');
-% t = 0:20;
-% k = theta(1) + theta(3)*t;
-% plot(t, k, 'r')
+[~, ranked_features] = sort(theta, 'descend');
+scatter(X(:,3),Y); hold on;
+xlabel('best feature')
+ylabel('log(price)');
+t = 0:20;
+k = theta(1) + theta(ranked_features(1))*t;
+plot(t, k, 'r')
 disp('done');
 
 
