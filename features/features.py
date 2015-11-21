@@ -1,5 +1,3 @@
-__author__ = 'Dustin'
-
 import sys
 import itertools
 from math import *
@@ -32,12 +30,8 @@ def feature_extractor(example):
     # Example:  "cmc": 5 --> {"cmc": 5}
     integer_features_to_use = [
         "cmc",
-        # "number",
         "power",
         "toughness",
-        # "loyalty",
-        # "hand",
-        # "life",
         "multiverseid",
     ]
 
@@ -70,7 +64,7 @@ def feature_extractor(example):
     phi.update(number_of_keywords_in_text(example))
     phi.update(length_rules_text(example))
     phi.update(rarity_as_integer(example))
-    phi.update(token_count(example))
+    phi.update(n_grams(1, example))
 
     fn = lambda x : phi.update(create_integer_feature(x, example))
     map(fn, integer_features_to_use)
@@ -85,9 +79,8 @@ def feature_extractor(example):
 
 ############### NON-GENERIC FEATURES FUNCTIONS ##########################
 
-def token_count(example):
-    """ returns {token: # of occurences of token} """
-
+def n_grams(n, example):
+    """ returns {token sequence of length <= n: # of occurences of sequence} """
     # use all attributes except ID
     example = {k:v for k,v in example.items() if not k == "id"} 
 
@@ -106,10 +99,19 @@ def token_count(example):
     # split on everything except letters
     tokens = re.sub(r'[^a-z]+',' ', all_text.lower()).split()
 
-    # return {token: count}
     # TODO: use smarter stop word filtering than just length
-    return {token: len(list(g)) for token, g in itertools.groupby(sorted(tokens))
-        if len(token) > 3}
+    tokens = [token for token in tokens if len(token) > 0]
+
+    seqs = []
+    for i in range(len(tokens)):
+        seq = []
+        for j in range(n):
+            if i+j < len(tokens):
+                seq.append(tokens[i+j])
+                seqs.append('_'.join(seq))
+
+    # return {seq: count}
+    return {seq: len(list(g)) for seq, g in itertools.groupby(sorted(seqs))}
 
 def number_of_keywords_in_text(example):
     if not "text" in example:

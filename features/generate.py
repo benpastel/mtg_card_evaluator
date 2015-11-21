@@ -1,5 +1,3 @@
-__author__ = 'Dustin'
-
 import json
 import random
 import numpy
@@ -33,7 +31,7 @@ random.shuffle(examples)
 
 # create feature list
 # only use features that show up on example_threshold examples
-example_threshold = 100
+example_threshold = 80
 all_keys = [key for feature_dict, _ in examples for key, val in feature_dict.items()]
 key_counts = {key:len(list(g)) for key, g in groupby(sorted(all_keys))}
 keys = list({key for key, count in key_counts.items() if count >= example_threshold})
