@@ -133,7 +133,10 @@ def feature_extractor(example):
         [[(length_rules_text,[]),(create_integer_feature,["cmc"])], lambda x: x[0]/(x[1] + 1.0)],
     ]
 
-    # If you write a custom feature, include it here
+    # WRITE YOUR OWN FEATURE FUNCTION
+    # If you write a custom feature, place it with the NON-GENERIC features below
+    # Remember to call it on example and update phi here
+    # -----------------------------------
     # Format: phi.update(<function>(<args>)
     phi.update(number_of_keywords_in_text(example))
     phi.update(length_rules_text(example))
