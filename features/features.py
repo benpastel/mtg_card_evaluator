@@ -16,8 +16,7 @@ import string
 # Finally, some functions will not produce a feature (like if a field is missing).  This is equivalent to giving it a value of 0.
 
 # List of meaningful words in card text (not case senstive) (See use below)
-keywords = ["Deathtouch", "Defender", "Double Strike", "Enchant", "Equip", "First Strike", "Flash", "Flying", "Haste", "Hexproof", "Indestructible", "Intimidate", "Landwalk", "Lifelink", "Protection", "Reach", "Shroud", "Trample", "Vigilance", "Banding", "Rampage", "Cumulative Upkeep", "Flanking", "Phasing", "Buyback", "Shadow", "Cycling", "Echo", "Horsemanship", "Fading", "Kicker", "Flashback", "Madness", "Fear", "Morph", "Amplify", "Provoke", "Storm", "Affinity", "Entwine", "Modular", "Sunburst", "Bushido", "Soulshift", "Splice", "Offering", "Ninjutsu", "Epic", "Convoke", "Dredge", "Transmute", "Bloodthirst", "Haunt", "Replicate", "Forecast", "Graft", "Recover", "Ripple", "Split Second", "Suspend", "Vanishing", "Absorb", "Aura Swap", "Delve", "Fortify", "Frenzy", "Gravestorm", "Poisonous", "Transfigure", "Champion", "Changeling", "Evoke", "Hideaway", "Prowl", "Reinforce", "Conspire", "Persist", "Wither", "Retrace", "Devour", "Exalted", "Unearth", "Cascade", "Annihilator", "Level Up", "Rebound", "Totem Armor", "Infect", "Battle Cry", "Living Weapon", "Undying", "Miracle", "Soulbond", "Overload", "Scavenge", "Unleash", "Cipher", "Evolve", "Extort", "Fuse", "Bestow", "Tribute", "Dethrone", "Hidden Agenda", "Outlast", "Prowess", "Dash", "Exploit", "Menace", "Renown", "Awaken", "Devoid", "Ingest"]
-# keywords =["Flying", "Haste"]
+keywords = ["deathtouch", "defender", "double strike", "enchant", "equip", "first strike", "flash", "flying", "haste", "hexproof", "indestructible", "intimidate", "landwalk", "lifelink", "protection", "reach", "shroud", "trample", "vigilance", "banding", "rampage", "cumulative upkeep", "flanking", "phasing", "buyback", "shadow", "cycling", "echo", "horsemanship", "fading", "kicker", "flashback", "madness", "fear", "morph", "amplify", "provoke", "storm", "affinity", "entwine", "modular", "sunburst", "bushido", "soulshift", "splice", "offering", "ninjutsu", "epic", "convoke", "dredge", "transmute", "bloodthirst", "haunt", "replicate", "forecast", "graft", "recover", "ripple", "split second", "suspend", "vanishing", "absorb", "aura swap", "delve", "fortify", "frenzy", "gravestorm", "poisonous", "transfigure", "champion", "changeling", "evoke", "hideaway", "prowl", "reinforce", "conspire", "persist", "wither", "retrace", "devour", "exalted", "unearth", "cascade", "annihilator", "level up", "rebound", "totem armor", "infect", "battle cry", "living weapon", "undying", "miracle", "soulbond", "overload", "scavenge", "unleash", "cipher", "evolve", "extort", "fuse", "bestow", "tribute", "dethrone", "hidden agenda", "outlast", "prowess", "dash", "exploit", "menace", "renown", "awaken", "devoid", "ingest"]# keywords =["Flying", "Haste"]
 
 def feature_extractor(example):
 
@@ -68,6 +67,7 @@ def feature_extractor(example):
     phi.update(length_rules_text(example))
     phi.update(rarity_as_integer(example))
     phi.update(n_grams(1, example))
+    # phi.update(n_tap_abilities(example))
 
     fn = lambda x : phi.update(create_integer_feature(x, example))
     map(fn, integer_features_to_use)
@@ -78,14 +78,95 @@ def feature_extractor(example):
     fn = lambda x : phi.update(create_cross_feature(x, example))
     map(fn, cross_features_to_use)
 
+
+    phi.update(n_lines(example))
+    phi.update(n_tap(example))
+    phi.update(n_untap(example))
+    # phi.update(n_powertoughness(example))
+    # phi.update(n_draw_cards(example))
+
     return phi
+
+
+############### RULE_SPECIFIC TEXT PARSING ##############################
+
+def n_lines(example):
+    if not "text" in example:
+        return {}
+    return {"n_lines": len(example["text"].split('\n'))}
+
+def n_tap(example):
+    if not "text" in example:
+        return {}
+    return {"n_tap": example["text"].count("{T}")}
+
+def n_untap(example):
+    if not "text" in example:
+        return {}
+    return {"n_untap": example["text"].count("{U}")}
+
+def n_powertoughness(example):
+    if not "text" in example:
+        return {}
+    if not(re.match('.*\+[0-9].\+[0-9].*',example["text"]) is None):
+        return {"pt": 1}
+    return {}
+
+def n_draw_cards(example):
+    if not "text" in example:
+        return {}
+    text = example["text"]
+    text = text.lower()
+    if not "draw" in text:
+        return {}
+    if "draw a card" in text or "draws a card" in text:
+        return {"n_draw_cards":1}
+    if "draw that many card" in text or "draws that many card" in text:
+        return {"n_draw_cards":10}
+    if "draw three cards" in text:
+        return {"n_draw_cards":3}
+    if "draws two cards" in text or "draw two cards" in text:
+        return {"n_draw_cards":2}
+    if "draws x cards" in text:
+        return {"n_draw_cards":10}
+    # print text
+    return {}
+
+# def parse(example):
+
+    # Magic Regex
+    # text = L*
+    # L = (K | A ) P+
+    # K = [keyword,]*
+    # P = (R)
+    # A = B:C | C
+    # B = (word --) [{#},{A},{T/U},{command}]*
+    # C = conditional, command | command | new-rule
+
+    # if not "text" in example:
+    #     return {}
+    # lines = example["text"].split('\n')
+    # for line in lines:
+    #     if "(" in line or "\"" in line:
+    #         continue # need to cut out paranthetical and quoted phrases first
+    #     line = line.lower()
+    #     #line could consist of all keywords, comma separated
+    #     sections = line.split(":")
+    #     if len(sections) == 2:
+    #         continue
+    #         # first section is a parsed as (word --) [comma separated list of {#}, {letter}, or phrase with action word at start (few exceptions)]
+    #     else:
+    #         print line
+    #         continue
+    # return {}
 
 ############### NON-GENERIC FEATURES FUNCTIONS ##########################
 
 def n_grams(n, example):
     """ returns {token sequence of length <= n: # of occurences of sequence} """
     # use all attributes except ID
-    example = {k:v for k,v in example.items() if not k == "id"} 
+    example = {k:v for k,v in example.items() if not k == "id"}
+    # example = {k:v for k,v in example.items() if k == "text"}
 
     # dump all the values together into an ascii string
     def get_ascii(val):
@@ -103,7 +184,8 @@ def n_grams(n, example):
     tokens = re.sub(r'[^a-z]+',' ', all_text.lower()).split()
 
     # TODO: use smarter stop word filtering than just length
-    tokens = [token for token in tokens if len(token) > 0]
+    # stop_words = ['the', 'of', 'a', 'to', 'you', 'common', 'it', 't', 'this', 'and', 'your', 'or', 'can', 'with', 'that', 'is', 'as', 'may', 'in', 'for', 'its', 'damage', 'if', 'until', 'be', 'an', 'by', 'are', 'have', 'i', 'his']
+    tokens = [token for token in tokens if len(token) > 0] # and not token in stop_words]
 
     seqs = []
     for i in range(len(tokens)):
@@ -114,7 +196,7 @@ def n_grams(n, example):
                 seqs.append('_'.join(seq))
 
     # return {seq: count}
-    return {seq: len(list(g)) for seq, g in itertools.groupby(sorted(seqs))}
+    return {"ngram: " + seq: len(list(g)) for seq, g in itertools.groupby(sorted(seqs))}
 
 def number_of_keywords_in_text(example):
     if not "text" in example:

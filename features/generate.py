@@ -5,6 +5,8 @@ import features
 import matplotlib.pyplot as plt
 from math import *
 from itertools import groupby
+import mi
+
 
 # read card and price data
 f = open('../data/AllSets.json', 'r')
@@ -20,6 +22,10 @@ card_prices = [(card, price_dict[card["multiverseid"]])
   if ("multiverseid" in card and card["multiverseid"] in price_dict
   and "types" in card and "Creature" in card["types"])]
 
+# for card in card_prices:
+#     if card[1] > 100:
+#         print card
+
 # (feature_dict, price)
 # feature_dict: {"feature name": feature value}
 examples = [(features.feature_extractor(card), price) for card, price in card_prices]
@@ -34,11 +40,16 @@ random.shuffle(examples)
 example_threshold = 80
 all_keys = [key for feature_dict, _ in examples for key, val in feature_dict.items()]
 key_counts = {key:len(list(g)) for key, g in groupby(sorted(all_keys))}
+key_counts_list = [(key, count) for key, count in key_counts.items()]
+key_counts_list = sorted(key_counts_list, key=lambda x: -x[1])
+print [ele[0] for ele in key_counts_list[0:100]]
+
+
 keys = list({key for key, count in key_counts.items() if count >= example_threshold})
 print "number of potential features: ", len(key_counts.keys())
 print "features with enough examples: ", len(keys) 
 print "feature names: ", keys[0:100], "..."
-feature_name_file = file('../data/feature_names.txt', 'w');
+feature_name_file = file('../data/feature_names.txt', 'w')
 for key in keys:
   print >> feature_name_file, key
 
@@ -53,6 +64,28 @@ for i in range(len(examples)):
             X[i][j] = examples[i][0][keys[j]]
     Y[i] = examples[i][1]
 print "Finished creating matrix"
+
+# # Only needs to be re run if you have a new set of examples or have a new set of ngrams
+# print "Finding MIs..."
+# sorted_MI_keys = mi.findMIs(X,Y,keys)
+# sorted_MI_file = file('../data/sorted_MIs.txt', 'w')
+# for sorted_MI_key in sorted_MI_keys:
+#   print >> sorted_MI_file, sorted_MI_key
+# print "MIs saved"
+
+print "Restricting based on MIs..."
+sorted_MI_file = open('../data/sorted_MIs.txt', 'r')
+sorted_MI_keys = [line for line in sorted_MI_file]
+MI_k = 10
+sorted_MI_keys_restricted = sorted_MI_keys[0:MI_k]
+mi_restricted_features = []
+for j in range(len(keys)):
+    if "ngram" in keys[j] and keys[j] in sorted_MI_keys_restricted:
+        mi_restricted_features.append(j)
+    if not "ngram" in keys[j]:
+        mi_restricted_features.append(j)
+X = X[:,mi_restricted_features]
+print "Finished restricting"
 
 print "Saving matrix..."
 numpy.savetxt('../data/feature_matrix.txt', X, fmt='%f')
@@ -99,3 +132,4 @@ example = {
 
 example_features = features.feature_extractor(example)
 print {key: val for key, val in example_features.items() if key in keys}
+

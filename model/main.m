@@ -5,16 +5,17 @@
 % e.g. space-separated floats with one training example per line.
 
 disp('loading data');
-X = load('data/feature_matrix.txt');
-Y = load('data/price_vector.txt');
+X = load('../data/feature_matrix.txt');
+Y = load('../data/price_vector.txt');
 
 % positive_features = all(X' > 0)';
 % X = X(positive_features, :);
 % Y = Y(positive_features);
 large_Y = (Y' > 100)';
-X_large = X(large_Y,:);
-Y_large = log(Y(large_Y));
 Y = log(Y);
+%X = X(:, model_selection(X,Y));
+X_large = X(large_Y,:);
+Y_large = Y(large_Y);
 
 [m, n] = size(X);
 
@@ -50,7 +51,7 @@ fprintf('\t %0.2f%% percent training error improvement over random\n', ...
     (rmse_random - rmse_full) / rmse_random * 100);
 
 [~, ranked_features] = sort(theta, 'descend');
-scatter(X(:,3),Y); hold on;
+scatter(X(:,ranked_features(1)),Y); hold on;
 xlabel('best feature')
 ylabel('log(price)');
 t = 0:20;
