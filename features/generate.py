@@ -17,8 +17,7 @@ price_dict = {int(line[0]): float(line[1]) for line in lines}
 # (card, price).  Restricted to creatures with a multiverseid and a price.
 card_prices = [(card, price_dict[card["multiverseid"]])
   for card_set in js for card in js[card_set]["cards"]
-  if ("multiverseid" in card and card["multiverseid"] in price_dict
-  and "types" in card and "Creature" in card["types"])]
+  if "multiverseid" in card and card["multiverseid"] in price_dict]
 
 # (feature_dict, price)
 # feature_dict: {"feature name": feature value}
