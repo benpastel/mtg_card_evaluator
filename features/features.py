@@ -1,8 +1,8 @@
-__author__ = 'Dustin'
-
 import sys
 import itertools
 from math import *
+import re
+import string
 
 # FEATURE EXTRACTION
 # ------------------
@@ -23,76 +23,6 @@ def feature_extractor(example):
 
     phi = dict()    # Will hold all {feature: value} entries to return
 
-    # Feature template: Text features
-    # Any json field included here is string valued.
-    # This will produce a feature named with the json value and given feature value 1
-    # These are generally not good features, especially because they tend to be unique for each card
-    # ------------------------------------
-    # Example:  "name": "Sen Triplets" --> {"name $ Sen Triplets" : 1}
-    text_features_to_use = [
-        # Name of feature function
-        # "name",
-        # "manaCost",
-        # "type",
-        # "rarity",
-        # "text",
-        # "flavor",
-        # "artist",
-        # "number",
-        # "power",
-        # "toughness",
-        # "layout",
-        # "imageName",
-        # "id",
-        # "imageName",
-        # "watermark",
-        # "border",
-        # "releaseDate",
-    ]
-
-    # Feature template: Text array features
-    # Any json field included here has an array of strings as a value.
-    # This will produce a feature fpr each entry in the array, named with string and given value 1.
-    # ------------------------------------
-    # Example:  "colors": ["Blue", "White"] --> {"colors $ Blue": 1, "colors $ White": 1}
-    text_array_features_to_use = [
-        # "colors",
-        # "supertypes",
-        # "types",
-        # "subtypes",
-    ]
-
-    # Feature template: Text array combo features
-    # Any json field included here has an array of strings as a value.
-    # This will produce a feature for each subset of entries in the array, named with string and given value 1.
-    # ------------------------------------
-    # Example:  "colors": ["Blue", "White"] --> {"colors $ Blue": 1, "colors $ White": 1, "colors $ Blue White": 1}
-    text_array_combo_features_to_use = [
-        # "colors",
-        # "supertypes",
-        # "types",
-        # "subtypes",
-    ]
-
-    # Feature template: Keyword features
-    # This will produce a feature if a keyword is found in a given field, with value 1
-    # ------------------------------------
-    # Example:  ("text", "Flying") --> {"Flying in text": 1} if "Flying" is in "text"
-    field_includes_keyword_to_use = [
-        # ("text", keyword) for keyword in keywords
-    ]
-
-    # Feature template: Boolean features
-    # Any json field included here is boolean valued.
-    # This will produce a feature named with the json key and given value 1 for True, 0 for False.
-    # ------------------------------------
-    # Example:  "timeshifted": True --> {"timeshifted": 1}
-    boolean_features_to_use = [
-        # "timeshifted",
-        # "reversed",
-        # "starter",
-    ]
-
     # Feature template: Integer features
     # Any json field included here has an integer as a value.
     # This will produce a feature named with the field and given the corresponding value.
@@ -100,12 +30,8 @@ def feature_extractor(example):
     # Example:  "cmc": 5 --> {"cmc": 5}
     integer_features_to_use = [
         "cmc",
-        # "number",
         "power",
         "toughness",
-        # "loyalty",
-        # "hand",
-        # "life",
         "multiverseid",
     ]
 
@@ -141,20 +67,7 @@ def feature_extractor(example):
     phi.update(number_of_keywords_in_text(example))
     phi.update(length_rules_text(example))
     phi.update(rarity_as_integer(example))
-
-    # Maps the arrays above to the appropriate feature extracting functions
-    mod = sys.modules[__name__]
-    fn = lambda x : phi.update(create_text_feature(x, example))
-    map(fn, text_features_to_use)
-
-    fn = lambda x : phi.update(create_boolean_feature(x, example))
-    map(fn, boolean_features_to_use)
-
-    fn = lambda x : phi.update(create_text_array_feature(x, example))
-    map(fn, text_array_features_to_use)
-
-    fn = lambda x : phi.update(create_text_array_combo_feature(x, example))
-    map(fn, text_array_combo_features_to_use)
+    phi.update(n_grams(1, example))
 
     fn = lambda x : phi.update(create_integer_feature(x, example))
     map(fn, integer_features_to_use)
@@ -165,12 +78,43 @@ def feature_extractor(example):
     fn = lambda x : phi.update(create_cross_feature(x, example))
     map(fn, cross_features_to_use)
 
-    fn = lambda x : phi.update(create_field_includes_keyword_feature(x, example))
-    map(fn, field_includes_keyword_to_use)
-
     return phi
 
 ############### NON-GENERIC FEATURES FUNCTIONS ##########################
+
+def n_grams(n, example):
+    """ returns {token sequence of length <= n: # of occurences of sequence} """
+    # use all attributes except ID
+    example = {k:v for k,v in example.items() if not k == "id"} 
+
+    # dump all the values together into an ascii string
+    def get_ascii(val):
+        if isinstance(val, unicode):
+            return str(val.encode('ascii', 'ignore'))
+        elif isinstance(val, dict):
+            return ' '.join([get_ascii(subval) for subval in val.values()])
+        elif isinstance(val, list):
+            return ' '.join([get_ascii(subval) for subval in val])
+        else:
+            return str(val)
+    all_text = get_ascii(example);
+    
+    # split on everything except letters
+    tokens = re.sub(r'[^a-z]+',' ', all_text.lower()).split()
+
+    # TODO: use smarter stop word filtering than just length
+    tokens = [token for token in tokens if len(token) > 0]
+
+    seqs = []
+    for i in range(len(tokens)):
+        seq = []
+        for j in range(n):
+            if i+j < len(tokens):
+                seq.append(tokens[i+j])
+                seqs.append('_'.join(seq))
+
+    # return {seq: count}
+    return {seq: len(list(g)) for seq, g in itertools.groupby(sorted(seqs))}
 
 def number_of_keywords_in_text(example):
     if not "text" in example:
@@ -271,4 +215,3 @@ def create_cross_feature(fn_description, example):
             x.append(phis[i][element[i]])
         phi[key] = fn(x)
     return phi
-
