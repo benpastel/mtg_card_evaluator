@@ -58,6 +58,16 @@ def feature_extractor(example):
         [[(length_rules_text,[]),(create_integer_feature,["cmc"])], lambda x: x[0]/(x[1] + 1.0)],
     ]
 
+    # Feature template: Rule features
+    # This allows you to check for a rule by matching a series of text
+    # WANT TO EXTEND TO ALSO INCLUDE A REGEX FOR TAPPING AND MANA SYMBOLS, and more :)
+    # ------------------------------------
+    # Format: [<feature name>, [<list of words substrings that must exist in order in the text,  Entering 0 searches for a number>], <lambda function with x[i] being the value of the ith 0-word]
+    # Example:  ["Number of cards drawn",["draw",0,"card"], lambda x:x[0]]
+    rule_template_features_to_use = [
+        ["Number of cards drawn",["draw",0,"card"], lambda x:x[0]],
+    ]
+
     # WRITE YOUR OWN FEATURE FUNCTION
     # If you write a custom feature, place it with the NON-GENERIC features below
     # Remember to call it on example and update phi here
@@ -78,6 +88,8 @@ def feature_extractor(example):
     fn = lambda x : phi.update(create_cross_feature(x, example))
     map(fn, cross_features_to_use)
 
+    fn = lambda x : phi.update(create_rule_template_feature(x, example))
+    map(fn, rule_template_features_to_use)
 
     phi.update(n_lines(example))
     phi.update(n_tap(example))
@@ -89,6 +101,39 @@ def feature_extractor(example):
 
 
 ############### RULE_SPECIFIC TEXT PARSING ##############################
+
+numerals = {"1":1,"2":2,"3":3,"4":4,"5":5,"6":6,"7":7,"8":8,"9":9,"10":10,"11":11,"12":12,"13":13,"14":14,"15":15,"16":16,"17":17,"18":18,"19":19,"20":20}
+numbers = {"one":1,"two":2,"three":3,"four":4,"five":5,"six":6,"seven":7,"eight":8,"nine":9,"ten":10,"eleven":11,"twelve":12,"thirteen":13,"fourteen":14,"fifteen":15,"sixteen":16,"seventeen":17,"eighteen":18,"nineteen":19,"twenty":20}
+
+def isNumber(word):
+    return word in numerals or word in numbers
+
+def number(word):
+    if word in numerals:
+        return numerals[word]
+    if word in numbers:
+        return numbers[word]
+    return False
+
+def create_rule_template_feature(rule_template_and_fn, example):
+    if not "text" in example:
+        return {}
+    name, rule_template, val_fn = rule_template_and_fn
+    words = example["text"].split()
+    i = 0
+    j = 0
+    val = []
+    while i < len(words):
+        if rule_template[j] == 0:
+            if isNumber(words[i]):
+                val.append(number(words[i]))
+                j = j + 1
+        elif rule_template[j] in words[i]:
+            j = j + 1
+            if j == len(rule_template):
+                return {name: val_fn(val)} #success
+        i = i + 1
+    return {}
 
 def n_lines(example):
     if not "text" in example:
@@ -131,34 +176,6 @@ def n_draw_cards(example):
         return {"n_draw_cards":10}
     # print text
     return {}
-
-# def parse(example):
-
-    # Magic Regex
-    # text = L*
-    # L = (K | A ) P+
-    # K = [keyword,]*
-    # P = (R)
-    # A = B:C | C
-    # B = (word --) [{#},{A},{T/U},{command}]*
-    # C = conditional, command | command | new-rule
-
-    # if not "text" in example:
-    #     return {}
-    # lines = example["text"].split('\n')
-    # for line in lines:
-    #     if "(" in line or "\"" in line:
-    #         continue # need to cut out paranthetical and quoted phrases first
-    #     line = line.lower()
-    #     #line could consist of all keywords, comma separated
-    #     sections = line.split(":")
-    #     if len(sections) == 2:
-    #         continue
-    #         # first section is a parsed as (word --) [comma separated list of {#}, {letter}, or phrase with action word at start (few exceptions)]
-    #     else:
-    #         print line
-    #         continue
-    # return {}
 
 ############### NON-GENERIC FEATURES FUNCTIONS ##########################
 
@@ -223,6 +240,8 @@ def rarity_as_integer(example):
 
 
 ############### GENERIC FEATURES FUNCTIONS ##########################
+
+
 
 def create_text_feature(json_key, example):
     if not json_key in example:
