@@ -11,7 +11,7 @@ Y = load('../data/price_vector.txt');
 % positive_features = all(X' > 0)';
 % X = X(positive_features, :);
 % Y = Y(positive_features);
-large_Y = (Y' > 100)';
+large_Y = ((Y'>5)&(Y'<300))';
 Y = log(Y);
 %X = X(:, model_selection(X,Y));
 X_large = X(large_Y,:);
@@ -29,10 +29,15 @@ X_test = X(train_size+1:m,:);
 Y_test = Y(train_size+1:m);
 
 disp('running regressions');
-[~, rmse_random] = linear_regression(rand(m, n), Y);
-[~, rmse_half] = linear_regression(X(1:half,:), Y(1:half,:));
-[~, rmse_full] = linear_regression(X, Y);
-[theta, rmse_train] = linear_regression(X_train, Y_train);
+% [~, rmse_random] = linear_regression(rand(m, n), Y);
+% [~, rmse_half] = linear_regression(X(1:half,:), Y(1:half,:));
+% [~, rmse_full] = linear_regression(X, Y);
+% [theta, rmse_train] = linear_regression(X_train, Y_train);
+
+[~, rmse_random] = bays_linear_regression(rand(m, n), Y);
+[~, rmse_half] = bays_linear_regression(X(1:half,:), Y(1:half,:));
+[~, rmse_full] = bays_linear_regression(X, Y);
+[theta, rmse_train] = bays_linear_regression(X_train, Y_train);
 
 predicted_y_test = [ones(test_size, 1), X_test] * theta;
 rmse_test = sqrt(sum((predicted_y_test - Y_test).^2) / test_size);

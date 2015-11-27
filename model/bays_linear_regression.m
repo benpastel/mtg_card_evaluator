@@ -13,13 +13,15 @@ function [ theta, rmse ] = linear_regression( X, Y )
     if (m ~= size(Y, 1) || size(Y, 2) ~= 1)
         throw(MException('linear_regression:params', 'bad Y shape'));
     end
+
         
     % prepend intercepts
     X = [ones(m, 1), X];
-    
+    [m,n] = size(X);
     % normal equations
-    theta = mldivide(transpose(X)*X,transpose(X) * Y);
-  
+%     theta = pinv(transpose(X)*X+eye(n)) * transpose(X) * Y;
+    theta = mldivide(transpose(X)*X+eye(n),transpose(X) * Y);
+ 
     % find root-mean-squared error
     predicted_y = X * theta;
     rmse = sqrt(sum((predicted_y - Y).^2) / m);
