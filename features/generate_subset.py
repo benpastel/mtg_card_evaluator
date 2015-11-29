@@ -20,7 +20,7 @@ for card_set in js:
 			try:
 				mid = int(card["multiverseid"])
 				price = float(price_dict[mid])
-				if ( (price > 1) and (price < 200) and (mid >1188) ):
+				if ( (price > 1) and (price < 200) and (mid >1091) ):
 					examples.append((features.feature_extractor(card), price))
 			except KeyError:
 				pass
