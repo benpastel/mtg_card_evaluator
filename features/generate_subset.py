@@ -15,15 +15,15 @@ price_dict = {int(line[0]): float(line[1]) for line in lines}
 
 examples = []
 for card_set in js:
-	for card in js[card_set]["cards"]:
-		if "Creature" in card["type"].encode('utf-8'):
-			try:
-				mid = int(card["multiverseid"])
-				price = float(price_dict[mid])
-				if ( (price > 1) and (price < 200) and (mid >1091) ):
-					examples.append((features.feature_extractor(card), price))
-			except KeyError:
-				pass
+  for card in js[card_set]["cards"]:
+    if "Creature" in card["type"].encode('utf-8'):
+      try:
+        mid = int(card["multiverseid"])
+        price = float(price_dict[mid])
+        if ((price > 1) and (price < 200) and (mid > 1091) and (mid not in range(10487,10611))):
+          examples.append((features.feature_extractor(card), price))
+      except KeyError:
+        pass
 
 print "Number of examples: {0}".format(len(examples))
 
