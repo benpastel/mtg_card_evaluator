@@ -76,8 +76,7 @@ def feature_extractor(example):
     phi.update(number_of_keywords_in_text(example))
     phi.update(length_rules_text(example))
     phi.update(rarity_as_integer(example))
-    phi.update(n_grams(1, example))
-    # phi.update(n_tap_abilities(example))
+    phi.update(n_grams(3, example))
 
     fn = lambda x : phi.update(create_integer_feature(x, example))
     map(fn, integer_features_to_use)
@@ -94,8 +93,8 @@ def feature_extractor(example):
     phi.update(n_lines(example))
     phi.update(n_tap(example))
     phi.update(n_untap(example))
-    # phi.update(n_powertoughness(example))
-    # phi.update(n_draw_cards(example))
+    phi.update(n_powertoughness(example))
+    phi.update(n_draw_cards(example))
 
     return phi
 

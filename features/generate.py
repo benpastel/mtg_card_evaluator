@@ -2,11 +2,8 @@ import json
 import random
 import numpy
 import features
-import matplotlib.pyplot as plt
 from math import *
 from itertools import groupby
-import mi
-
 
 # read card and price data
 f = open('../data/AllSets.json', 'r')
@@ -19,11 +16,13 @@ price_dict = {int(line[0]): float(line[1]) for line in lines}
 # (card, price).  Restricted to creatures with a multiverseid and a price.
 card_prices = [(card, price_dict[card["multiverseid"]])
   for card_set in js for card in js[card_set]["cards"]
-  if "multiverseid" in card and card["multiverseid"] in price_dict]
+  if "multiverseid" in card and card["multiverseid"] in price_dict
+  and card["multiverseid"] > 2000]
 
-# for card in card_prices:
-#     if card[1] > 100:
-#         print card
+# unique arbitrarily on card name.  fancier methods than this didn't seem
+# to help. (e.g. taking the most recent, taking the median price)
+name_to_card = {card["name"]: (card, price) for card, price in card_prices}
+card_prices = name_to_card.values();
 
 # (feature_dict, price)
 # feature_dict: {"feature name": feature value}
@@ -35,20 +34,20 @@ random.seed(1)
 random.shuffle(examples)
 
 # create feature list
-# only use features that show up on example_threshold examples
-example_threshold = 80
+# only use features that show up on enough examples
+example_threshold = 400
 all_keys = [key for feature_dict, _ in examples for key, val in feature_dict.items()]
 key_counts = {key:len(list(g)) for key, g in groupby(sorted(all_keys))}
 key_counts_list = [(key, count) for key, count in key_counts.items()]
 key_counts_list = sorted(key_counts_list, key=lambda x: -x[1])
 print [ele[0] for ele in key_counts_list[0:100]]
 
-
 keys = list({key for key, count in key_counts.items() if count >= example_threshold})
 print "number of potential features: ", len(key_counts.keys())
 print "features with enough examples: ", len(keys) 
 print "feature names: ", keys[0:100], "..."
 feature_name_file = file('../data/feature_names.txt', 'w')
+print >> feature_name_file, "(intercept term)" # easier to match file with thetas
 for key in keys:
   print >> feature_name_file, key
 
@@ -64,28 +63,6 @@ for i in range(len(examples)):
     Y[i] = examples[i][1]
 print "Finished creating matrix"
 
-# # Only needs to be re run if you have a new set of examples or have a new set of ngrams
-# print "Finding MIs..."
-# sorted_MI_keys = mi.findMIs(X,Y,keys)
-# sorted_MI_file = file('../data/sorted_MIs.txt', 'w')
-# for sorted_MI_key in sorted_MI_keys:
-#   print >> sorted_MI_file, sorted_MI_key
-# print "MIs saved"
-
-print "Restricting based on MIs..."
-sorted_MI_file = open('../data/sorted_MIs.txt', 'r')
-sorted_MI_keys = [line for line in sorted_MI_file]
-MI_k = 10
-sorted_MI_keys_restricted = sorted_MI_keys[0:MI_k]
-mi_restricted_features = []
-for j in range(len(keys)):
-    if "ngram" in keys[j] and keys[j] in sorted_MI_keys_restricted:
-        mi_restricted_features.append(j)
-    if not "ngram" in keys[j]:
-        mi_restricted_features.append(j)
-X = X[:,mi_restricted_features]
-print "Finished restricting"
-
 print "Saving matrix..."
 numpy.savetxt('../data/feature_matrix.txt', X, fmt='%f')
 print "Save finished"
@@ -95,9 +72,6 @@ print "Save finished"
 
 
 ## Print some examples
-# print examples[0]
-# print X[0]
-# print Y[0]
 print "Sen Triplets example"
 example = {
                "name" : "Sen Triplets",
