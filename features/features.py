@@ -195,9 +195,7 @@ def n_grams(n, example):
             return str(val)
     all_text = get_ascii(example);
     
-    # split on everything except letters
-    # TODO: include numbers?
-    tokens = re.sub(r'[^a-z]+',' ', all_text.lower()).split()
+    tokens = re.sub(r'[^a-z0-9]+',' ', all_text.lower()).split()
 
     tokens = [token for token in tokens]
 
@@ -208,10 +206,8 @@ def n_grams(n, example):
             if i+j < len(tokens):
                 seq.append(tokens[i+j])
                 seqs.append('_'.join(seq))
-    seqs = [seq for seq in seqs if len(seq) > 3]
 
-    # return {seq: count}
-    return {"ngram: " + seq: len(list(g)) for seq, g in itertools.groupby(sorted(seqs))}
+    return {"ngram: " + seq: 1 for seq in seqs if len(seq) > 2}
 
 def number_of_keywords_in_text(example):
     if not "text" in example:
