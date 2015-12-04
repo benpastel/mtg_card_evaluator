@@ -182,7 +182,6 @@ def n_grams(n, example):
     """ returns {token sequence of length <= n: # of occurences of sequence} """
     # use all attributes except ID
     example = {k:v for k,v in example.items() if not k == "id"}
-    # example = {k:v for k,v in example.items() if k == "text"}
 
     # dump all the values together into an ascii string
     def get_ascii(val):
@@ -197,11 +196,10 @@ def n_grams(n, example):
     all_text = get_ascii(example);
     
     # split on everything except letters
+    # TODO: include numbers?
     tokens = re.sub(r'[^a-z]+',' ', all_text.lower()).split()
 
-    # TODO: use smarter stop word filtering than just length
-    # stop_words = ['the', 'of', 'a', 'to', 'you', 'common', 'it', 't', 'this', 'and', 'your', 'or', 'can', 'with', 'that', 'is', 'as', 'may', 'in', 'for', 'its', 'damage', 'if', 'until', 'be', 'an', 'by', 'are', 'have', 'i', 'his']
-    tokens = [token for token in tokens if len(token) > 0] # and not token in stop_words]
+    tokens = [token for token in tokens]
 
     seqs = []
     for i in range(len(tokens)):
@@ -210,6 +208,7 @@ def n_grams(n, example):
             if i+j < len(tokens):
                 seq.append(tokens[i+j])
                 seqs.append('_'.join(seq))
+    seqs = [seq for seq in seqs if len(seq) > 3]
 
     # return {seq: count}
     return {"ngram: " + seq: len(list(g)) for seq, g in itertools.groupby(sorted(seqs))}

@@ -5,15 +5,11 @@
 % e.g. space-separated floats with one training example per line.
 
 disp('loading data');
-X = load('../data/feature_matrix.txt');
-Y = load('../data/price_vector.txt');
+X = load('data/feature_matrix.txt');
+Y = load('data/price_vector.txt');
 
-% positive_features = all(X' > 0)';
-% X = X(positive_features, :);
-% Y = Y(positive_features);
 large_Y = ((Y'>5)&(Y'<300))';
 Y = log(Y);
-%X = X(:, model_selection(X,Y));
 X_large = X(large_Y,:);
 Y_large = Y(large_Y);
 
@@ -29,15 +25,10 @@ X_test = X(train_size+1:m,:);
 Y_test = Y(train_size+1:m);
 
 disp('running regressions');
-% [~, rmse_random] = linear_regression(rand(m, n), Y);
-% [~, rmse_half] = linear_regression(X(1:half,:), Y(1:half,:));
-% [~, rmse_full] = linear_regression(X, Y);
-% [theta, rmse_train] = linear_regression(X_train, Y_train);
-
-[~, rmse_random] = bays_linear_regression(rand(m, n), Y);
-[~, rmse_half] = bays_linear_regression(X(1:half,:), Y(1:half,:));
-[~, rmse_full] = bays_linear_regression(X, Y);
-[theta, rmse_train] = bays_linear_regression(X_train, Y_train);
+[~, rmse_random] = bayes_linear_regression(rand(m, n), Y);
+[~, rmse_half] = bayes_linear_regression(X(1:half,:), Y(1:half,:));
+[theta_full, rmse_full] = bayes_linear_regression(X, Y);
+[theta, rmse_train] = bayes_linear_regression(X_train, Y_train);
 
 predicted_y_test = [ones(test_size, 1), X_test] * theta;
 rmse_test = sqrt(sum((predicted_y_test - Y_test).^2) / test_size);
@@ -55,13 +46,7 @@ fprintf('\t %0.3f training on 90%%, counting error on large data only\n', rmse_l
 fprintf('\t %0.2f%% percent training error improvement over random\n', ...
     (rmse_random - rmse_full) / rmse_random * 100);
 
-[~, ranked_features] = sort(theta, 'descend');
-scatter(X(:,ranked_features(1)),Y); hold on;
-xlabel('best feature')
-ylabel('log(price)');
-t = 0:20;
-k = theta(1) + theta(ranked_features(1))*t;
-plot(t, k, 'r')
+dlmwrite('data/theta.csv', theta_full, 'delimiter', '\n', 'precision', 4);
 disp('done');
 
 

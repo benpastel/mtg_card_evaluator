@@ -35,16 +35,37 @@ random.shuffle(examples)
 
 # create feature list
 # only use features that show up on enough examples
-example_threshold = 400
+example_threshold = 130
 all_keys = [key for feature_dict, _ in examples for key, val in feature_dict.items()]
 key_counts = {key:len(list(g)) for key, g in groupby(sorted(all_keys))}
 key_counts_list = [(key, count) for key, count in key_counts.items()]
 key_counts_list = sorted(key_counts_list, key=lambda x: -x[1])
-print [ele[0] for ele in key_counts_list[0:100]]
+print "number of potential features: ", len(key_counts.keys())
 
 keys = list({key for key, count in key_counts.items() if count >= example_threshold})
-print "number of potential features: ", len(key_counts.keys())
 print "features with enough examples: ", len(keys) 
+
+# remove n_grams that are very similar
+unique_threshold = 90
+words = lambda f: {word for word in f.lstrip("ngram: ").split('_')}
+indices = lambda f: {idx for idx, example in enumerate(examples) if 
+  f in example[0] and example[0][f] > 0}
+key_to_examples = {key: indices(key) for key in keys}
+ok_keys = set()
+for f1 in sorted(keys, key=len): # prefer the shorter one
+  too_similar = False;
+  for f2 in ok_keys: 
+    if ("ngram: " in f1 and "ngram: " in f2
+      and len(words(f1).intersection(words(f2))) > 0
+      and len(key_to_examples[f1] - key_to_examples[f2]) < unique_threshold
+      and len(key_to_examples[f2] - key_to_examples[f1]) < unique_threshold):
+      too_similar = True;
+ 
+  if not too_similar:
+    ok_keys.add(f1)
+keys = list(ok_keys);
+print "after removing very similar ngrams:", len(keys)
+
 print "feature names: ", keys[0:100], "..."
 feature_name_file = file('../data/feature_names.txt', 'w')
 print >> feature_name_file, "(intercept term)" # easier to match file with thetas
