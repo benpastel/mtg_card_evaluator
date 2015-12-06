@@ -181,7 +181,9 @@ def n_draw_cards(example):
 def n_grams(n, example):
     """ returns {token sequence of length <= n: # of occurences of sequence} """
     # use all attributes except ID
-    example = {k:v for k,v in example.items() if not k == "id"}
+    example = {k:v for k,v in example.items() if 
+        not k == "id"
+        and not k == "flavor"}
 
     # dump all the values together into an ascii string
     def get_ascii(val):
