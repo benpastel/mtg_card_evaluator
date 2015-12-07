@@ -198,8 +198,7 @@ def n_grams(n, example):
     all_text = get_ascii(example);
     
     tokens = re.sub(r'[^a-z0-9]+',' ', all_text.lower()).split()
-
-    tokens = [token for token in tokens]
+    tokens = [token.rstrip('s') for token in tokens] # mitigate pluralization
 
     seqs = []
     for i in range(len(tokens)):
