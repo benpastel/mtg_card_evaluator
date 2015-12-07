@@ -43,11 +43,10 @@ fprintf('\t %0.3f training on 90%%\n', rmse_train);
 fprintf('\t %0.3f training on full data\n', rmse_full);
 fprintf('\t %0.3f testing on 10%%\n', rmse_test);
 fprintf('\t %0.3f training on 90%%, counting error on large data only\n', rmse_large);
+fprintf('\t %0.2f%% percent testing error improvement over random\n', ...
+    (rmse_random - rmse_test) / rmse_random * 100);
 fprintf('\t %0.2f%% percent training error improvement over random\n', ...
-    (rmse_random - rmse_full) / rmse_random * 100);
+    (rmse_random - rmse_train) / rmse_random * 100);
 
 dlmwrite('data/theta.csv', theta_full, 'delimiter', '\n', 'precision', 4);
 disp('done');
-
-
-
