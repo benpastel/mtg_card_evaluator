@@ -15,10 +15,18 @@ function [ theta, rmse] = locally_weighted_linear_regression( X, Y, x_test, tau)
     if (m ~= size(Y, 1) || size(Y, 2) ~= 1 || size(x_test,1) ~= 1)
         throw(MException('linear_regression:params', 'bad Y shape'));
     end
+    X_normalized = X ./ max(X);
     W = zeros(m,1);
     distances = zeros(m,1);
     for i = 1:m
-      W(i,1) = exp(-norm(X(i,:) - x_test)^2/(2*tau^2))/2;
+      distances(i,1) = norm(X(i,:) - x_test);
+    end
+    tau = (max(distances) - min(distances)) / 3
+    if tau == 0:
+      tau = 1
+    end
+    for i = 1:m
+      W(i,1) = exp(-norm(X_normalized(i,:) - x_test)^2/(2*tau^2))/2;
       distances(i,1) = norm(X(i,:) - x_test);
       ####W(i) = 1/(X(i,:)*transpose(x_test)) #SHOULD BE JUST 0S AND 1s
     end
