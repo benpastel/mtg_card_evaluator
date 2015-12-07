@@ -13,11 +13,17 @@ lines = map(lambda string: string.strip().split("\t"), open("../data/id_price.da
 # {multiverseid: float price}
 price_dict = {int(line[0]): float(line[1]) for line in lines}
 
+banned_sets = [ "LEA" , "LEB" , "2ED" , "CED" , "ARN" , "CEI" , "pDRC" , "ATQ" , "LEG" , "DRK" ,
+"FEM" , "pLGM" , "pMEI" , "RQS" , "pARL" ,"pCEL" , "MGB" , "ITP" , "pPOD" ,"pPRE" , "PO2" , "pJGP" ,
+"UGL" , "pALP" , "PTK" , "S99" , "pGRU" , "pWOR" , "pWOS" , "pSUS" , "BRB" , "pFNM" , "pELP" , "S00" ,
+"BTD" , "pMPR" , "pREL" , "UNH" ,"p2HG" , "pGTW" , "pCMP" , "CST" , "pHHO" ,"pPRO" ,"pGPX" , "pMGD" ,
+"pSUM" , "MED" , "pLPA" , "pWPN" , "p15A" , "ME2" ,"EXP" , "TPR" , "FRF_UGIN" , "CPK" , "VMA" , "pWCQ" ,
+"ME4" , "ME3" , "HOP" ]
+
 # (card, price).  Restricted to creatures with a multiverseid and a price.
 card_prices = [(card, price_dict[card["multiverseid"]])
-  for card_set in js for card in js[card_set]["cards"]
-  if "multiverseid" in card and card["multiverseid"] in price_dict
-  and card["multiverseid"] > 2000]
+  for card_set in js if card_set not in banned_sets for card in js[card_set]["cards"]
+  if "multiverseid" in card and card["multiverseid"] in price_dict]
 
 # unique arbitrarily on card name.  fancier methods than this didn't seem
 # to help. (e.g. taking the most recent, taking the median price)
