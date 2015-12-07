@@ -22,6 +22,7 @@ for card_set in js:
         price = float(price_dict[mid])
         if ((price > 1) and (price < 200) and (mid > 1091) and (mid not in range(10487,10611))):
           examples.append((features.feature_extractor(card), price))
+          # print card
       except KeyError:
         pass
 
@@ -39,7 +40,6 @@ key_counts = {key:len(list(g)) for key, g in groupby(sorted(all_keys))}
 key_counts_list = [(key, count) for key, count in key_counts.items()]
 key_counts_list = sorted(key_counts_list, key=lambda x: -x[1])
 print [ele[0] for ele in key_counts_list[0:100]]
-
 
 keys = list({key for key, count in key_counts.items() if count >= example_threshold})
 print "number of potential features: ", len(key_counts.keys())
