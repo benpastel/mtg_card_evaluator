@@ -34,15 +34,17 @@ Y_test = Y(train_size+1:m);
 %  predicted_Y_weighted(i,1) = [1 X_test(i,:)] * theta_weighted;
 %end
 %rmse_weighted = sqrt(sum((predicted_Y_weighted - Y_test(1:llw_size)).^2) / llw_size)
+%rmse_test_restrict = sqrt(sum((predicted_y_test(1:llw_size) - Y_test(1:llw_size)).^2) / llw_size)
+
+disp('running regressions');
 X_random = rand(m, n);
-[theta_random, rmse_random] = bayes_linear_regression(X_random, Y);
-[~, rmse_half] = bayes_linear_regression(X(1:half,:), Y(1:half,:));
-[theta_full, rmse_full] = bayes_linear_regression(X, Y);
-[theta, rmse_train] = bayes_linear_regression(X_train, Y_train);
+[theta_random, rmse_random] = linear_regression(X_random, Y);
+[~, rmse_half] = linear_regression(X(1:half,:), Y(1:half,:));
+[theta_full, rmse_full] = linear_regression(X, Y);
+[theta, rmse_train] = linear_regression(X_train, Y_train);
 
 predicted_y_test = [ones(test_size, 1), X_test] * theta;
 rmse_test = sqrt(sum((predicted_y_test - Y_test).^2) / test_size);
-rmse_test_restrict = sqrt(sum((predicted_y_test(1:llw_size) - Y_test(1:llw_size)).^2) / llw_size)
 
 predicted_y_train = [ones(train_size, 1), X_train] * theta;
 
@@ -63,8 +65,10 @@ fprintf('\t %0.3f training on 90%%\n', rmse_train);
 fprintf('\t %0.3f training on full data\n', rmse_full);
 fprintf('\t %0.3f testing on 10%%\n', rmse_test);
 fprintf('\t %0.3f training on 90%%, counting error on large data only\n', rmse_large);
+fprintf('\t %0.2f%% percent testing error improvement over random\n', ...
+    (rmse_random - rmse_test) / rmse_random * 100);
 fprintf('\t %0.2f%% percent training error improvement over random\n', ...
-    (rmse_random - rmse_full) / rmse_random * 100);
+    (rmse_random - rmse_train) / rmse_random * 100);
 
 %dlmwrite('data/theta.csv', theta_full, 'delimiter', '\n', 'precision', 4);
 disp('done');

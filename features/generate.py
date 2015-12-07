@@ -59,7 +59,7 @@ keys = list({key for key, count in key_counts.items() if count >= example_thresh
 print "features with enough examples: ", len(keys) 
 
 # remove n_grams that are very similar
-unique_threshold = 120
+unique_threshold = 200
 words = lambda f: {word for word in f.lstrip("ngram: ").split('_')}
 indices = lambda f: {idx for idx, example in enumerate(examples) if 
   f in example[0] and example[0][f] > 0}
