@@ -6,47 +6,41 @@
 
 disp('loading data');
 X = load('data/feature_matrix.txt');
-Y = load('data/price_vector.txt');
+Y = log(load('data/price_vector.txt'));
+       
+[m, ~] = size(X);
+order = randperm(m);
+X = X(order, :);
+Y = Y(order);
 
-large_Y = ((Y'>5)&(Y'<300))';
-Y = log(Y);
-X_large = X(large_Y,:);
-Y_large = Y(large_Y);
+% prepend intercepts
+X = [ones(m, 1), X];
 
-[m, n] = size(X);
+disp('training');
+train_m = floor(m * 0.9);
 
-% split into training & test sets
-train_size = floor(m * .9);
-half = floor(m * .5);
-test_size = m - train_size;
-X_train = X(1:train_size,:);
-Y_train = Y(1:train_size);
-X_test = X(train_size+1:m,:);
-Y_test = Y(train_size+1:m);
+trials = 15;
+test_rmses = [];
+train_rmses = [];
+sizes = linspace(4000, train_m, trials);
+trial = 1;
+for use_m = sizes    
+    X_test = X(train_m+1:m,:);
+    Y_test = Y(train_m+1:m);
+    
+    X_train = X(1:floor(use_m),:);
+    Y_train = Y(1:floor(use_m));
+    
+    [theta, train_rmse] = linear_regression(X_train, Y_train);
+    predicted = X_test * theta;
+    test_rmse = sqrt(sum((predicted - Y_test).^2) / length(Y_test));
+    test_rmses = [test_rmses test_rmse];
+    train_rmses = [train_rmses train_rmse];
+end
+hold on;
+ylabel('RMSE');
+xlabel('m');
+plot(sizes, test_rmses);
+plot(sizes, train_rmses);
+legend('test', 'train');
 
-disp('running regressions');
-[~, rmse_random] = linear_regression(rand(m, n), Y);
-[~, rmse_half] = linear_regression(X(1:half,:), Y(1:half,:));
-[theta_full, rmse_full] = linear_regression(X, Y);
-[theta, rmse_train] = linear_regression(X_train, Y_train);
-
-predicted_y_test = [ones(test_size, 1), X_test] * theta;
-rmse_test = sqrt(sum((predicted_y_test - Y_test).^2) / test_size);
-
-predicted_y_large_test = [ones(size(X_large,1), 1), X_large] * theta;
-rmse_large = sqrt(sum((predicted_y_large_test - Y_large).^2) / size(X_large,1));
-
-disp('RMSEs:');
-fprintf('\t %0.3f training on random\n', rmse_random);
-fprintf('\t %0.3f training on 50%%\n', rmse_half);
-fprintf('\t %0.3f training on 90%%\n', rmse_train);
-fprintf('\t %0.3f training on full data\n', rmse_full);
-fprintf('\t %0.3f testing on 10%%\n', rmse_test);
-fprintf('\t %0.3f training on 90%%, counting error on large data only\n', rmse_large);
-fprintf('\t %0.2f%% percent testing error improvement over random\n', ...
-    (rmse_random - rmse_test) / rmse_random * 100);
-fprintf('\t %0.2f%% percent training error improvement over random\n', ...
-    (rmse_random - rmse_train) / rmse_random * 100);
-
-dlmwrite('data/theta.csv', theta_full, 'delimiter', '\n', 'precision', 4);
-disp('done');

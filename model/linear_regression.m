@@ -13,9 +13,6 @@ function [ theta, rmse ] = linear_regression( X, Y )
     if (m ~= size(Y, 1) || size(Y, 2) ~= 1)
         throw(MException('linear_regression:params', 'bad Y shape'));
     end
-        
-    % prepend intercepts
-    X = [ones(m, 1), X];
     
     % normal equations
     theta = mldivide(transpose(X)*X,transpose(X) * Y);

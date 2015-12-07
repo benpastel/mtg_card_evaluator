@@ -41,7 +41,7 @@ random.shuffle(examples)
 
 # create feature list
 # only use features that show up on enough examples
-example_threshold = 200
+example_threshold = 800
 all_keys = [key for feature_dict, _ in examples for key, val in feature_dict.items()]
 key_counts = {key:len(list(g)) for key, g in groupby(sorted(all_keys))}
 key_counts_list = [(key, count) for key, count in key_counts.items()]
@@ -52,7 +52,7 @@ keys = list({key for key, count in key_counts.items() if count >= example_thresh
 print "features with enough examples: ", len(keys) 
 
 # remove n_grams that are very similar
-unique_threshold = 200
+unique_threshold = 800
 words = lambda f: {word for word in f.lstrip("ngram: ").split('_')}
 indices = lambda f: {idx for idx, example in enumerate(examples) if 
   f in example[0] and example[0][f] > 0}
