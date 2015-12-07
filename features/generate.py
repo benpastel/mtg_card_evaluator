@@ -13,11 +13,17 @@ lines = map(lambda string: string.strip().split("\t"), open("../data/id_price.da
 # {multiverseid: float price}
 price_dict = {int(line[0]): float(line[1]) for line in lines}
 
+banned_sets = [ "LEA" , "LEB" , "2ED" , "CED" , "ARN" , "CEI" , "pDRC" , "ATQ" , "LEG" , "DRK" ,
+"FEM" , "pLGM" , "pMEI" , "RQS" , "pARL" ,"pCEL" , "MGB" , "ITP" , "pPOD" ,"pPRE" , "PO2" , "pJGP" ,
+"UGL" , "pALP" , "PTK" , "S99" , "pGRU" , "pWOR" , "pWOS" , "pSUS" , "BRB" , "pFNM" , "pELP" , "S00" ,
+"BTD" , "pMPR" , "pREL" , "UNH" ,"p2HG" , "pGTW" , "pCMP" , "CST" , "pHHO" ,"pPRO" ,"pGPX" , "pMGD" ,
+"pSUM" , "MED" , "pLPA" , "pWPN" , "p15A" , "ME2" ,"EXP" , "TPR" , "FRF_UGIN" , "CPK" , "VMA" , "pWCQ" ,
+"ME4" , "ME3" , "HOP" ]
+
 # (card, price).  Restricted to creatures with a multiverseid and a price.
 card_prices = [(card, price_dict[card["multiverseid"]])
-  for card_set in js for card in js[card_set]["cards"]
-  if "multiverseid" in card and card["multiverseid"] in price_dict
-  and card["multiverseid"] > 2000]
+  for card_set in js if card_set not in banned_sets for card in js[card_set]["cards"]
+  if "multiverseid" in card and card["multiverseid"] in price_dict]
 
 # unique arbitrarily on card name.  fancier methods than this didn't seem
 # to help. (e.g. taking the most recent, taking the median price)
@@ -35,7 +41,7 @@ random.shuffle(examples)
 
 # create feature list
 # only use features that show up on enough examples
-example_threshold = 160
+example_threshold = 200
 all_keys = [key for feature_dict, _ in examples for key, val in feature_dict.items()]
 key_counts = {key:len(list(g)) for key, g in groupby(sorted(all_keys))}
 key_counts_list = [(key, count) for key, count in key_counts.items()]
@@ -53,7 +59,7 @@ keys = list({key for key, count in key_counts.items() if count >= example_thresh
 print "features with enough examples: ", len(keys) 
 
 # remove n_grams that are very similar
-unique_threshold = 100
+unique_threshold = 120
 words = lambda f: {word for word in f.lstrip("ngram: ").split('_')}
 indices = lambda f: {idx for idx, example in enumerate(examples) if 
   f in example[0] and example[0][f] > 0}

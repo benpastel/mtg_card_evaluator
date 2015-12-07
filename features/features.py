@@ -240,7 +240,9 @@ def n_draw_cards(example):
 def n_grams(n, example):
     """ returns {token sequence of length <= n: # of occurences of sequence} """
     # use all attributes except ID
-    example = {k:v for k,v in example.items() if not k == "id"}
+    example = {k:v for k,v in example.items() if 
+        not k == "id"
+        and not k == "flavor"}
 
     # dump all the values together into an ascii string
     def get_ascii(val):
@@ -255,8 +257,7 @@ def n_grams(n, example):
     all_text = get_ascii(example);
     
     tokens = re.sub(r'[^a-z0-9]+',' ', all_text.lower()).split()
-
-    tokens = [token for token in tokens]
+    tokens = [token.rstrip('s') for token in tokens] # mitigate pluralization
 
     seqs = []
     for i in range(len(tokens)):
