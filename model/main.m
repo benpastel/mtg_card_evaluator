@@ -25,10 +25,10 @@ X_test = X(train_size+1:m,:);
 Y_test = Y(train_size+1:m);
 
 disp('running regressions');
-[~, rmse_random] = bayes_linear_regression(rand(m, n), Y);
-[~, rmse_half] = bayes_linear_regression(X(1:half,:), Y(1:half,:));
-[theta_full, rmse_full] = bayes_linear_regression(X, Y);
-[theta, rmse_train] = bayes_linear_regression(X_train, Y_train);
+[~, rmse_random] = linear_regression(rand(m, n), Y);
+[~, rmse_half] = linear_regression(X(1:half,:), Y(1:half,:));
+[theta_full, rmse_full] = linear_regression(X, Y);
+[theta, rmse_train] = linear_regression(X_train, Y_train);
 
 predicted_y_test = [ones(test_size, 1), X_test] * theta;
 rmse_test = sqrt(sum((predicted_y_test - Y_test).^2) / test_size);
