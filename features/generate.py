@@ -4,6 +4,11 @@ import numpy
 import features
 from math import *
 from itertools import groupby
+from os import getcwd, chdir
+
+if getcwd().split('/')[-1] == 'features':
+  # move to the top level directory
+  chdir('..')
 
 # read card and price data
 f = open('data/AllSets.json', 'r')
