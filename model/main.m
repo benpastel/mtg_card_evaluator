@@ -70,19 +70,55 @@ fprintf('\t %0.2f%% percent testing error improvement over random\n', ...
 fprintf('\t %0.2f%% percent training error improvement over random\n', ...
     (rmse_random - rmse_train) / rmse_random * 100);
 
-%dlmwrite('data/theta.csv', theta_full, 'delimiter', '\n', 'precision', 4);
+dlmwrite('../data/theta.csv', theta_full, 'delimiter', '\n', 'precision', 4);
 disp('done');
 
 scatter(predicted_y_random, Y, 'r'); hold on;
-%scatter(predicted_y_train, Y_train, 'g'); hold on;
+scatter(predicted_y_train, Y_train, 'g'); hold on;
 scatter(predicted_y_test, Y_test, 'b'); hold on;
 plot(-4:6,-4:6,'g');
-%scatter(exp(predicted_y_random), exp(Y), 'r'); hold on;
-%%scatter(exp(predicted_y_train), exp(Y_train), 'g'); hold on;
-%scatter(exp(predicted_y_test), exp(Y_test), 'b'); hold on;
-%plot(0:300,0:300,'g');
 title('\fontsize{24}Log-price prediction: Random vs. Model')
 xlabel('\fontsize{20}\theta^Tx (predicted log-price)')
 ylabel('\fontsize{20}y (actual log-price)')
-legend('\fontsize{16}Random','\fontsize{16}Model')
+legend('\fontsize{16}Random','\fontsize{16}Train','\fontsize{16}Test')
 set(gca,'fontsize',16)
+
+count = 0;
+for i = 1:train_size
+  if predicted_y_train(i) <= 1 && Y_train(i) <= 1
+    count = count + 1;
+  end
+  if predicted_y_train(i) > 1 && Y_train(i) > 1
+    count = count + 1;
+  end
+end
+count / train_size
+
+count = 0;
+for i = 1:test_size
+  if predicted_y_test(i) <= 1 && Y_test(i) <= 1
+    count = count + 1;
+  end
+  if predicted_y_test(i) > 1 && Y_test(i) > 1
+    count = count + 1;
+  end
+end
+count / test_size
+
+count = 0;
+for i = 1:m
+  if Y(i) <= 1
+    count = count + 1;
+  end
+end
+count/m
+
+count = 0;
+for i = 1:m
+  if rand() < .92058
+    if Y(i) <= 1
+      count = count + 1;
+    end
+  end
+end
+count/m

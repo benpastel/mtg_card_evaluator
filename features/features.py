@@ -52,16 +52,15 @@ def get_rule_template_features_to_use():
         ["each gets #",["each","get",0], lambda x:x[0]],
         ["# on it",[0,"on","it"], lambda x:x[0]],
         ["Return # hand",["Return",0,"hand"], lambda x:x[0]],
-        ["Search library battlefield",["search","library","battlefield"], lambda x:0],
-        ["Play from graveyard",["play","from","graveyard"], lambda x:0],
+        ["Search library battlefield",["search","library","battlefield"], lambda x:1],
+        ["Play from graveyard",["play","from","graveyard"], lambda x:1],
         ["Add # mana",["add",0,"mana"], lambda x:[0]],
-        ["lose game",["lose","game"], lambda x:0],
-        ["win game",["win","game"], lambda x:0],
-        ["return hand",["return","hand"], lambda x:0],
-        ["return graveyard hand",["return","graveyard","hand"], lambda x:0],
+        ["lose game",["lose","game"], lambda x:1],
+        ["win game",["win","game"], lambda x:1],
+        ["return hand",["return","hand"], lambda x:1],
+        ["return graveyard hand",["return","graveyard","hand"], lambda x:1],
         ["# turns",[0, "turns"], lambda x:[0]],
-        ["opponent your control",["opponent","your", "control"], lambda x:0],
-
+        ["opponent your control",["opponent","your", "control"], lambda x:1],
     ]
 
 def feature_extractor(example):
@@ -86,7 +85,7 @@ def feature_extractor(example):
     # Format: [<name of feature as string>, [<list of json fields to evaluate as strings>], <lambda function with x[i] being the value of the ith json field>]
     # Example:  ["power / (cmc + 1)", ["power", "cmc"], lambda x : x[0] / (x[1] + 1.0)] and values power = 2 and cmc = 5 --> {"power / (cmc + 1)": .3333}
     function_features_to_use = [
-        # ["cmc squared", ["cmc"], lambda x : pow(x[0],2)],
+        ["cmc squared", ["cmc"], lambda x : pow(x[0],2)],
         ["power / (cmc + 1)", ["power", "cmc"], lambda x : x[0] / (x[1] + 1.0)],
         ["power + toughness", ["power", "toughness"], lambda x : x[0] + x[1]],
     ]
@@ -101,9 +100,9 @@ def feature_extractor(example):
     # Example:  [[(create_integer_feature,["power"]),(length_rules_text,[]),(create_integer_feature,["cmc"])], lambda x: (x[0]*10 + x[1])/ exp(x[2])] and values power = 2, len(rules_text) = 10 and cmc = 5 --> {"power Text length cmc": 2.0}
     # NEEDS TO BE EDITED IF MORE THAN ONE OF THESE USES SAME LIST OF VARIABLES
     cross_features_to_use = [
-        #[[(create_rule_template_feature,template),(create_integer_feature,["cmc"])], lambda x: x[0]/(x[1] + 1.0)] for template in get_rule_template_features_to_use(),
-        #[[(create_integer_feature,["power"]),(length_rules_text,[]),(create_integer_feature,["cmc"])], lambda x: (x[0]*10 + x[1])/ exp(x[2])],
-        #[[(length_rules_text,[]),(create_integer_feature,["cmc"])], lambda x: x[0]/(x[1] + 1.0)],
+    #     [[(create_rule_template_feature,template),(create_integer_feature,["cmc"])], lambda x: x[0]/(x[1] + 1.0)] for template in get_rule_template_features_to_use(),
+    #     [[(create_integer_feature,["power"]),(length_rules_text,[]),(create_integer_feature,["cmc"])], lambda x: (x[0]*10 + x[1])/ exp(x[2])],
+    #     [[(length_rules_text,[]),(create_integer_feature,["cmc"])], lambda x: x[0]/(x[1] + 1.0)],
     ]
 
 
