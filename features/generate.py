@@ -18,7 +18,7 @@ banned_sets = [ "LEA" , "LEB" , "2ED" , "CED" , "ARN" , "CEI" , "pDRC" , "ATQ" ,
 "UGL" , "pALP" , "PTK" , "S99" , "pGRU" , "pWOR" , "pWOS" , "pSUS" , "BRB" , "pFNM" , "pELP" , "S00" ,
 "BTD" , "pMPR" , "pREL" , "UNH" ,"p2HG" , "pGTW" , "pCMP" , "CST" , "pHHO" ,"pPRO" ,"pGPX" , "pMGD" ,
 "pSUM" , "MED" , "pLPA" , "pWPN" , "p15A" , "ME2" ,"EXP" , "TPR" , "FRF_UGIN" , "CPK" , "VMA" , "pWCQ" ,
-"ME4" , "ME3" , "HOP" ]
+"ME4" , "ME3" , "HOP","3ED" ]
 
 # (card, price).  Restricted to creatures with a multiverseid and a price.
 card_prices = [(card, price_dict[card["multiverseid"]])
@@ -47,6 +47,13 @@ key_counts = {key:len(list(g)) for key, g in groupby(sorted(all_keys))}
 key_counts_list = [(key, count) for key, count in key_counts.items()]
 key_counts_list = sorted(key_counts_list, key=lambda x: -x[1])
 print "number of potential features: ", len(key_counts.keys())
+
+# print "KeyCounts"
+# rule_template_features_to_use = features.get_rule_template_features_to_use()
+# for rule_template_feature in rule_template_features_to_use:
+#     if rule_template_feature[0] in key_counts:
+#         print rule_template_feature[0]
+#         print key_counts[rule_template_feature[0]]
 
 keys = list({key for key, count in key_counts.items() if count >= example_threshold})
 print "features with enough examples: ", len(keys) 
@@ -114,7 +121,7 @@ example = {
 
              "rarity" : "Mythic Rare",
 
-               "text" : "At the beginning of your upkeep, choose target opponent.  This turn, that player can't cast spells or activate abilities and plays with his or her hand revealed.  You may play cards from that player's hand this turn.",
+               "text" : "creature gets +1/+1, At the beginning of your upkeep, choose target opponent.  This turn, that player can't cast spells or activate abilities and plays with his or her hand revealed.  You may play cards from that player's hand this turn.",
 
              "flavor" : "They are the masters of your mind.",
 
