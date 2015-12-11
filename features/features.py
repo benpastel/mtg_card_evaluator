@@ -17,6 +17,51 @@ import string
 
 # List of meaningful words in card text (not case senstive) (See use below)
 keywords = ["deathtouch", "defender", "double strike", "enchant", "equip", "first strike", "flash", "flying", "haste", "hexproof", "indestructible", "intimidate", "landwalk", "lifelink", "protection", "reach", "shroud", "trample", "vigilance", "banding", "rampage", "cumulative upkeep", "flanking", "phasing", "buyback", "shadow", "cycling", "echo", "horsemanship", "fading", "kicker", "flashback", "madness", "fear", "morph", "amplify", "provoke", "storm", "affinity", "entwine", "modular", "sunburst", "bushido", "soulshift", "splice", "offering", "ninjutsu", "epic", "convoke", "dredge", "transmute", "bloodthirst", "haunt", "replicate", "forecast", "graft", "recover", "ripple", "split second", "suspend", "vanishing", "absorb", "aura swap", "delve", "fortify", "frenzy", "gravestorm", "poisonous", "transfigure", "champion", "changeling", "evoke", "hideaway", "prowl", "reinforce", "conspire", "persist", "wither", "retrace", "devour", "exalted", "unearth", "cascade", "annihilator", "level up", "rebound", "totem armor", "infect", "battle cry", "living weapon", "undying", "miracle", "soulbond", "overload", "scavenge", "unleash", "cipher", "evolve", "extort", "fuse", "bestow", "tribute", "dethrone", "hidden agenda", "outlast", "prowess", "dash", "exploit", "menace", "renown", "awaken", "devoid", "ingest"]# keywords =["Flying", "Haste"]
+# stopwords = ["the", "a", "of", "an", "in", "to", "into", "as", "at", "with", "her", "his", "they", "may", "can"]
+
+def get_rule_template_features_to_use():
+    return []
+    return [
+        ["Draw # card",["draw",0,"card"], lambda x:x[0]],
+        ["Gain # life",["gain",0,"life"], lambda x:x[0]],
+        ["Lose life #",["lose",0,"life"], lambda x:x[0]],
+        ["Lose life =",["lose","life","equal"], lambda x:1],
+        ["Lose life",["lose","life"], lambda x:1],
+        ["Number card",["number","card"], lambda x:1],
+        ["Discard # card",["discard",0,"card"], lambda x:x[0]],
+        ["Look # card",["look",0,"card"], lambda x:x[0]],
+        ["Look Card",["look","card"], lambda x:1],
+        ["deal # damage",["deal",0,"damage"], lambda x:x[0]],
+        ["deal damadge",["deal","damage"], lambda x:1],
+        ["Random card",["card","random"], lambda x:1],
+        ["Reveal card",["reveal","card"], lambda x:1],
+        ["Pay life #",["pay",0,"life"], lambda x:x[0]],
+        ["Pay life",["pay","life"], lambda x:1],
+        ["can't attack",["can't","attack"], lambda x:1],
+        ["cannot attack",["cannot","attack"], lambda x:1],
+        ["creature gets #",["creature","get",0], lambda x:x[0]],
+        ["creature gains #",["creature","gain",0], lambda x:x[0]],
+        ["creature gets # for each",["creature","get",0, "for", "each"], lambda x:x[0]**2],
+        ["return to hand",["return","to","hand"], lambda x:1],
+        ["attacks each turn",["attacks","each","turn"], lambda x:1],
+        ["put creature top",["put","creature","top"], lambda x:1],
+        ["opponent lose # life",["opponent","lose",0,"life"], lambda x:x[0]],
+        ["add mana pool",["add","mana","pool"], lambda x:1],
+        ["target creature gets #",["target","creature","get",0], lambda x:x[0]],
+        ["creature opponent gets #",["creature","opponent","get",0], lambda x:x[0]],
+        ["each gets #",["each","get",0], lambda x:x[0]],
+        ["# on it",[0,"on","it"], lambda x:x[0]],
+        ["Return # hand",["Return",0,"hand"], lambda x:x[0]],
+        ["Search library battlefield",["search","library","battlefield"], lambda x:1],
+        ["Play from graveyard",["play","from","graveyard"], lambda x:1],
+        ["Add # mana",["add",0,"mana"], lambda x:[0]],
+        ["lose game",["lose","game"], lambda x:1],
+        ["win game",["win","game"], lambda x:1],
+        ["return hand",["return","hand"], lambda x:1],
+        ["return graveyard hand",["return","graveyard","hand"], lambda x:1],
+        ["# turns",[0, "turns"], lambda x:[0]],
+        ["opponent your control",["opponent","your", "control"], lambda x:1],
+    ]
 
 def feature_extractor(example):
 
@@ -40,8 +85,9 @@ def feature_extractor(example):
     # Format: [<name of feature as string>, [<list of json fields to evaluate as strings>], <lambda function with x[i] being the value of the ith json field>]
     # Example:  ["power / (cmc + 1)", ["power", "cmc"], lambda x : x[0] / (x[1] + 1.0)] and values power = 2 and cmc = 5 --> {"power / (cmc + 1)": .3333}
     function_features_to_use = [
-        # ["cmc squared", ["cmc"], lambda x : pow(x[0],2)],
+        ["cmc squared", ["cmc"], lambda x : pow(x[0],2)],
         ["power / (cmc + 1)", ["power", "cmc"], lambda x : x[0] / (x[1] + 1.0)],
+        ["power + toughness", ["power", "toughness"], lambda x : x[0] + x[1]],
     ]
 
     # Feature template: Fancier function features
@@ -54,9 +100,11 @@ def feature_extractor(example):
     # Example:  [[(create_integer_feature,["power"]),(length_rules_text,[]),(create_integer_feature,["cmc"])], lambda x: (x[0]*10 + x[1])/ exp(x[2])] and values power = 2, len(rules_text) = 10 and cmc = 5 --> {"power Text length cmc": 2.0}
     # NEEDS TO BE EDITED IF MORE THAN ONE OF THESE USES SAME LIST OF VARIABLES
     cross_features_to_use = [
-        [[(create_integer_feature,["power"]),(length_rules_text,[]),(create_integer_feature,["cmc"])], lambda x: (x[0]*10 + x[1])/ exp(x[2])],
-        [[(length_rules_text,[]),(create_integer_feature,["cmc"])], lambda x: x[0]/(x[1] + 1.0)],
+    #     [[(create_rule_template_feature,template),(create_integer_feature,["cmc"])], lambda x: x[0]/(x[1] + 1.0)] for template in get_rule_template_features_to_use(),
+    #     [[(create_integer_feature,["power"]),(length_rules_text,[]),(create_integer_feature,["cmc"])], lambda x: (x[0]*10 + x[1])/ exp(x[2])],
+    #     [[(length_rules_text,[]),(create_integer_feature,["cmc"])], lambda x: x[0]/(x[1] + 1.0)],
     ]
+
 
     # Feature template: Rule features
     # This allows you to check for a rule by matching a series of text
@@ -64,10 +112,7 @@ def feature_extractor(example):
     # ------------------------------------
     # Format: [<feature name>, [<list of words substrings that must exist in order in the text,  Entering 0 searches for a number>], <lambda function with x[i] being the value of the ith 0-word]
     # Example:  ["Number of cards drawn",["draw",0,"card"], lambda x:x[0]]
-    rule_template_features_to_use = [
-        ["Number of cards drawn",["draw",0,"card"], lambda x:x[0]],
-    ]
-
+    rule_template_features_to_use = get_rule_template_features_to_use()
     # WRITE YOUR OWN FEATURE FUNCTION
     # If you write a custom feature, place it with the NON-GENERIC features below
     # Remember to call it on example and update phi here
@@ -101,17 +146,28 @@ def feature_extractor(example):
 
 ############### RULE_SPECIFIC TEXT PARSING ##############################
 
-numerals = {"1":1,"2":2,"3":3,"4":4,"5":5,"6":6,"7":7,"8":8,"9":9,"10":10,"11":11,"12":12,"13":13,"14":14,"15":15,"16":16,"17":17,"18":18,"19":19,"20":20}
+numerals = {"1":1,"2":2,"3":3,"4":4,"5":5,"6":6,"7":7,"8":8,"9":9,"10":10,"11":11,"12":12,"13":13,"14":14,"15":15,"16":16,"17":17,"18":18,"19":19,"20":20, "X": 30}
 numbers = {"one":1,"two":2,"three":3,"four":4,"five":5,"six":6,"seven":7,"eight":8,"nine":9,"ten":10,"eleven":11,"twelve":12,"thirteen":13,"fourteen":14,"fifteen":15,"sixteen":16,"seventeen":17,"eighteen":18,"nineteen":19,"twenty":20}
 
 def isNumber(word):
-    return word in numerals or word in numbers
+    tokenPT = {"{0}/{1}".format(i,j): i+j for i in range(0,6) for j in range(0,6)}
+    tokenPT.update({"+{0}/+{1}".format(i,j): i+j for i in range(0,6) for j in range(0,6)})
+    tokenPT.update({"-{0}/-{1}".format(i,j): i+j for i in range(0,6) for j in range(0,6)})
+    word = word.strip(".,()[]{}")
+    return word in numerals or word in numbers or word in tokenPT
 
 def number(word):
+    tokenPT = {"{0}/{1}".format(i,j): i+j for i in range(0,6) for j in range(0,6)}
+    tokenPT.update({"+{0}/+{1}".format(i,j): i+j for i in range(0,6) for j in range(0,6)})
+    tokenPT.update({"-{0}/-{1}".format(i,j): i+j for i in range(0,6) for j in range(0,6)})
+    tokenPT.update({"+X/+X":10});
+    word = word.strip(".,()[]{}")
     if word in numerals:
         return numerals[word]
     if word in numbers:
         return numbers[word]
+    if word in tokenPT:
+        return tokenPT[word]
     return False
 
 def create_rule_template_feature(rule_template_and_fn, example):
@@ -122,11 +178,13 @@ def create_rule_template_feature(rule_template_and_fn, example):
     i = 0
     j = 0
     val = []
-    while i < len(words):
+    while i < len(words) and j < len(rule_template):
         if rule_template[j] == 0:
             if isNumber(words[i]):
                 val.append(number(words[i]))
                 j = j + 1
+                if j == len(rule_template):
+                    return {name: val_fn(val)} #success
         elif rule_template[j] in words[i]:
             j = j + 1
             if j == len(rule_template):
