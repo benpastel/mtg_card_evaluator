@@ -18,7 +18,7 @@ banned_sets = [ "LEA" , "LEB" , "2ED" , "CED" , "ARN" , "CEI" , "pDRC" , "ATQ" ,
 "UGL" , "pALP" , "PTK" , "S99" , "pGRU" , "pWOR" , "pWOS" , "pSUS" , "BRB" , "pFNM" , "pELP" , "S00" ,
 "BTD" , "pMPR" , "pREL" , "UNH" ,"p2HG" , "pGTW" , "pCMP" , "CST" , "pHHO" ,"pPRO" ,"pGPX" , "pMGD" ,
 "pSUM" , "MED" , "pLPA" , "pWPN" , "p15A" , "ME2" ,"EXP" , "TPR" , "FRF_UGIN" , "CPK" , "VMA" , "pWCQ" ,
-"ME4" , "ME3" , "HOP" ]
+"ME4" , "ME3" , "HOP","3ED" ]
 
 # (card, price).  Restricted to creatures with a multiverseid and a price.
 card_prices = [(card, price_dict[card["multiverseid"]])
