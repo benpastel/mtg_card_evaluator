@@ -6,10 +6,14 @@ Predicts the value of Magic; the Gathering cards based on their text.
 ## Instructions
 
 unix: 
-(1) clone the repository 
-(2) bash run.sh
+<ol>
+<li>clone the repository </li>
+<li>bash run.sh </li>
+</ol>
 
 windows: 
-(1) clone the repository
-(2) unzip AllSets.json.gz => AllSets.json
-(3) run python features/generate.py
+<ol>
+<li>clone the repository</li>
+<li>unzip AllSets.json.gz => AllSets.json </li>
+<li>run python features/generate.py </li>
+</ol>
