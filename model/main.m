@@ -1,20 +1,25 @@
-% So far, this just trains a linear model on the input files
-% and prints some stats about it
-%
-% The input files can be in any format 'load' can read
-% e.g. space-separated floats with one training example per line.
+% This script trains models on the input files and prints error stats.
 
+% send output to screen without buffering
+% so that we see the disp before a long computation
+% this is the default in Matlab but not octave
+more off;
+
+% attempt to set directory to toplevel so we can find the data files
+path = strsplit(pwd, '/');
+if strcmp(path(end), 'model')
+    cd ..
+end
 disp('loading data');
-fflush(stdout);
-X = load('../data/feature_matrix.txt');
-Y = load('../data/price_vector.txt');
+X = load('data/feature_matrix.txt');
+Y = load('data/price_vector.txt');
+
+[m, n] = size(X);
 
 large_Y = ((Y'>5)&(Y'<300))';
 Y = log(Y);
 X_large = X(large_Y,:);
 Y_large = Y(large_Y);
-
-[m, n] = size(X);
 
 % split into training & test sets
 train_size = floor(m * .9);
@@ -70,7 +75,7 @@ fprintf('\t %0.2f%% percent testing error improvement over random\n', ...
 fprintf('\t %0.2f%% percent training error improvement over random\n', ...
     (rmse_random - rmse_train) / rmse_random * 100);
 
-dlmwrite('../data/theta.csv', theta_full, 'delimiter', '\n', 'precision', 4);
+dlmwrite('data/theta.csv', theta_full, 'delimiter', '\n', 'precision', 4);
 disp('done');
 
 scatter(predicted_y_random, Y, 'r'); hold on;
