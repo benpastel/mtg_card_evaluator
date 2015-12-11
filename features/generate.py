@@ -6,9 +6,9 @@ from math import *
 from itertools import groupby
 
 # read card and price data
-f = open('../data/AllSets.json', 'r')
+f = open('data/AllSets.json', 'r')
 js = json.load(f)
-lines = map(lambda string: string.strip().split("\t"), open("../data/id_price.dat").readlines())
+lines = map(lambda string: string.strip().split("\t"), open("data/id_price.dat").readlines())
 
 # {multiverseid: float price}
 price_dict = {int(line[0]): float(line[1]) for line in lines}
@@ -80,7 +80,7 @@ keys = list(ok_keys);
 print "after removing very similar ngrams:", len(keys)
 
 print "feature names: ", keys[0:100], "..."
-feature_name_file = file('../data/feature_names.txt', 'w')
+feature_name_file = file('data/feature_names.txt', 'w')
 print >> feature_name_file, "(intercept term)" # easier to match file with thetas
 for key in keys:
   print >> feature_name_file, key
@@ -98,10 +98,10 @@ for i in range(len(examples)):
 print "Finished creating matrix"
 
 print "Saving matrix..."
-numpy.savetxt('../data/feature_matrix.txt', X, fmt='%f')
+numpy.savetxt('data/feature_matrix.txt', X, fmt='%f')
 print "Save finished"
 print "Saving prices..."
-numpy.savetxt('../data/price_vector.txt', Y, fmt='%f')
+numpy.savetxt('data/price_vector.txt', Y, fmt='%f')
 print "Save finished"
 
 
