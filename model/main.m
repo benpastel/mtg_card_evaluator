@@ -7,7 +7,7 @@ more off;
 
 % attempt to set directory to toplevel so we can find the data files
 path = strsplit(pwd, '/');
-if strcmp(path(end), 'model')
+if strcmp(path(end), 'model') || strcmp(path(end), 'data')
     cd ..
 end
 disp('loading data');
@@ -63,7 +63,11 @@ fprintf('\t %0.2f%% percent testing error improvement over random features\n', .
 fprintf('\t %0.2f%% percent training error improvement over random features\n', ...
     (rmse_random - rmse_train) / rmse_random * 100);
 
-dlmwrite('data/theta.csv', theta_full, 'delimiter', '\n', 'precision', 4);
+cd data/ % workaround for strange permissions bug
+dlmwrite('theta.csv', theta_full, 'delimiter', '\n', 'precision', 4);
+cd ..
+disp('Wrote thetas to file. Match them up with feature names like this:')
+fprintf('\t data/theta.csv data/feature_names.txt | sort -g -k1 \n');
 
 disp('plotting results');
 scatter(predicted_y_random, Y, 'r'); hold on;
